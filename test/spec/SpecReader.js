@@ -20,8 +20,13 @@ describe('Reader tests', function(){
 	});
 	
 	it('reads a YAML file and returns object with values', function() {
-		reader.read('../../config/config.yaml');
-		
-		expect(reader.object.general.lang).toEqual('es');
+		var fakeData = 'general:\n'
+		fakeData += ' lang: es';
+		spyOn($, 'ajax').andCallFake(			
+			function(params){
+				params.success(fakeData);
+		})
+		reader.read('../config/map.options.yaml');
+		expect(reader.parameters.general.lang).toEqual('es');
 	});
 })
