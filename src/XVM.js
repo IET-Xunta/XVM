@@ -29,5 +29,19 @@ var XVM = {
 	/**
 	 * Object to loaders 
 	 */
-	Loader : {}
+	Loader : {},
+	
+	/**
+	 * Utils
+	 */
+	Util : { 
+		'getLocationSearch' : function() {
+			return window.location.search
+		}
+	},
+	
+	/**
+	 * Event Bus
+	 */
+	EventBus : null
 };

@@ -5,6 +5,7 @@
 * Code licensed under the BSD License: 
 *   LICENSE.txt file available at the root application directory
 *
+* @author Instituto Estudos do Territorio, IET
 */
 
 /**
@@ -17,18 +18,20 @@
  */
 
 XVM.Loader.Reader = function() {
-		
-	/**
-	 * Property
-	 * {Object}
-	 * Object with configuration
-	 */
-	this.parameters = {
-		'general':{},
-		'map_settings':{},
-		'view_settings': {}
-	};
 	
+	/**
+	 * AJAX context
+	 * Property
+	 */
+	this.context = null;
+	
+	/**
+	 * 
+	 */
+	this.setContext = function(context) {
+		this.context = context;
+	}
+
 	/**
 	 * Parse a YAML file and save response into object
 	 * attribute
@@ -37,18 +40,10 @@ XVM.Loader.Reader = function() {
 	 * Parameters: 
 	 * {String} path to YAML file
 	 */
-	this.read = function(path) {
+	this.readConfig = function(path, callBack) {
 		this._call(path,
-			function(response, data) {
-				var responseObject = jsyaml.load(response);
-				var _this = data.context;
-				for (var group in responseObject) {
-					for (var option in responseObject[group]) {
-						console.log(_this.parameters);
-						_this.parameters[group][option] = responseObject[group][option];
-					}
-				}				
-			}, 'text');
+			callBack,
+			'text');
 	}
 	
 	/**
@@ -64,10 +59,11 @@ XVM.Loader.Reader = function() {
 		$.ajax({
 			type : 'GET',
 			url : url,
+			context : this.context,
 			dataType : datatype,
-			context: this,
 			success : function(response) {
-				callBack(response, this);
+				var responseObject = jsyaml.load(response);
+				callBack(responseObject, this);
 			},
 			error : function(xhr, textStatus, errorThrown) {
 				// TODO when error?
