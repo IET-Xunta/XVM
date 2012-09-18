@@ -42,9 +42,39 @@
 XVM.Map = function() {
 	
 	/**
+	 * Property
+	 * {Object}
+	 */
+	this.OLMapParameters = null;
+	
+	/**
 	 * Saves OpenLayers Map
 	 * Property
 	 * {OpenLayers.Map}
 	 */
 	this.OLMap = null;
+	
+	/**
+	 * Launched with event addConfigParameter
+	 */
+	this.addConfigParameters = function(parameters) {
+		console.log(parameters);
+		this.OLMapParameters = parameters;
+	};
+	
+	/**
+	 * Launched with event addLayers
+	 */
+	this.addLayers = function(layers) {
+		console.log(layers);
+	}
+	
+	/**
+	 * Constructor
+	 */
+	this.init = function() {
+		XVM.EventBus.addListener(this);
+	};
+	
+	this.init();
 }

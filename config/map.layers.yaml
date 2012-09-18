@@ -1,0 +1,23 @@
+# Layers parameters to map
+##########################
+
+## IGN Layer
+- map_name : default
+  layer_name : IGN Base
+  wms_layer : IGNBaseTodo
+  wms_url : http:\/\/www.ign.es\/wms-inspire\/ign-base
+  visible : false
+  layer_position : 512
+  layer_group : Capas Base
+  parameters : {opacity : 0.75, singleTile : false}
+  is_base : true
+## Topografico layer
+- map_name : default
+  layer_name : Topogr\u00e1fico-IDEE
+  wms_layer : mtn_rasterizado
+  wms_url : http:\/\/www.idee.es\/wms\/MTN-Raster\/MTN-Raster
+  visible : false
+  layer_position : 510
+  layer_group : Capas Base
+  parameters : {opacity : 0.60, singleTile : false}
+  is_base : true

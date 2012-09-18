@@ -24,15 +24,15 @@ var XVM = {
 	/**
 	 * The version number
 	 */
-	VERSION_NUMBER : 0.1,
+	VERSION_NUMBER : 2,
 	
 	/**
-	 * Object to loaders 
+	 * Loaders namespace 
 	 */
 	Loader : {},
 	
 	/**
-	 * Utils
+	 * Utils namespace
 	 */
 	Util : { 
 		'getLocationSearch' : function() {
@@ -41,7 +41,13 @@ var XVM = {
 	},
 	
 	/**
+	 * Events namespace
+	 */
+	Event : {},
+	
+	/**
 	 * Event Bus
+	 * Saves inside the eventbus of XVM
 	 */
 	EventBus : null
 };
