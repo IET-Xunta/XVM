@@ -40,7 +40,7 @@ XVM.Loader.Reader = function() {
 	 * Parameters: 
 	 * {String} path to YAML file
 	 */
-	this.readConfig = function(path, callBack) {
+	this.readFromFile = function(path, callBack) {
 		this._call(path,
 			callBack,
 			'text');

@@ -13,9 +13,17 @@
 
 xdescribe('Config tests', function() {
 	
+	var eventbus = new XVM.Event.EventBus();
+	var reader = new XVM.Loader.Reader();
+	var config;
 	beforeEach(function() {
+		spyOn(eventbus, 'fireConfigParameters');
+		spyOn(reader, 'readFromFile');
+		XVM.EventBus = eventbus;
 	});
 	
-	it('', function() {
+	it('inits control, sets reader & call eventbus with parameters', function() {
+		config = new XVM.Loader.Config(reader);
+		expect(eventbus.fireConfigParameters).toHaveBeenCalled();
 	})
 })

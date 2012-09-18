@@ -10,13 +10,14 @@
 
 /**
  * @requires XVM.js
+ * @requires Reader.js
  */
 
 /**
  * Config class uses Reader class to access config files trought
  * YAML files, GET Parameters like URLCONFIG or options parameters
  *
- * Reader method list:
+ * TODO Problems to test this class, maybe needs refactor
  */
 
 XVM.Loader.Config = function(reader) {
@@ -51,7 +52,7 @@ XVM.Loader.Config = function(reader) {
 	 */
 	this.fromGETParameters = null;
 
-	this._getQueryParams = function() {
+	this._getParamsFromURL = function() {
 		var qs = XVM.Util.getLocationSearch();
 		qs = qs.split("+").join(" ");
 		this.fromGETParameters = {};
@@ -64,38 +65,35 @@ XVM.Loader.Config = function(reader) {
 	};
 
 	this._readConfig = function() {
-		this._getQueryParams();
-		this.reader.readConfig(this.DEFAULTCONFIG, this._configCallBack);
+		this._getParamsFromURL();
+		this.reader.readFromFile(
+			this.DEFAULTCONFIG, 
+			function(responseObject, context) {
+				var _this = context;
+				$.extend(_this.configParameters, responseObject);
+				if(_this.fromGETParameters.urlconfig != undefined) {
+					_this.reader.readFromFile(
+						_this.fromGETParameters.urlconfig, 
+						function(responseObject, context) {
+							var _this = context;
+							$.extend(_this.configParameters, responseObject);
+							_this._addParametersFromGET();		
+						});			
+				} else {
+					_this._addParametersFromGET();
+				}
+		
+			});
 	};
 	
-	this._configCallBack = function(responseObject, context) {
-		var _this = context;
-		for(var group in responseObject) {
-			for(var option in responseObject[group]) {
-				_this.configParameters[group][option] = responseObject[group][option];
-			}
-		}
-		if(_this.fromGETParameters.urlconfig != undefined) {
-			_this.reader.readConfig(_this.fromGETParameters.urlconfig, _this._urlConfigCallBack);			
-		} else {
-			_this._configGETParameters();
-		}
-
-	}
-	
-	this._urlConfigCallBack = function(responseObject, context) {
-		var _this = context;
-		$.extend(_this.configParameters, responseObject);
-		_this._configGETParameters();		
-	}
-	
-	this._configGETParameters = function() {
+	this._addParametersFromGET = function() {
 		for(var group in this.configParameters) {
 			for(var parameter in this.configParameters[group]) {
 				if(this.fromGETParameters[parameter] != undefined)
 					this.configParameters[group][parameter] = this.fromGETParameters[parameter];
 			}
 		}
+		XVM.EventBus.fireaddConfigParameters(this.configParameters);
 	}
 
 	
@@ -106,7 +104,7 @@ XVM.Loader.Config = function(reader) {
 	 */
 	this.init = function(reader) {
 		this.reader = reader;
-		reader.setContext(this);
+		this.reader.setContext(this);
 		this._readConfig();
 	};
 
