@@ -20,9 +20,8 @@
 			$(document).ready(function() {
 				XVM.EventBus = new XVM.Event.EventBus();
 				var map = new XVM.Map();
-				var reader = new XVM.Loader.Reader();
-				var config = new XVM.Loader.Config(reader);
-				var layers = new XVM.Loader.Layers(reader);				
+				var config = new XVM.Loader.Config(new XVM.Loader.Reader());
+				var layers = new XVM.Loader.Layers(new XVM.Loader.Reader());				
 			});
 		</script>
 	</head>

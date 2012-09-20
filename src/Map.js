@@ -48,6 +48,12 @@ XVM.Map = function() {
 	this.OLMapParameters = null;
 	
 	/**
+	 * Property
+	 * {Array(OpenLayers.Layer)}
+	 */
+	this.OLLayers = null;
+	
+	/**
 	 * Saves OpenLayers Map
 	 * Property
 	 * {OpenLayers.Map}
@@ -67,6 +73,7 @@ XVM.Map = function() {
 	 */
 	this.addLayers = function(layers) {
 		console.log(layers);
+		this.OLLayers = layers;
 	}
 	
 	/**
