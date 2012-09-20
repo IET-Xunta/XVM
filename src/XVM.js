@@ -32,6 +32,11 @@ var XVM = {
 	Loader : {},
 	
 	/**
+	 * Control namespace
+	 */
+	Control : {},
+	
+	/**
 	 * Utils namespace
 	 */
 	Util : { 
