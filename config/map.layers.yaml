@@ -1,6 +1,11 @@
 # Layers parameters to map
 ##########################
 
+## Layer service
+## gets layers from URL with urlServiceLayer, it if '' or null 
+## control loads default layers
+urlServiceLayer : null
+layers :
 ## IGN Layer
 - map_name : default
   layer_name : IGN Base
