@@ -46,26 +46,14 @@ XVM.Loader.Config = function(reader) {
 	};
 	
 	/**
-	 * Object saves GET parameters
+	 * Object where reader saves GET parameters
 	 * Property
 	 * {Object}
 	 */
 	this.fromGETParameters = null;
 
-	this._getParamsFromURL = function() {
-		var qs = XVM.Util.getLocationSearch();
-		qs = qs.split("+").join(" ");
-		this.fromGETParameters = {};
-		var tokens, 
-		re = /[?&]?([^=]+)=([^&]*)/g;
-
-		while(tokens = re.exec(qs)) {
-			this.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = decodeURIComponent(tokens[2]);
-		}
-	};
-
 	this._readConfig = function() {
-		this._getParamsFromURL();
+		this.reader.getParamsFromURL();
 		this.reader.readFromFile(
 			this.DEFAULTCONFIG, 
 			function(responseObject, context) {

@@ -70,5 +70,23 @@ XVM.Loader.Reader = function() {
 			}
 		});
 	}
+	
+	/**
+	 * Reads parameters from URL and saves into context
+	 * Needs that context has method *fromGETParameters*
+	 * 
+	 * Method
+	 */
+	this.getParamsFromURL = function() {
+		var qs = XVM.Util.getLocationSearch();
+		qs = qs.split("+").join(" ");
+		this.context.fromGETParameters = {};
+		var tokens, 
+		re = /[?&]?([^=]+)=([^&]*)/g;
+
+		while(tokens = re.exec(qs)) {
+			this.context.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = decodeURIComponent(tokens[2]);
+		}
+	};
 
 }
