@@ -58,4 +58,18 @@ describe('Layers tests', function() {
 		expect(layers.layers.length).toEqual(response.layers.length);
 		expect(layers.layers[0].opacity).toEqual(0.75);
 	});
+	
+	it('Get layer from url parameters', function() {
+		layers.fromGETParameters = {
+			urlwms : 'fakeURLWMS',
+			layerid : 'fakeLayerID',
+			layertitle : 'fakeLayerTitle'
+		}
+		var initiallayers = response.layers.length;
+		layers._createLayers(response.layers, layers);
+		expect(layers.layers.length).toEqual(initiallayers + 1);
+		for (var n in response.layers) {
+			expect(layers.layers[n].url).toEqual(response.layers[n].wms_url)
+		}
+	})
 });

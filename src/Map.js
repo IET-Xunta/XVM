@@ -24,13 +24,13 @@
 
 /**
  * Configurable parameters by GET:
- *  - map_settings.EPSG {String} CRS code EPSG can be set to EPSG=25829 projection, defaults EPSG:23029 is set
- * 	- layers.URLWMS {String} Service URL
- *  - layers.LAYERID {String} Layer Id
- *  - layers.LAYERTITLE {String} Layer title or name
- * 	- view_settings.BBOX {String} Get parameter (Xmin, Ymin, Xmax, Ymax) like WMS 1.1.1 bbox parameter 
- *  - general.LANG {String} Language to inteface
- * 	- layers.INFOFORMAT {String} Configurable format to featureinfo response
+ *  - EPSG {String} CRS code EPSG can be set to EPSG=25829 projection, defaults EPSG:23029 is set
+ * 	- URLWMS {String} Service URL
+ *  - LAYERID {String} Layer Id
+ *  - LAYERTITLE {String} Layer title or name
+ * 	- BBOX {String} Get parameter (Xmin, Ymin, Xmax, Ymax) like WMS 1.1.1 bbox parameter 
+ *  - LANG {String} Language to inteface
+ * 	- INFOFORMAT {String} Configurable format to featureinfo response
  * 
  * Configurable OpenLayers.Map options:
  *  - resolutions {Array(Number)}

@@ -32,7 +32,14 @@ XVM.Loader.Layers = function(reader) {
 	 * {XVM.Loader.Reader}
 	 */
 	this.reader = null;
-
+	
+	/**
+	 * Object where reader saves GET parameters
+	 * Property
+	 * {Object}
+	 */
+	this.fromGETParameters = null
+	
 	/**
 	 * Property
 	 * {Array(OpenLayer.Layers)}
@@ -43,6 +50,7 @@ XVM.Loader.Layers = function(reader) {
 	 * Method
 	 */
 	this._readLayers = function() {
+		this.reader.getParamsFromURL();
 		this.reader.readFromFile(
 			this.DEFAULTLAYERS, 
 			this._readLayersCallback
@@ -63,7 +71,6 @@ XVM.Loader.Layers = function(reader) {
 			var tmpresponse = response.layers;
 			_this._createLayers(tmpresponse, context);
 		}
-		XVM.EventBus.fireaddLayers(_this.layers);
 	}
 	
 	/**
@@ -71,6 +78,20 @@ XVM.Loader.Layers = function(reader) {
 	 */
 	this._createLayers = function(response, context) {
 		var _this = context;
+		if(_this.fromGETParameters.urlwms != undefined) {
+			var GETLayer = {
+			 	map_name : 'default',
+			  	layer_name : _this.fromGETParameters.layertitle,
+			  	wms_layer : _this.fromGETParameters.layerid,
+			 	wms_url : _this.fromGETParameters.urlwms,
+				visible : false,
+			  	//layer_position : 0,
+			  	//layer_group : 'Capas Base',
+				parameters : {opacity : 1, singleTile : true},
+				is_base : false,
+			}
+			response.push(GETLayer);
+		}
 		for(var n in response) {
 			var objectLayer = response[n];
 			var default_options = {
@@ -87,6 +108,7 @@ XVM.Loader.Layers = function(reader) {
 				objectLayer.wms_url, 
 				{
 					//GetMap parameters
+					layers: objectLayer.wms_layer,
 					transparent : true,
 					format : "image/png"
 				}, 
@@ -94,6 +116,7 @@ XVM.Loader.Layers = function(reader) {
 			)
 			_this.layers.push(layer);
 		}
+		XVM.EventBus.fireaddLayers(_this.layers);
 	}
 	
 	/**
