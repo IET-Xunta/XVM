@@ -10,7 +10,7 @@ general:
   
 ## Map specific parameters
 map_settings:
-  epsg  : 23029
+  epsg  : 'EPSG:23029'
   tile_size : 
     - 512
     - 512

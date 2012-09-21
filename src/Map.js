@@ -43,12 +43,6 @@ XVM.Map = function() {
 	
 	/**
 	 * Property
-	 * {Object}
-	 */
-	this.OLMapParameters = null;
-	
-	/**
-	 * Property
 	 * {Array(OpenLayers.Layer)}
 	 */
 	this.OLLayers = null;
@@ -64,22 +58,62 @@ XVM.Map = function() {
 	 * Launched with event addConfigParameter
 	 */
 	this.addConfigParameters = function(parameters) {
-		console.log(parameters);
-		this.OLMapParameters = parameters;
+		
+		var options = {
+			projection : new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
+			displayProjection: new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
+			units: parameters.map_settings.units,
+			resolutions	: parameters.map_settings.resolutions,
+			tileSize: new OpenLayers.Size(
+				parseInt(parameters.map_settings.tile_size[0]),
+				parseInt(parameters.map_settings.tile_size[1])
+			),
+			maxExtent : new OpenLayers.Bounds(
+				parseInt(parameters.map_settings.bounds[0]),
+				parseInt(parameters.map_settings.bounds[1]),
+				parseInt(parameters.map_settings.bounds[2]),
+				parseInt(parameters.map_settings.bounds[3])
+			)	
+		}
+		this.OLMap = new OpenLayers.Map('map', options);
+		$('#map').css(
+			{
+				'height' : parameters.general.height_map + 'px',  
+				'width' : parameters.general.width_map + 'px',
+				'margin' : '0px'
+			}
+		)
+		if(this.OLLayers != null) {
+			this.drawMap();
+		}
 	};
 	
 	/**
 	 * Launched with event addLayers
 	 */
 	this.addLayers = function(layers) {
-		console.log(layers);
 		this.OLLayers = layers;
+		if(this.OLMap != null) {
+			this.drawMap();
+		}
+	};
+	
+	/**
+	 * REFACTOR
+	 */
+	this.drawMap = function() {
+		this.OLMap.addLayers(this.OLLayers);
+		// Temporarily added control
+		this.OLMap.addControl(new OpenLayers.Control.LayerSwitcher({ascending:false}));
+		//
+		this.OLMap.zoomToMaxExtent();		
 	}
 	
 	/**
 	 * Constructor
 	 */
 	this.init = function() {
+		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		XVM.EventBus.addListener(this);
 	};
 	
