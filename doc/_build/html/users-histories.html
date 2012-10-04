@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Historias de usuario &mdash; XVM 1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XVM 1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to XVM’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to XVM’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XVM 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="historias-de-usuario">
+<h1>Historias de usuario<a class="headerlink" href="#historias-de-usuario" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lectura-de-configuracion">
+<h2>#1 Lectura de configuración<a class="headerlink" href="#lectura-de-configuracion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="descripcion">
+<h3>Descripción<a class="headerlink" href="#descripcion" title="Permalink to this headline">¶</a></h3>
+<p><em>Como</em> usuario <em>quiero</em> poder leer archivos <em>para</em> configurar los parametros necesarios de mi aplicación</p>
+<p>Se necesita poder leer archivos desde los que cargar los diferentes parámetros de configuración necesarios para el mapa. Se ha determinado que sean archivos YAML[<a class="reference external" href="http://www.yaml.org/">1</a>] por ser los más <tt class="docutils literal"><span class="pre">human-readable</span></tt>. Los origenes de los archivos podrán ser</p>
+<blockquote>
+<div><ul class="simple">
+<li>Archivo de configuración del visor</li>
+<li>Archivo alojado en URL externa que se le pasa por parámetro en el URL del visor</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="criterios-de-aceptacion">
+<h3>Criterios de aceptación<a class="headerlink" href="#criterios-de-aceptacion" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><p class="first">Se cargará la configuración de un archivo incluido en el portal: <tt class="docutils literal"><span class="pre">map.options.yaml</span></tt></p>
+</li>
+<li><p class="first">Se cargará la configuración de un archivo asignado a través de un parámetro en la url: <tt class="docutils literal"><span class="pre">urlConfig</span> <span class="pre">=</span> <span class="pre">&lt;path</span> <span class="pre">al</span> <span class="pre">archivo</span> <span class="pre">de</span> <span class="pre">configuración&gt;</span></tt></p>
+</li>
+<li><dl class="first docutils">
+<dt>Los parámetros se irán sobreescribiendo según se lean los archivos en el siguiente orden</dt>
+<dd><ol class="first last arabic simple">
+<li>Archivo propio del visor</li>
+<li>Archivo pasado por URL</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="lectura-de-parametros-desde-url">
+<h2>#2 Lectura de parámetros desde url<a class="headerlink" href="#lectura-de-parametros-desde-url" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Descripción<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><em>Como</em> usuario <em>quiero</em> poder enviar parametros en la petición <em>para</em> asignar estos a los parámetros de configuración de la aplicación</p>
+<p>Es necesario que pueda incluir parámetros en la aplicación insertandolos en la petición como parámetro GET, por ejemplo:</p>
+<div class="highlight-python"><pre>http://miurl.com?bbox=1,2,3,4&amp;lang=gl</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Criterios de aceptación<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se cargará el parámetro pasado en la petición a la configuración de la aplicación</li>
+<li>El parámetro cargado a través de la URL sobrescribirá a cualquier parámetro anterior</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="lectura-de-capas-wms-desde-archivo">
+<h2>#3 Lectura de capas WMS desde archivo<a class="headerlink" href="#lectura-de-capas-wms-desde-archivo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Descripción<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><em>Como</em> usuario <em>quiero</em> leer la estructura de capas desde un archivo <em>para</em> cargar estas en el mapa</p>
+<p>El archivo se ha de definir usando YAML. Se indicarán los parámetros de las capas. El tipo de capas
+será WMS</p>
+</div>
+<div class="section" id="id4">
+<h3>Criterios de aceptación<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se carga en el mapa la capa definida en el archivo</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="carga-de-capas-wms-desde-servicio-externo">
+<h2>#4 Carga de capas WMS desde servicio externo<a class="headerlink" href="#carga-de-capas-wms-desde-servicio-externo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Descripción<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><em>Como</em> usuario <em>quiero</em> poder indicar una URL de un servicio externo <em>para</em> que obtenga la estructura de capas desde ese servicio</p>
+<p>Debería poder poner un valor en el archivo de capas que indique que las capas se cargarán desde esa url y no desde el archivo de capas de la aplicación</p>
+</div>
+<div class="section" id="id6">
+<h3>Criterios de aceptación<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se cargan las capas servidas en la dirección que indicamos en el fichero</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="carga-de-capas-mediante-parametros-get">
+<h2>#5 Carga de capas mediante parámetros GET<a class="headerlink" href="#carga-de-capas-mediante-parametros-get" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Descripción<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><em>Como</em> usuario <em>quiero</em> poder indicar en los parámetros de la URL valores <em>para</em> cargar una capa con estos</p>
+<p>Podré definir una serie de parámetros que al pasarselos en la URL me carguen una capa con dichos valores.</p>
+</div>
+<div class="section" id="id8">
+<h3>Criterios de aceptación<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se carga una capa con los valores que paso por parámetros</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="creacion-de-control-dinamico-e-insercion-en-el-mapa">
+<h2>#6 Creación de control dinámico e inserción en el mapa<a class="headerlink" href="#creacion-de-control-dinamico-e-insercion-en-el-mapa" title="Permalink to this headline">¶</a></h2>
+<p><em>Como</em> usuario <em>quiero</em> poder definir en un archivo los controles que van a ser cargados en mi aplicación <em>para</em> poder configurar estos apropiadamente</p>
+<p>Se debe poder incluir en la aplicación controles de manera dinámica, es decir, mediante la inserción de archivos en una carpeta y la asignación de valores en un archivo de configuración</p>
+<div class="section" id="id9">
+<h3>Criterios de aceptación<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Definido el control en el archivo de configuración, este debe aparecer cargado en la aplicación</li>
+<li>Debo poder definir parámetros de configuración del propio control en el archivo de configuración</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Historias de usuario</a><ul>
+<li><a class="reference internal" href="#lectura-de-configuracion">#1 Lectura de configuración</a><ul>
+<li><a class="reference internal" href="#descripcion">Descripción</a></li>
+<li><a class="reference internal" href="#criterios-de-aceptacion">Criterios de aceptación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lectura-de-parametros-desde-url">#2 Lectura de parámetros desde url</a><ul>
+<li><a class="reference internal" href="#id1">Descripción</a></li>
+<li><a class="reference internal" href="#id2">Criterios de aceptación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lectura-de-capas-wms-desde-archivo">#3 Lectura de capas WMS desde archivo</a><ul>
+<li><a class="reference internal" href="#id3">Descripción</a></li>
+<li><a class="reference internal" href="#id4">Criterios de aceptación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#carga-de-capas-wms-desde-servicio-externo">#4 Carga de capas WMS desde servicio externo</a><ul>
+<li><a class="reference internal" href="#id5">Descripción</a></li>
+<li><a class="reference internal" href="#id6">Criterios de aceptación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#carga-de-capas-mediante-parametros-get">#5 Carga de capas mediante parámetros GET</a><ul>
+<li><a class="reference internal" href="#id7">Descripción</a></li>
+<li><a class="reference internal" href="#id8">Criterios de aceptación</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creacion-de-control-dinamico-e-insercion-en-el-mapa">#6 Creación de control dinámico e inserción en el mapa</a><ul>
+<li><a class="reference internal" href="#id9">Criterios de aceptación</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to XVM&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/users-histories.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to XVM’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">XVM 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, IET - geomati.co.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
