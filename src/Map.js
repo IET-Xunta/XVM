@@ -114,7 +114,7 @@ XVM.Map = function() {
 	 */
 	this.init = function() {
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
-		XVM.EventBus.addListener(this);
+		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 	};
 	
 	this.init();

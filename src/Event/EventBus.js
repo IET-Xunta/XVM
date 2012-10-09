@@ -20,41 +20,34 @@
  */
 
 XVM.Event.EventBus = function() {
-	
+
 	/**
 	 * Property
 	 * {Array(Object)}
 	 */
-	this.listeners = new Array();
-	
+	this.listeners = {};
+
 	/**
 	 * 
 	 */
-	this.addListener = function(listener) {
-		this.listeners.push(listener);
-	}
-	
-	/**
-	 * Fires configParameters into listeners
-	 */
-	this.fireaddConfigParameters = function(parameters) {
-		for (var i = 0; i < this.listeners.length; i++) {
-			if (this.listeners[i]['addConfigParameters']) {
-				this.listeners[i].addConfigParameters(parameters);
-			}
+	this.addListener = function(listener, callFunction, event) {
+		if (!this.listeners[event]) {
+			this.listeners[event] = new Array();
 		}
-	}
-	
+		this.listeners[event].push([listener, callFunction]);
+	};
+
 	/**
-	 * Fires addLayers into listeners
-	 * Parameters:
-	 * {Array(OpenLayers.Layer.WMS)}
+	 * Fires an event into listeners
 	 */
-	this.fireaddLayers = function(layers) {
-		for (var i = 0; i < this.listeners.length; i++) {
-			if (this.listeners[i]['addLayers']) {
-				this.listeners[i].addLayers(layers);
-			}
+	this.fireEvent = function(event, parameters) {
+		if (this.listeners[event]) {
+			this.listeners[event].forEach(
+				function callEventHandler(handler) {
+					handler[0][handler[1]](parameters);
+				}
+			);
 		}
-	}	
-}
+	};
+
+};
