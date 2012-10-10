@@ -5,27 +5,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<title>:::XVM:::</title>
+
 		<script src="lib/jQuery/jquery-1.8.0.min.js"></script>
 		<script src="lib/Ol/OpenLayers.js"></script>
 		<script src="lib/YAML/js-yaml.js"></script>
-		
 		<script src="src/XVM.js"></script>
 		<script src="src/Map.js"></script>
 		<script src="src/Loader/Config.js"></script>
 		<script src="src/Loader/Reader.js"></script>
 		<script src="src/Loader/Layers.js"></script>
 		<script src="src/Event/EventBus.js"></script>
-		
+
 		<script type="text/javascript">
 			$(document).ready(function() {
 				XVM.EventBus = new XVM.Event.EventBus();
 				var map = new XVM.Map();
-				var config = new XVM.Loader.Config(new XVM.Loader.Reader());
-				var layers = new XVM.Loader.Layers(new XVM.Loader.Reader());				
+				var reader = new XVM.Loader.Reader();
+				var config = new XVM.Loader.Config(reader);
+				var layers = new XVM.Loader.Layers(reader);
 			});
 		</script>
 	</head>
 	<body>
-	<div id="map" ></div>
+		<div id="map" style="height:500px"></div>
 	</body>
 </html>

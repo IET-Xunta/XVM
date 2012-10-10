@@ -21,7 +21,7 @@ describe('Map tests', function() {
 	
 	it('Config parameters sends event', function() {
 		var map = new XVM.Map();
-		XVM.EventBus.fireaddConfigParameters(fakeData);
+		XVM.EventBus.fireEvent('addConfigParameters', fakeData);
 		
 		expect(map.OLMapParameters.general.lang).toEqual('es');
 	})

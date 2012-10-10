@@ -116,7 +116,7 @@ XVM.Loader.Layers = function(reader) {
 			)
 			_this.layers.push(layer);
 		}
-		XVM.EventBus.fireaddLayers(_this.layers);
+		XVM.EventBus.fireEvent('addLayers', _this.layers);
 	}
 	
 	/**

@@ -30,7 +30,7 @@ XVM.Loader.Reader = function() {
 	 */
 	this.setContext = function(context) {
 		this.context = context;
-	}
+	};
 
 	/**
 	 * Parse a YAML file and save response into object
@@ -44,7 +44,7 @@ XVM.Loader.Reader = function() {
 		this._call(path,
 			callBack,
 			'text');
-	}
+	};
 	
 	/**
 	 * Private method to send AJAX petitions
@@ -69,7 +69,7 @@ XVM.Loader.Reader = function() {
 				// TODO when error?
 			}
 		});
-	}
+	};
 	
 	/**
 	 * Reads parameters from URL and saves into context
@@ -89,4 +89,4 @@ XVM.Loader.Reader = function() {
 		}
 	};
 
-}
+};

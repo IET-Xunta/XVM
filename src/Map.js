@@ -58,12 +58,13 @@ XVM.Map = function() {
 	 * Launched with event addConfigParameter
 	 */
 	this.addConfigParameters = function(parameters) {
-		
+
 		var options = {
 			projection : new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
 			displayProjection: new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
 			units: parameters.map_settings.units,
 			resolutions	: parameters.map_settings.resolutions,
+			maxResolution: 1000,
 			tileSize: new OpenLayers.Size(
 				parseInt(parameters.map_settings.tile_size[0]),
 				parseInt(parameters.map_settings.tile_size[1])
@@ -115,6 +116,7 @@ XVM.Map = function() {
 	this.init = function() {
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
+		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 	};
 	
 	this.init();
