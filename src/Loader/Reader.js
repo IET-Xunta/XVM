@@ -30,7 +30,8 @@ XVM.Loader.Reader = function() {
 	this.readFromFile = function(path, callBack, context) {
 		this._call(path,
 			callBack,
-			'text');
+			'text', 
+			context);
 	};
 	
 	/**

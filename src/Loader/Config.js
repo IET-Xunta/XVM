@@ -83,7 +83,7 @@ XVM.Loader.Config = function(reader) {
 					this.configParameters[group][parameter] = this.fromGETParameters[parameter];
 			}
 		}
-		XVM.EventBus.fireaddConfigParameters(this.configParameters);
+		XVM.EventBus.fireEvent('addConfigParameters',this.configParameters);
 	}
 
 	
