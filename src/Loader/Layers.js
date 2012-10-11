@@ -50,10 +50,11 @@ XVM.Loader.Layers = function(reader) {
 	 * Method
 	 */
 	this._readLayers = function() {
-		this.reader.getParamsFromURL();
+		this.reader.getParamsFromURL(this);
 		this.reader.readFromFile(
 			this.DEFAULTLAYERS, 
-			this._readLayersCallback
+			this._readLayersCallback,
+			this
 		);
 	}
 	
@@ -65,7 +66,8 @@ XVM.Loader.Layers = function(reader) {
 		if(response.urlServiceLayer != null) {
 			_this.reader.readFromFile(
 				response.urlServiceLayer, 
-				_this._createLayers
+				_this._createLayers,
+				_this
 			);
 		} else {
 			var tmpresponse = response.layers;
@@ -126,7 +128,6 @@ XVM.Loader.Layers = function(reader) {
 	 */
 	this.init = function(reader) {
 		this.reader = reader;
-		this.reader.setContext(this);
 		this._readLayers();
 	}
 

@@ -14,7 +14,16 @@
 describe('Map tests', function() {
 	
 	XVM.EventBus = new XVM.Event.EventBus();
-	var fakeData = {'general': {'lang' : 'es','epsg' : 23029}};
+	var fakeData = {'general': {'height' : 300, 'width' : 300},
+			'map_settings':
+				{'lang' : 'es',
+				 'epsg' : 23029,
+				 'units': 'm',
+				 'resolutions': [1, 10, 1000, 10000, 100000],
+				 'tile_size': [100, 100],
+				 'bounds': [-100000, 3950000, 1150000, 4900000]
+				}
+			};
 	beforeEach(function() {
 
 	});
@@ -22,7 +31,6 @@ describe('Map tests', function() {
 	it('Config parameters sends event', function() {
 		var map = new XVM.Map();
 		XVM.EventBus.fireEvent('addConfigParameters', fakeData);
-		
-		expect(map.OLMapParameters.general.lang).toEqual('es');
+		expect(map.OLMap.options.units).toEqual('m');
 	})
 })

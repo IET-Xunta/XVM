@@ -18,19 +18,6 @@
  */
 
 XVM.Loader.Reader = function() {
-	
-	/**
-	 * AJAX context
-	 * Property
-	 */
-	this.context = null;
-	
-	/**
-	 * 
-	 */
-	this.setContext = function(context) {
-		this.context = context;
-	};
 
 	/**
 	 * Parse a YAML file and save response into object
@@ -40,7 +27,7 @@ XVM.Loader.Reader = function() {
 	 * Parameters: 
 	 * {String} path to YAML file
 	 */
-	this.readFromFile = function(path, callBack) {
+	this.readFromFile = function(path, callBack, context) {
 		this._call(path,
 			callBack,
 			'text');
@@ -55,11 +42,11 @@ XVM.Loader.Reader = function() {
 	 * {Object} with AJAX parameters
 	 * 
 	 */
-	this._call = function(url, callBack, datatype) {
+	this._call = function(url, callBack, datatype, context) {
 		$.ajax({
 			type : 'GET',
 			url : url,
-			context : this.context,
+			context : context,
 			dataType : datatype,
 			success : function(response) {
 				var responseObject = jsyaml.load(response);
@@ -77,15 +64,15 @@ XVM.Loader.Reader = function() {
 	 * 
 	 * Method
 	 */
-	this.getParamsFromURL = function() {
+	this.getParamsFromURL = function(context) {
 		var qs = XVM.Util.getLocationSearch();
 		qs = qs.split("+").join(" ");
-		this.context.fromGETParameters = {};
+		context.fromGETParameters = {};
 		var tokens, 
 		re = /[?&]?([^=]+)=([^&]*)/g;
 
 		while(tokens = re.exec(qs)) {
-			this.context.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = decodeURIComponent(tokens[2]);
+			context.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = decodeURIComponent(tokens[2]);
 		}
 	};
 

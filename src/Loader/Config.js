@@ -53,9 +53,9 @@ XVM.Loader.Config = function(reader) {
 	this.fromGETParameters = null;
 
 	this._readConfig = function() {
-		this.reader.getParamsFromURL();
+		this.reader.getParamsFromURL(this);
 		this.reader.readFromFile(
-			this.DEFAULTCONFIG, 
+			this.DEFAULTCONFIG,
 			function(responseObject, context) {
 				var _this = context;
 				$.extend(_this.configParameters, responseObject);
@@ -66,12 +66,14 @@ XVM.Loader.Config = function(reader) {
 							var _this = context;
 							$.extend(_this.configParameters, responseObject);
 							_this._addParametersFromGET();		
-						});			
+						},
+						_this);
 				} else {
 					_this._addParametersFromGET();
 				}
 		
-			});
+			},
+			this);
 	};
 	
 	this._addParametersFromGET = function() {
@@ -92,7 +94,6 @@ XVM.Loader.Config = function(reader) {
 	 */
 	this.init = function(reader) {
 		this.reader = reader;
-		this.reader.setContext(this);
 		this._readConfig();
 	};
 

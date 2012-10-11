@@ -21,7 +21,6 @@ describe('Reader tests', function() {
 		this.reader = null;
 		this.init = function(reader) {
 			this.reader = reader;
-			this.reader.setContext(this);
 		}
 		
 		this.init(reader);
@@ -33,7 +32,7 @@ describe('Reader tests', function() {
 	
 	it('Reads parameters from URL', function() {
 		var context = new fakeContext(reader);
-		reader.getParamsFromURL();
+		reader.getParamsFromURL(context);
 		expect(context.fromGETParameters.urlconfig).toEqual('fakeurlconfig');
 	});
 });
