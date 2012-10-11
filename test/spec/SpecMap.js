@@ -24,13 +24,27 @@ describe('Map tests', function() {
 				 'bounds': [-100000, 3950000, 1150000, 4900000]
 				}
 			};
+	var map;
 	beforeEach(function() {
-
+		map = new XVM.Map();
 	});
-	
+
+	var controlFake = new XVM.ControlFake();
+
 	it('Config parameters sends event', function() {
-		var map = new XVM.Map();
 		XVM.EventBus.fireEvent('addConfigParameters', fakeData);
 		expect(map.OLMap.options.units).toEqual('m');
-	})
+	});
+
+	it('Proper subcontrol added into map', function() {
+		map.addXVMControl(controlFake);
+		expect(map.controls[0]).toEqual(controlFake);
+	});
+
+	it('Wrong subcontrol added into map', function() {
+		var test = function() {
+			map.addXVMControl({});
+		};
+		expect(test).toThrow();
+	});
 })

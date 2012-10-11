@@ -13,15 +13,15 @@
 */
 
 XVM.Class = function() {
-}
+};
 
-XVM.Class.prototype.construct = function() {
+XVM.Class.prototype.initialize = function() {
 };
 
 XVM.Class.extend = function(def) {
 	var classDef = function() {
 		if(arguments[0] !== XVM.Class) {
-			this.construct.apply(this, arguments);
+			this.initialize.apply(this, arguments);
 		}
 	};
 

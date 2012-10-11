@@ -55,6 +55,13 @@ XVM.Map = function() {
 	this.OLMap = null;
 	
 	/**
+	 * Saves XVM Controls
+	 * Property
+	 * {Array(XVM.Control)}
+	 */
+	this.controls = [];
+
+	/**
 	 * Launched with event addConfigParameter
 	 */
 	this.addConfigParameters = function(parameters) {
@@ -74,7 +81,7 @@ XVM.Map = function() {
 				parseInt(parameters.map_settings.bounds[1]),
 				parseInt(parameters.map_settings.bounds[2]),
 				parseInt(parameters.map_settings.bounds[3])
-			)	
+			)
 		}
 		this.OLMap = new OpenLayers.Map('map', options);
 		$('#map').css(
@@ -119,5 +126,12 @@ XVM.Map = function() {
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 	};
 	
+	this.addXVMControl = function(control) {
+		if (!(control instanceof XVM.Control)) {
+			throw 'Control not supported';
+		}
+		this.controls.push(control);
+	}
+
 	this.init();
 }
