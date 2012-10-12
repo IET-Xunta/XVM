@@ -34,6 +34,21 @@ XVM.Loader.Reader = function() {
 			context);
 	};
 	
+	this.loadScript = function(url, callBack, context) {
+		$.ajax({
+			type : 'GET',
+			url : url,
+			context : context,
+			dataType : 'script',
+			success : function(response) {
+				callBack(response, this);
+			},
+			error : function(xhr, textStatus, errorThrown) {
+				// TODO when error?
+			}
+		});
+	};
+	
 	/**
 	 * Private method to send AJAX petitions
 	 * 
