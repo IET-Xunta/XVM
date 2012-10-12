@@ -59,7 +59,8 @@ XVM.Loader.Layers = function(reader) {
 	}
 	
 	/**
-	 *
+	 * urlServiceLayer indicates where is the service with 
+	 * layer structure
 	 */
 	this._readLayersCallback = function(response, context) {
 		var _this = context;
@@ -71,7 +72,7 @@ XVM.Loader.Layers = function(reader) {
 			);
 		} else {
 			var tmpresponse = response.layers;
-			_this._createLayers(tmpresponse, context);
+			_this._createLayers(tmpresponse, _this);
 		}
 	}
 	
