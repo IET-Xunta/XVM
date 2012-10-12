@@ -7,13 +7,15 @@
  *
  * @author Instituto Estudos do Territorio, IET
  */
-/*
- * Necessary fake control used in SpecMap.js
+
+/**
+ * Necessary to test controls
  */
 
-XVM.ControlFake = XVM.Control.extend({
+XVM.Control.FakeMousePosition = XVM.Class.extend({
+	
 	initialize : function() {
-	},
-	setOLMap : function(map) {
+		console.log('FakeMousePosition on Fire');
 	}
-});
+	
+})
