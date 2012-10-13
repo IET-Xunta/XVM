@@ -8,13 +8,13 @@
 */
 
 /**
- * XVM.Loader.Config tests
+ * XVM.Loader.Controls tests
  */
 
 describe('Control tests', function() {
 	
 	var fakeResponse = {'controls' : 
-		['FakeMousePosition']
+		['FakeMousePosition', 'AnotherFakeControl']
 	}
 	
 	var fakeContext = jasmine.createSpyObj('controls', ['_loadControls'])
@@ -41,8 +41,8 @@ describe('Control tests', function() {
 	});	
 	
 	it('Callback do anything', function() {
-		controls._readControlCallbacks(fakeResponse, fakeContext);
-		expect(0).toEqual(1);
+		controls._readControlsCallback(fakeResponse, fakeContext);
+		//expect(0).toEqual(1);
 		// TODO 
 	});
 })

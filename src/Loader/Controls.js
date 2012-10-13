@@ -64,33 +64,13 @@ XVM.Loader.Controls = XVM.Class.extend({
 	/**
 	 * 
 	 */
-	_readControlCallbacks : function(response, context) {
-		var this_ = context;
+	_readControlsCallback : function(response, this_) {
 		var controls = response.controls
 		for(var n in controls) {
-			var controlName = controls[n]
-			var controlPath = this_.CONTROLSFOLDER + '/' + controlName + '/' + controlName
-			// Load control code into app
-			var controlCodeURL = controlPath + '.js';
-			this_.reader.loadScript(
-				controlCodeURL,
-				function(script, textStatus) {
-					console.log("TODO Control loaded message")
-					eval('this_.controls.push(new XVM.Control.' + controlName + '())')
-				},
-				this_)
-			
-			// Load necessary control configuration from file 
-			/*var controlConfig = controlPath + '.yaml';
-			this_.reader.readFromFile(
-				controlConfig,
-				function(response, context) {
-					console.log(response)
-				},
-				this_
-			)*/
-			
-			// TODO load user view?
+			var controlName = controls[n];
+			var controlPath = this_.CONTROLSFOLDER + '/' + controlName + '/' + controlName;
+			var controlLoader = new XVM.Control.ControlLoader(controlPath, controlName, this_.reader);
+			controlLoader.loadControl();
 		}
 		
 	},

@@ -12,10 +12,10 @@
  * Necessary to test controls
  */
 
-XVM.Control.FakeMousePosition = XVM.Control.extend({
+XVM.Control.AnotherFakeControl = XVM.Control.extend({
 	
 	initialize : function(params) {
-		console.log('FakeMousePosition on Fire');
+		console.log('AnotherFakeControl on Fire');
 		console.log(params);
 	}
 	

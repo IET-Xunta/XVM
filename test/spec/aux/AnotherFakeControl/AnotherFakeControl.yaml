@@ -1,0 +1,3 @@
+init:
+  fakeParam: fakeValue
+  anotherFake: anotherFake
