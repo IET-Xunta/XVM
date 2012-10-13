@@ -21,8 +21,6 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 	controlPath : "",
 	
 	controlName : "",
-	
-	control : null,
 
 	initialize : function(path, name, reader) {
 		this.controlPath = path;
@@ -30,7 +28,7 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 		this.reader = reader;
 	},
 
-	loadControl : function() {
+	loadControl : function(callBack) {
 		var controlPath = this.controlPath + '/' + this.controlName + '/' + this.controlName
 		var controlConfig = this.controlPath + '.yaml';
 		this.reader.readFromFile(
@@ -42,8 +40,7 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 				this_.reader.loadScript(
 					controlCodeURL, 
 					function(response, this_) {
-						console.log("TODO Control loaded message")
-						eval('this_.control = new XVM.Control.' + this_.controlName + '(this_.initParameters)');
+						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters))');
 						}, 
 					this_)
 		}, this)

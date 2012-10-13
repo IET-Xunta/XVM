@@ -60,6 +60,11 @@ XVM.Map = function() {
 	 * {Array(XVM.Control)}
 	 */
 	this.controls = [];
+	
+	/**
+	 * 
+	 */
+	this.loaded = 0;
 
 	/**
 	 * Launched with event addConfigParameter
@@ -91,7 +96,8 @@ XVM.Map = function() {
 				'margin' : '0px'
 			}
 		)
-		if(this.OLLayers != null) {
+		this.loaded += 1;
+		if(this.loaded == 3) {
 			this.drawMap();
 		}
 	};
@@ -101,10 +107,22 @@ XVM.Map = function() {
 	 */
 	this.addLayers = function(layers) {
 		this.OLLayers = layers;
-		if(this.OLMap != null) {
+		this.loaded += 1;
+		if(this.loaded == 3) {
 			this.drawMap();
 		}
 	};
+	
+	/**
+	 * 
+	 */
+	this.addControls = function(controls) {
+		this.controls = controls;
+		this.loaded += 1;
+		if(this.loaded == 3) {
+			this.drawMap();
+		}
+	}
 	
 	/**
 	 * REFACTOR
@@ -112,7 +130,9 @@ XVM.Map = function() {
 	this.drawMap = function() {
 		this.OLMap.addLayers(this.OLLayers);
 		// Temporarily added control
-		this.OLMap.addControl(new OpenLayers.Control.LayerSwitcher({ascending:false}));
+		for(var n in this.controls) {
+			this.addXVMControl(controls[n]);
+		}
 		//
 		this.OLMap.zoomToMaxExtent();		
 	}
@@ -124,13 +144,14 @@ XVM.Map = function() {
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
+		XVM.EventBus.addListener(this, 'addControls', 'addControls');
 	};
 	
 	this.addXVMControl = function(control) {
 		if (!(control instanceof XVM.Control)) {
 			throw 'Control not supported';
 		}
-		this.controls.push(control);
+		control.setOLMap(this);
 	}
 
 	this.init();

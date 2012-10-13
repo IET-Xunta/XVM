@@ -38,7 +38,7 @@ describe('Map tests', function() {
 
 	it('Proper subcontrol added into map', function() {
 		map.addXVMControl(controlFake);
-		expect(map.controls[0]).toEqual(controlFake);
+		expect(controlFake.OLMap).toEqual(map);
 	});
 
 	it('Wrong subcontrol added into map', function() {

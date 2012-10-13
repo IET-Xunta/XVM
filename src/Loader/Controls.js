@@ -66,13 +66,19 @@ XVM.Loader.Controls = XVM.Class.extend({
 	 */
 	_readControlsCallback : function(response, this_) {
 		var controls = response.controls
+		var nControls = 0;
 		for(var n in controls) {
 			var controlName = controls[n];
 			var controlPath = this_.CONTROLSFOLDER + '/' + controlName + '/' + controlName;
 			var controlLoader = new XVM.Control.ControlLoader(controlPath, controlName, this_.reader);
-			controlLoader.loadControl();
+			controlLoader.loadControl(function(control) {
+				this_.controls.push(control);
+				nControls += 1;
+				if(nControls == controls.length) {
+					XVM.EventBus.fireEvent('addControls', this_.controls);
+				}
+			});	
 		}
-		
 	},
 
 	/**

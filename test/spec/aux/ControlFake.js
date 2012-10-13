@@ -12,8 +12,12 @@
  */
 
 XVM.ControlFake = XVM.Control.extend({
+	
+	OLMap : null,
+	
 	initialize : function() {
 	},
 	setOLMap : function(map) {
+		this.OLMap = map;
 	}
 });

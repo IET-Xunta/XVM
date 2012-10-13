@@ -11,7 +11,7 @@
  * XVM.Control.ControlLoader tests
  */
 
-xdescribe('ControlLoader Tests', function() {
+describe('ControlLoader Tests', function() {
 	
 	var fakeResponse = {'init': 
 		{'fakeParameter': 'fakeValue'}
@@ -27,6 +27,6 @@ xdescribe('ControlLoader Tests', function() {
 	});
 	
 	it('LoadControl saves object with parameters', function() {
-
+		// TODO
 	});
 })
