@@ -1,2 +1,3 @@
 ## MousePosition parameter control
-numDigits: 0
+init:
+  numDigits: 0

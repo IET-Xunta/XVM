@@ -131,10 +131,10 @@ XVM.Map = function() {
 		this.OLMap.addLayers(this.OLLayers);
 		// Temporarily added control
 		for(var n in this.controls) {
-			this.addXVMControl(controls[n]);
+			this.addXVMControl(this.controls[n]);
 		}
 		//
-		this.OLMap.zoomToMaxExtent();		
+		this.OLMap.setCenter(this.OLMap.maxExtent.centerLonLat, 10);
 	}
 	
 	/**
@@ -151,7 +151,7 @@ XVM.Map = function() {
 		if (!(control instanceof XVM.Control)) {
 			throw 'Control not supported';
 		}
-		control.setOLMap(this);
+		control.setOLMap(this.OLMap);
 	}
 
 	this.init();

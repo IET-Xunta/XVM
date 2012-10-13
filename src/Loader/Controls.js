@@ -23,7 +23,7 @@ XVM.Loader.Controls = XVM.Class.extend({
 	/**
 	 * 
 	 */
-	CONTROLSFOLDER : 'Control',
+	CONTROLSFOLDER : 'src/Control',
 	
 	/**
 	 * Property

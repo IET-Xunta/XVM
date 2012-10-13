@@ -30,9 +30,9 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 
 	loadControl : function(callBack) {
 		var controlPath = this.controlPath + '/' + this.controlName + '/' + this.controlName
-		var controlConfig = this.controlPath + '.yaml';
+		var controlConfigFile = this.controlPath + '.yaml';
 		this.reader.readFromFile(
-			controlConfig, 
+			controlConfigFile, 
 			function(response, this_) {
 				this_.initParameters = response.init;
 				// Load control code into app
