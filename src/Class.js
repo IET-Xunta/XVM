@@ -16,6 +16,7 @@ XVM.Class = function() {
 };
 
 XVM.Class.prototype.initialize = function() {
+	throw 'It is necessary overwrite this method'
 };
 
 XVM.Class.extend = function(def) {
