@@ -130,7 +130,7 @@ XVM.Map = function() {
 	this.drawMap = function() {
 		this.OLMap.addLayers(this.OLLayers);
 		// Temporarily added control
-		for(var n in this.controls) {
+		for(var n=0; n<this.controls.length; n++) {
 			this.addXVMControl(this.controls[n]);
 		}
 		//
