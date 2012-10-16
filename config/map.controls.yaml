@@ -1,3 +1,6 @@
 ## File with controls to add dinamically to app
-controls:
-  - MousePosition
+{
+  controls: [
+    MousePosition
+  ]
+}

@@ -1,4 +1,7 @@
 ## Test YAML controls file
-controls:
-  - FakeMousePosition
-  - FakeNavigation
+{
+  controls: [
+    FakeMousePosition,
+    FakeNavigation
+  ]
+}

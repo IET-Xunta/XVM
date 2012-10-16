@@ -91,7 +91,7 @@ XVM.Loader.Layers = function(reader) {
 			  	//layer_position : 0,
 			  	//layer_group : 'Capas Base',
 				parameters : {opacity : 1, singleTile : true},
-				is_base : false,
+				is_base : false
 			}
 			response.push(GETLayer);
 		}
