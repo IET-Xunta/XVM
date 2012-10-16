@@ -11,7 +11,7 @@
  * XVM.Loader.Config tests
  */
 
-xdescribe('Config tests', function() {
+describe('Config tests', function() {
 	
 	var eventbus = new XVM.Event.EventBus();
 	var reader = new XVM.Loader.Reader();
