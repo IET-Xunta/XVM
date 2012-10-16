@@ -1,0 +1,45 @@
+# Parameters to config map
+##########################
+
+## General parameters
+general:
+  lang: es
+  height_map : 300
+  width_map  : 300
+  
+  
+## Map specific parameters
+map_settings:
+  epsg  : 'EPSG:23029'
+  tile_size : 
+    - 512
+    - 512
+  units : m
+  bounds :
+    - 460000
+    - 4625000
+    - 690000
+    - 4855000
+  resolutions: 
+    - 611.4962262814
+    - 305.7481131407 
+    - 152.8740565704
+    - 76.4370282852
+    - 38.2185141426
+    - 19.1092570713
+    - 9.5546285356
+    - 4.7773142678
+    - 2.3886571339
+    - 1.1943285670 
+    - 0.5971642835
+    - 0.2985821417
+    
+## View parameters
+view_settings :
+  bbox: 
+    - 460000
+    - 4625000
+    - 690000
+    - 4855000
+  zoom_level : 5
+  center : {lat: 0, lon: 0}
