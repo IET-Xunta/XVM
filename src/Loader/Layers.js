@@ -87,7 +87,7 @@ XVM.Loader.Layers = function(reader) {
 			  	layer_name : _this.fromGETParameters.layertitle,
 			  	wms_layer : _this.fromGETParameters.layerid,
 			 	wms_url : _this.fromGETParameters.urlwms,
-				visible : false,
+				visible : true,
 			  	//layer_position : 0,
 			  	//layer_group : 'Capas Base',
 				parameters : {opacity : 1, singleTile : true},
