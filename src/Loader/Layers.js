@@ -95,7 +95,7 @@ XVM.Loader.Layers = function(reader) {
 			}
 			response.push(GETLayer);
 		}
-		for(var n in response) {
+		for(var n=0; n<response.length; n++) {
 			var objectLayer = response[n];
 			var default_options = {
 				isBaseLayer : objectLayer.is_base,
