@@ -88,7 +88,25 @@ XVM.Loader.Reader = function() {
 		re = /[?&]?([^=]+)=([^&]*)/g;
 
 		while(tokens = re.exec(qs)) {
-			context.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = decodeURIComponent(tokens[2]);
+			context.fromGETParameters[decodeURIComponent(tokens[1]).toLowerCase()] = this.parseValue(tokens[2]);
+		}
+	};
+
+	/**
+	 * Parses URL config value and creates an array in case it's needed
+	 *
+	 * Method
+	 */
+	this.parseValue = function(value) {
+		var elements = value.split(",");
+		if (elements.length > 1) {
+			for (var i = 0; i < elements.length; i++) {
+				// Should we somehow cast the string to another type?
+				elements[i] = decodeURIComponent(elements[i]);
+			}
+			return elements;
+		} else {
+			return decodeURIComponent(value);
 		}
 	};
 
