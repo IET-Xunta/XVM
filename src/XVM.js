@@ -41,7 +41,7 @@ var XVM = {
 	 */
 	Util : { 
 		'getLocationSearch' : function() {
-			return window.location.search
+			return window.location.search;
 		}
 	},
 	
@@ -54,5 +54,10 @@ var XVM = {
 	 * Event Bus
 	 * Saves inside the eventbus of XVM
 	 */
-	EventBus : null
+	EventBus : null,
+
+	/**
+	 * Default Config File URL
+	 */
+	DefaultConfig : 'config/map.options.yaml'
 };

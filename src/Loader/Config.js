@@ -23,12 +23,6 @@
 XVM.Loader.Config = function(reader) {
 
 	/**
-	 * path to defaults config file
-	 * Constant
-	 */
-	this.DEFAULTCONFIG = 'config/map.options.yaml';
-
-	/**
 	 * Reader
 	 * Property
 	 */
@@ -55,7 +49,7 @@ XVM.Loader.Config = function(reader) {
 	this._readConfig = function() {
 		this.reader.getParamsFromURL(this);
 		this.reader.readFromFile(
-			this.DEFAULTCONFIG,
+			XVM.DefaultConfig,
 			function(responseObject, context) {
 				var _this = context;
 				$.extend(_this.configParameters, responseObject);
