@@ -92,7 +92,7 @@ XVM.Loader.Layers = function(reader) {
 			  	//layer_group : 'Capas Base',
 				parameters : {opacity : 1, singleTile : true},
 				is_base : false
-			}
+			};
 			response.push(GETLayer);
 		}
 		for(var n=0; n<response.length; n++) {
@@ -116,11 +116,11 @@ XVM.Loader.Layers = function(reader) {
 					format : "image/png"
 				}, 
 				layer_options
-			)
+			);
 			_this.layers.push(layer);
 		}
 		XVM.EventBus.fireEvent('addLayers', _this.layers);
-	}
+	};
 	
 	/**
 	 * Method
