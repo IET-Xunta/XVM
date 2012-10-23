@@ -73,12 +73,12 @@ XVM.Loader.Config = function(reader) {
 	this._addParametersFromGET = function() {
 		for(var group in this.configParameters) {
 			for(var parameter in this.configParameters[group]) {
-				if(this.fromGETParameters[parameter] != undefined)
-					this.configParameters[group][parameter] = this.fromGETParameters[parameter];
+				if(this.fromGETParameters[group + '.' + parameter] != undefined)
+					this.configParameters[group][parameter] = this.fromGETParameters[group + '.' + parameter];
 			}
 		}
 		XVM.EventBus.fireEvent('addConfigParameters',this.configParameters);
-	}
+	};
 
 	
 	/**
