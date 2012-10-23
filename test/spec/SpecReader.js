@@ -26,7 +26,7 @@ describe('Reader tests', function() {
 		};
 		this.init(reader);
 	};
-	var expectedResponse = {
+	var expectedConfig = {
 		general: {
 			lang: 'es',
 			height_map: 300,
@@ -68,7 +68,7 @@ describe('Reader tests', function() {
 			      return context.response != null;
 			    }, "CallBack function never called", 10000);
 			runs(function () {
-				expect(context.response).toEqual(expectedResponse);
+				expect(context.response).toEqual(expectedConfig);
 			});
 		});
 
@@ -80,7 +80,7 @@ describe('Reader tests', function() {
 			      return context.response != null;
 			    }, "CallBack function never called", 10000);
 			runs(function () {
-				expect(context.response).toEqual(expectedResponse);
+				expect(context.response).toEqual(expectedConfig);
 			});
 		});
 
