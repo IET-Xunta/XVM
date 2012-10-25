@@ -12,7 +12,7 @@
  */
 
 describe('Map tests', function() {
-	
+
 	XVM.EventBus = new XVM.Event.EventBus();
 	var fakeData = {'general': {'height' : 300, 'width' : 300},
 			'map_settings':

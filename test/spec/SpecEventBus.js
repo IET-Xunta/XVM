@@ -35,7 +35,7 @@ describe('EventBus tests', function() {
 		mock1 = new mockListener1();
 		mock2 = new mockListener2();
 	});
-	
+
 	describe('Registering listeners', function() {
 
 		it('Listeners list starts void', function() {
@@ -70,7 +70,7 @@ describe('EventBus tests', function() {
 		});
 
 	});
-	
+
 	describe('Raising events', function() {
 
 		beforeEach(function() {

@@ -11,7 +11,7 @@
  * XVM.Loader.Layers tests
  */
 describe('Layers tests', function() {
-	
+
 	var response = {
 		urlServiceLayer : 'fakeLayersService',
 		layers:
@@ -40,7 +40,7 @@ describe('Layers tests', function() {
 			   }
 			]
 	};
-	
+
 	var wmsLayers = [new OpenLayers.Layer.WMS(
 			"IGN Base",
 			"http:\/\/www.ign.es\/wms-inspire\/ign-base",
@@ -107,7 +107,7 @@ describe('Layers tests', function() {
 		layers._readLayersCallback(response, layers);
 		expect(reader.readFromFile.mostRecentCall.args[0]).toEqual('fakeLayersService');
 	});
-		
+
 	it('Get layer from json response', function() {
 		layers._createLayers(response.layers, layers);
 		// We check it created the expected number of layers
@@ -123,7 +123,7 @@ describe('Layers tests', function() {
 		expect(layers.layers[1].name).toEqual(wmsLayers[1].name);
 		expect(layers.layers[1].url).toEqual(wmsLayers[1].url);
 	});
-	
+
 	it('Get layer from url parameters', function() {
 		layers.fromGETParameters = {
 			urlwms : 'fakeURLWMS',

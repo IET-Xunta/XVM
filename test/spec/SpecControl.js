@@ -12,7 +12,7 @@
  */
 
 describe('Control tests', function() {
-	
+
 	WrongControl = XVM.Class.extend({
 		initialize : function() {
 		}
@@ -31,18 +31,18 @@ describe('Control tests', function() {
 			this.map = map;
 		}
 	});
-	
+
 	beforeEach(function() {
 		wrong = new WrongControl();
 		mock1 = new MockControl1();
 		mock2 = new MockControl2();
 	});
-	
+
 	it('Control general inheritance test', function() {
 		expect(wrong instanceof XVM.Control).toBe(false);
 		expect(mock1 instanceof XVM.Control).toBe(true);
 	});
-	
+
 	it('Control methods inheritance test', function() {
 		mock1Result = function() {
 			mock1.setOLMap('map');
