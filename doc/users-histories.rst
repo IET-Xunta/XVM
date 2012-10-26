@@ -83,5 +83,21 @@ Criterios de aceptación
 	* Definido el control en el archivo de configuración, este debe aparecer cargado en la aplicación
 	* Debo poder definir parámetros de configuración del propio control en el archivo de configuración
 	
+
+#7 Carga de capas WMTS
+======================================================
+*Como* usuario *quiero* poder definir la carga de capas en protocolo WMTS (tileados) *para* su visualización en el XVM
+
+Se debe poder intercalar como capa base o auxiliar en el fichero de configuración en YAML (no necesario en la URL)
+
+Criterios de aceptación
+-----------------------
+	* Definido una o varias capas en el archivo de configuración de layers, esta/s debe/n aparecer cargado en la aplicación
+	* Hacer prueba con servicios de iberpix
+
+Más detalles
+%%%%%%%%%%%%%
+http://ign.go-learning.net/comunidad/pg/blog/cromera/read/118461/nuevo-servicio-wmts-iberpix
 	
+
 .. _1: http://www.yaml.org/
