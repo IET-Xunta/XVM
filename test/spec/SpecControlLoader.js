@@ -12,21 +12,21 @@
  */
 
 describe('ControlLoader Tests', function() {
-	
+
 	var fakeResponse = {'init': 
 		{'fakeParameter': 'fakeValue'}
-	}
-	
+	};
+
 	var fakePath = 'spec/aux/FakeMousePosition/FakeMousePosition';
-	
+
 	var controlloader, reader;
 	beforeEach(function() {
 		reader = new XVM.Loader.Reader();
 		spyOn(reader, 'readFromFile');
-		controlloader = new XVM.Control.ControlLoader(fakePath, 'FakeMousePosition', reader)
+		controlloader = new XVM.Control.ControlLoader(fakePath, 'FakeMousePosition', reader);
 	});
-	
+
 	it('LoadControl saves object with parameters', function() {
 		// TODO
 	});
-})
+});

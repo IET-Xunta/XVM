@@ -12,12 +12,12 @@
  */
 
 describe('MousePosition tests', function() {
-	
+
 	beforeEach(function() {
 		
 	});
-	
+
 	it('', function() {
 		expect(0).toEqual(1);
-	})
+	});
 });
