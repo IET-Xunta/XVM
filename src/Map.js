@@ -62,6 +62,13 @@ XVM.Map = function() {
 	this.controls = [];
 	
 	/**
+	 * Saves config parameters
+	 * Property
+	 * {Object}
+	 */
+	this.parameters = null;
+	
+	/**
 	 * 
 	 */
 	this.loaded = 0;
@@ -70,6 +77,8 @@ XVM.Map = function() {
 	 * Launched with event addConfigParameter
 	 */
 	this.addConfigParameters = function(parameters) {
+		
+		this.parameters = parameters;
 
 		var options = {
 			projection : new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
@@ -87,7 +96,7 @@ XVM.Map = function() {
 				parseInt(parameters.map_settings.bounds[2]),
 				parseInt(parameters.map_settings.bounds[3])
 			)
-		}
+		};
 		this.OLMap = new OpenLayers.Map('map', options);
 		$('#map').css(
 			{
@@ -95,11 +104,11 @@ XVM.Map = function() {
 				'width' : parameters.general.width_map + 'px',
 				'margin' : '0px'
 			}
-		)
+		);
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
-		}
+		};
 	};
 	
 	/**
@@ -122,7 +131,7 @@ XVM.Map = function() {
 		if(this.loaded == 3) {
 			this.drawMap();
 		}
-	}
+	};
 	
 	/**
 	 * REFACTOR
@@ -134,8 +143,18 @@ XVM.Map = function() {
 			this.addXVMControl(this.controls[n]);
 		}
 		//
-		this.OLMap.setCenter(this.OLMap.maxExtent.centerLonLat, 10);
-	}
+		var center = new OpenLayers.LonLat(
+				this.parameters.view_settings.center.lon, 
+				this.parameters.view_settings.center.lat);
+		var extent = new OpenLayers.Bounds(
+				parseInt(this.parameters.view_settings.bbox[0]),
+				parseInt(this.parameters.view_settings.bbox[1]),
+				parseInt(this.parameters.view_settings.bbox[2]),
+				parseInt(this.parameters.view_settings.bbox[3])
+			);
+		this.OLMap.zoomToExtent(extent, true);
+		this.OLMap.setCenter(center, this.parameters.view_settings.zoom_level);
+	};
 	
 	/**
 	 * Constructor
@@ -152,7 +171,7 @@ XVM.Map = function() {
 			throw 'Control not supported';
 		}
 		control.setOLMap(this.OLMap);
-	}
+	};
 
 	this.init();
-}
+};

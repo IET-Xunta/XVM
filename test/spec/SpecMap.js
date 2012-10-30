@@ -17,25 +17,45 @@ describe('Map tests', function() {
 	var fakeData = {'general': {'height' : 300, 'width' : 300},
 			'map_settings':
 				{'lang' : 'es',
-				 'epsg' : 23029,
+				 'epsg' : 4326,
 				 'units': 'm',
 				 'resolutions': [1, 10, 1000, 10000, 100000],
 				 'tile_size': [100, 100],
 				 'bounds': [-100000, 3950000, 1150000, 4900000]
-				}
+				},
+			'view_settings' :{
+				'center' : 
+					{
+					'lat': 4742294,
+					'lon': 562770
+					},
+				'zoom_level' : 5,
+				'bbox' : [
+				          -90000, 3850000, 1100000, 4850000
+				         ]}
 			};
-	var map;
+	
+	var fakeLayer = new OpenLayers.Layer.WMS( "fakeData",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0",
+            {layers: 'basic'} );
+
+	var map = new XVM.Map();
+	var controlFake = new XVM.ControlFake();
+	
 	beforeEach(function() {
-		map = new XVM.Map();
+
 	});
 
-	var controlFake = new XVM.ControlFake();
-
-	it('Config parameters sends event', function() {
-		XVM.EventBus.fireEvent('addConfigParameters', fakeData);
+	it('Config parameters loads into map', function() {
+		map.addConfigParameters(fakeData);
 		expect(map.OLMap.options.units).toEqual('m');
 	});
 
+	it('Map add layers', function() {
+		map.addLayers([fakeLayer]);
+		expect(map.OLLayers[0]).toEqual(fakeLayer);
+	});
+	
 	it('Proper subcontrol added into map', function() {
 		map.addXVMControl(controlFake);
 		expect(controlFake.OLMap).toEqual(map.OLMap);
@@ -47,4 +67,10 @@ describe('Map tests', function() {
 		};
 		expect(test).toThrow();
 	});
-})
+	
+	it('Map sets center and zoom level', function() {
+		map.drawMap();
+		expect(map.OLMap.getCenter().lon).toEqual(fakeData.view_settings.center.lon);
+		expect(map.OLMap.getCenter().lat).toEqual(fakeData.view_settings.center.lat);
+	});
+});
