@@ -137,7 +137,23 @@ XVM.Map = function() {
 	 * REFACTOR
 	 */
 	this.drawMap = function() {
-		this.OLMap.addLayers(this.OLLayers);
+		//this.OLMap.addLayers(this.OLLayers);
+		var baseLayer = null;
+		for (var n = 0; n < this.OLLayers.length; n++ ){
+			var layer = this.OLLayers[n];
+			this.OLMap.addLayer(layer);
+			this.OLMap.setLayerIndex(layer, layer.layer_position);
+			
+			if (layer.isBaseLayer == true) {
+				if (baseLayer == null) 
+					baseLayer = layer;
+				else 
+					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;
+			};
+		};
+
+		this.OLMap.setBaseLayer(baseLayer);
+		
 		// Temporarily added control
 		for(var n=0; n<this.controls.length; n++) {
 			this.addXVMControl(this.controls[n]);
@@ -154,6 +170,8 @@ XVM.Map = function() {
 			);
 		this.OLMap.zoomToExtent(extent, true);
 		this.OLMap.setCenter(center, this.parameters.view_settings.zoom_level);
+		
+		this.OLMap.addControl(new OpenLayers.Control.LayerSwitcher());
 	};
 	
 	/**

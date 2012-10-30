@@ -95,6 +95,7 @@ XVM.Loader.Layers = function(reader) {
 			};
 			response.push(GETLayer);
 		}
+
 		for(var n=0; n<response.length; n++) {
 			var objectLayer = response[n];
 			var default_options = {
@@ -117,6 +118,9 @@ XVM.Loader.Layers = function(reader) {
 				}, 
 				layer_options
 			);
+			layer.layer_position = objectLayer.layer_position;
+			layer.group_name = objectLayer.group_name;
+
 			_this.layers.push(layer);
 		}
 		XVM.EventBus.fireEvent('addLayers', _this.layers);

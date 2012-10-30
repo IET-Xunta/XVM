@@ -8,21 +8,23 @@
   layers : [ {
   ## Topografico layer
     map_name : default,
+    group_name : capa_base,
     layer_name : Topográfico-IDEE,
     wms_layer : mtn_rasterizado,
     wms_url : 'http://www.idee.es/wms/MTN-Raster/MTN-Raster',
     visible: !!bool true,
-    layer_position : !!int 2,
+    layer_position : !!int 1,
     parameters : {opacity : !!float 0.75, singleTile : !!bool false, projection : 'EPSG:23029'},
     is_base : !!bool true
   }, {
   ## IGN Layer
     map_name : default,
+    group_name : capa_base,
     layer_name : IGN Base,
     wms_layer : IGNBaseTodo,
     wms_url : 'http://www.ign.es/wms-inspire/ign-base',
     visible : !!bool true,
-    layer_position : !!int 1,
+    layer_position : !!int 2,
     parameters : {opacity : !!float 0.75, singleTile : !!bool false, projection : 'EPSG:23029'},
     is_base : !!bool true
   } ]

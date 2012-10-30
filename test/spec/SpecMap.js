@@ -38,6 +38,31 @@ describe('Map tests', function() {
 	var fakeLayer = new OpenLayers.Layer.WMS( "fakeData",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
             {layers: 'basic'} );
+	fakeLayer.layer_position = 1;
+	
+	var anotherFakeLayer = new OpenLayers.Layer.WMS( "anotherFakeData",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0",
+            {layers: 'basic'} );
+	anotherFakeLayer.layer_position = 0;
+
+	var fakeoverlay1 = new OpenLayers.Layer.WMS( "fakeoverlay1",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0",
+            {layers: 'basic'},
+            {isBaseLayer: false});
+	fakeoverlay1.layer_position = 1;
+	
+	var fakeoverlay2 = new OpenLayers.Layer.WMS( "fakeoverlay2",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0",
+            {layers: 'basic'},
+            {isBaseLayer: false} );
+	fakeoverlay2.layer_position = 2;
+	
+	var fakeoverlay3 = new OpenLayers.Layer.WMS( "fakeoverlay3",
+            "http://vmap0.tiles.osgeo.org/wms/vmap0",
+            {layers: 'basic'},
+            {isBaseLayer: false} );
+	fakeoverlay3.layer_position = 3;
+	
 
 	var map = new XVM.Map();
 	var controlFake = new XVM.ControlFake();
@@ -52,7 +77,13 @@ describe('Map tests', function() {
 	});
 
 	it('Map add layers', function() {
-		map.addLayers([fakeLayer]);
+		var layers = [fakeLayer, 
+		               anotherFakeLayer, 
+		               fakeoverlay1,
+		               fakeoverlay2,
+		               fakeoverlay3];
+		map.addLayers(layers);
+		expect(map.OLLayers.length).toEqual(layers.length);
 		expect(map.OLLayers[0]).toEqual(fakeLayer);
 	});
 	
@@ -72,5 +103,18 @@ describe('Map tests', function() {
 		map.drawMap();
 		expect(map.OLMap.getCenter().lon).toEqual(fakeData.view_settings.center.lon);
 		expect(map.OLMap.getCenter().lat).toEqual(fakeData.view_settings.center.lat);
+	});
+	
+	it('Map uses layer_position to sets base layer', function() {
+		expect(map.OLMap.baseLayer).toEqual(anotherFakeLayer);
+		anotherFakeLayer.layer_position = 2;
+		map.drawMap();
+		expect(map.OLMap.baseLayer).toEqual(fakeLayer);
+	});
+	
+	it('Map uses layer_position with overlay layers', function() {
+		expect(map.OLMap.layers[fakeoverlay1.layer_position]).toEqual(fakeoverlay1);
+		expect(map.OLMap.layers[fakeoverlay2.layer_position]).not.toEqual(fakeoverlay1);
+		expect(map.OLMap.layers[fakeoverlay3.layer_position]).toEqual(fakeoverlay3);
 	});
 });
