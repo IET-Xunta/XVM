@@ -96,7 +96,7 @@ describe('Layers tests', function() {
 	);
 
 	var reader = new XVM.Loader.Reader();
-	var layers;
+	var layers = null;
 	beforeEach(function() {
 		XVM.EventBus = new XVM.Event.EventBus();
 		spyOn(reader, 'readFromFile');

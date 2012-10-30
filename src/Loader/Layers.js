@@ -38,7 +38,7 @@ XVM.Loader.Layers = function(reader) {
 	 * Property
 	 * {Object}
 	 */
-	this.fromGETParameters = null
+	this.fromGETParameters = null;
 	
 	/**
 	 * Property
@@ -56,7 +56,7 @@ XVM.Loader.Layers = function(reader) {
 			this._readLayersCallback,
 			this
 		);
-	}
+	};
 	
 	/**
 	 * urlServiceLayer indicates where is the service with 
@@ -74,7 +74,7 @@ XVM.Loader.Layers = function(reader) {
 			var tmpresponse = response.layers;
 			_this._createLayers(tmpresponse, _this);
 		}
-	}
+	};
 	
 	/**
 	 *
@@ -130,7 +130,7 @@ XVM.Loader.Layers = function(reader) {
 	this.init = function(reader) {
 		this.reader = reader;
 		this._readLayers();
-	}
+	};
 
 	this.init(reader);
-}
+};
