@@ -10,6 +10,7 @@
 		<script src="lib/Ol/OpenLayers.js"></script>
 		<script src="lib/YAML/es5-shims.js"></script>
 		<script src="lib/YAML/js-yaml.js"></script>
+		<script src="lib/jQuery/jquery.i18n.properties-min.js"></script>
 		<script src="src/XVM.js"></script>
 		<script src="src/Class.js"></script>
 		<script src="src/Map.js"></script>
@@ -23,6 +24,12 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				// We configure the internationalization support
+				jQuery.i18n.properties({
+				    name:'messages',
+				    path:'config/',
+				    mode:'both'
+				});
 				XVM.EventBus = new XVM.Event.EventBus();
 				var map = new XVM.Map();
 				var reader = new XVM.Loader.Reader();
