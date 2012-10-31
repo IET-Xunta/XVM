@@ -142,8 +142,7 @@ XVM.Map = function() {
 	this.drawMap = function() {
 		//this.OLMap.addLayers(this.OLLayers);
 		var baseLayer = null;
-		var n = 0, len = this.controls.length;
-		while (n<len) {
+		for(var n=0; n<this.OLLayers.length; n++) {
 			var layer = this.OLLayers[n];
 			this.OLMap.addLayer(layer);
 			this.OLMap.setLayerIndex(layer, layer.layer_position);
@@ -154,7 +153,6 @@ XVM.Map = function() {
 				else 
 					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
 			};
-			n++;
 		};
 
 		this.OLMap.setBaseLayer(baseLayer);
