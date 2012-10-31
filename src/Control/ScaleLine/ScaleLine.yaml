@@ -1,0 +1,5 @@
+## ScaleLine parameter control
+init: {
+  bottomOutUnits: '',
+  bottomInUnits: ''
+}
