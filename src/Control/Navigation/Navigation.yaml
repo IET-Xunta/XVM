@@ -1,0 +1,7 @@
+## Navigation parameter control
+init: {
+  dragPanOptions: {
+    enableKinetic: true
+  },
+  title: $.i18n.prop("pan_tooltip")
+}

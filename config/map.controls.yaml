@@ -1,6 +1,11 @@
 ## File with controls to add dinamically to app
 {
   controls: [
-    MousePosition
+    MousePosition,
+    Navigation,
+    NavigationHistory,
+    ZoomIn,
+    ZoomOut,
+    ZoomBox
   ]
 }
