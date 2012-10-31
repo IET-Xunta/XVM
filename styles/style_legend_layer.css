@@ -1,0 +1,36 @@
+/*
+ * This is Legend Div style. To do change into div
+ * is necessary add here CSS properties
+ * #legend: div id
+ */
+#legend {
+	background-color:white;
+}
+
+.olControlPanel .olControlLegendLayerControlItemInactive {
+	display: block;
+	color: white;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: black;
+	margin: 1px;
+	padding: 0;
+	cursor: pointer;
+	background-image: url("../images/legend.png");
+}
+
+.olControlPanel .olControlLegendLayerControlItemActive {
+	display: block;
+	color: white;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: black;
+	margin: 1px;
+	padding: 0;
+	cursor: pointer;
+	background-image: url("../images/legend.png");
+}

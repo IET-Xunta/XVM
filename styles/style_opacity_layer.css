@@ -1,0 +1,38 @@
+/*
+ * Opacity DIV styles.
+ * #opacitydiv must be an div id
+ */
+
+#opacitydiv {
+	width: 100px;
+	height: 20px;
+	background-color: black;
+}
+
+.olControlPanel .olControlOpacityLayerControlItemInactive {
+	display: block;
+	color: white;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: black;
+	margin: 1px;
+	padding: 0;
+	cursor: pointer;
+	background-image: url("../images/transparency.png");
+}
+
+.olControlPanel .olControlOpacityLayerControlItemActive {
+	display: block;
+	color: white;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: black;
+	margin: 1px;
+	padding: 0;
+	cursor: pointer;
+	background-image: url("../images/transparency.png");
+}
