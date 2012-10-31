@@ -30,4 +30,4 @@ XVM.Control.MousePosition = XVM.Control.extend({
 		this.OLMap.addControl(this.OLControl);
 		this.OLControl.prefix = this.OLMap.displayProjection.projCode + " ";
 	}
-})
+});

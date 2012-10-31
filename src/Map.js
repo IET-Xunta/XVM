@@ -95,7 +95,8 @@ XVM.Map = function() {
 				parseInt(parameters.map_settings.bounds[1]),
 				parseInt(parameters.map_settings.bounds[2]),
 				parseInt(parameters.map_settings.bounds[3])
-			)
+			),
+			controls : []
 		};
 		this.OLMap = new OpenLayers.Map('map', options);
 		$('#map').css(
@@ -105,6 +106,8 @@ XVM.Map = function() {
 				'margin' : '0px'
 			}
 		);
+		this.OLMap.panel = new OpenLayers.Control.Panel();
+		this.OLMap.addControl(this.OLMap.panel);
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
@@ -139,7 +142,8 @@ XVM.Map = function() {
 	this.drawMap = function() {
 		//this.OLMap.addLayers(this.OLLayers);
 		var baseLayer = null;
-		for (var n = 0; n < this.OLLayers.length; n++ ){
+		var n = 0, len = this.controls.length;
+		while (n<len) {
 			var layer = this.OLLayers[n];
 			this.OLMap.addLayer(layer);
 			this.OLMap.setLayerIndex(layer, layer.layer_position);
@@ -148,8 +152,9 @@ XVM.Map = function() {
 				if (baseLayer == null) 
 					baseLayer = layer;
 				else 
-					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;
+					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
 			};
+			n++;
 		};
 
 		this.OLMap.setBaseLayer(baseLayer);

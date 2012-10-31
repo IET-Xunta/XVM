@@ -41,7 +41,7 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 					function(response, this_) {
 						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters))');
 						}, 
-					this_)
-		}, this)
+					this_);
+		}, this);
 	}
-})
+});
