@@ -39,8 +39,8 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 					}
 					if (response.init != null) {
 						internationalizeObject(response.init);
-						this_.initParameters = response.init;
 					}
+					this_.initParameters = response.init;
 				}
 				// Load control code into app
 				var controlCodeURL = this_.controlPath + '.js';
