@@ -33,8 +33,15 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 		this.reader.readFromFile(
 			controlConfigFile, 
 			function(response, this_) {
-				internationalizeObject(response.init);
-				this_.initParameters = response.init;
+				if (response != null) {
+					if (response.properties != null) {
+						$.i18n().load(response.properties);
+					}
+					if (response.init != null) {
+						internationalizeObject(response.init);
+						this_.initParameters = response.init;
+					}
+				}
 				// Load control code into app
 				var controlCodeURL = this_.controlPath + '.js';
 				this_.reader.loadScript(

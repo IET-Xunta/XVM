@@ -16,10 +16,10 @@ function internationalizeObject(object) {
 	for(var o in object) {
         if(typeof(object[o]) == 'object'){
         	internationalizeObject(object[o]);
-        }else{
-        	if ((typeof(object[o]) == 'string') && (object[o].substring(0, 12) == "$.i18n.prop(")) {
-        		object[o] = eval(object[o]);
-			}
+        } else {
+            if ((typeof(object[o]) == 'string') && (object[o].substring(0, 7) == "$.i18n(")) {
+                object[o] = eval(object[o]);
+            }
         }
     }
 };

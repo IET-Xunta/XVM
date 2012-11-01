@@ -1,3 +1,10 @@
 ## ZoomBox parameter control
 init:
-  title: $.i18n.prop("zoombox_tooltip")
+  title: $.i18n("zoombox_tooltip")
+properties:
+  'en':
+    'zoombox_tooltip': 'Zoom box'
+  'es':
+    'zoombox_tooltip': 'Zoom de caja'
+  'gl':
+    'zoombox_tooltip': 'Zoom de caixa'

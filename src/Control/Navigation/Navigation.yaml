@@ -1,6 +1,4 @@
 ## Navigation parameter control
-init: {
-  dragPanOptions: {
+init:
+  dragPanOptions:
     enableKinetic: true
-  }
-}

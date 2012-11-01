@@ -1,0 +1,15 @@
+{
+"layer": "Layer",
+"pan_tooltip": "Move map",
+"measured_line": "Measure distance",
+"measured_area": "Masures area",
+"help": "Help",
+"help_alert": "Help is not available.",
+"featureinfo_tooltip": "Info�n",
+"features_not_found": "No elements found at that point.",
+"error_on_getFeatureInfo": "Query or service error.",
+"no_base_layer": "No base layer",
+"catastral_info": "Catastral info",
+"referencia_catastral": "Catastral reference",
+"permalink_prompt": "Copy the map reference with Ctrl+C"
+}

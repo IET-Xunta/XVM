@@ -1,3 +1,10 @@
 ## ZoomIn parameter control
 init:
-  title: $.i18n.prop("zoomin_tooltip")
+  title: $.i18n("zoomin_tooltip")
+properties:
+  'en':
+    'zoomin_tooltip': 'Zoom in'
+  'es':
+    'zoomin_tooltip': 'Acercar'
+  'gl':
+    'zoomin_tooltip': 'Achegar'

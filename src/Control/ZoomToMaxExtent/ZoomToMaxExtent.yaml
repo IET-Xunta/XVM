@@ -1,3 +1,10 @@
 ## ZoomToMaxExtent parameter control
 init:
-  title: $.i18n.prop("zoomtomaxextent_tooltip")
+  title: $.i18n("zoomtomaxextent_tooltip")
+properties:
+  'en':
+    'zoomtomaxextent_tooltip': 'Zoom to max extent'
+  'es':
+    'zoomtomaxextent_tooltip': 'Zoom total'
+  'gl':
+    'zoomtomaxextent_tooltip': 'Zoom total'
