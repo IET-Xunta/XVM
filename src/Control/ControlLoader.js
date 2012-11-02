@@ -37,9 +37,6 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 					if (response.properties != null) {
 						$.i18n().load(response.properties);
 					}
-					if (response.init != null) {
-						internationalizeObject(response.init);
-					}
 					this_.initParameters = response.init;
 				}
 				// Load control code into app
@@ -47,6 +44,8 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 				this_.reader.loadScript(
 					controlCodeURL, 
 					function(response, this_) {
+						// In case we included a function as a trigger, we eval its reference
+						evalObject(this_.initParameters);
 						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters))');
 						}, 
 					this_);

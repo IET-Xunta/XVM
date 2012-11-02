@@ -1,6 +1,6 @@
 ## ZoomBox parameter control
 init:
-  title: $.i18n("zoombox_tooltip")
+  title: eval($.i18n("zoombox_tooltip"))
 properties:
   'en':
     'zoombox_tooltip': 'Zoom box'

@@ -1,6 +1,6 @@
 ## ZoomOut parameter control
 init:
-  title: $.i18n("zoomout_tooltip")
+  title: eval($.i18n("zoomout_tooltip"))
 properties:
   'en':
     'zoomout_tooltip': 'Zoom out'

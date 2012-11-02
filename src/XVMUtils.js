@@ -12,13 +12,13 @@
 *
 */
 
-function internationalizeObject(object) {
+function evalObject(object) {
 	for(var o in object) {
         if(typeof(object[o]) == 'object'){
-        	internationalizeObject(object[o]);
+        	evalObject(object[o]);
         } else {
-            if ((typeof(object[o]) == 'string') && (object[o].substring(0, 7) == "$.i18n(")) {
-                object[o] = eval(object[o]);
+            if ((typeof(object[o]) == 'string') && (object[o].substring(0, 5) == "eval(") && (object[o].substring(object[o].length-1) == ")")) {
+                object[o] = eval(object[o].substring(5, object[o].length-1));
             }
         }
     }
