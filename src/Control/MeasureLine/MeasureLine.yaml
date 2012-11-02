@@ -1,0 +1,18 @@
+## MeasureLine parameter control
+init:
+  displayClass: "olControlMeasureLine"
+  persist: true
+  title: eval($.i18n("measured_line"))
+  handlerOptions:
+    layerOptions:
+      renderers: eval(OpenLayers.Layer.Vector.prototype.renderers)
+properties:
+  'en':
+    'measured_line': 'Measure distance'
+    'distance': 'Distance'
+  'es':
+    'measured_line': 'Medir distancias'
+    'distance': 'Distancia'
+  'gl':
+    'measured_line': 'Medir distancias'
+    'distance': 'Distancia'

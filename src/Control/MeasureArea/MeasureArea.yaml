@@ -1,0 +1,18 @@
+## MeasureArea parameter control
+init:
+  displayClass: "olControlMeasureArea"
+  persist: true
+  title: eval($.i18n("measured_area"))
+  handlerOptions:
+    layerOptions:
+      renderers: eval(OpenLayers.Layer.Vector.prototype.renderers)
+properties:
+  'en':
+    'measured_area': 'Measure area'
+    'area': 'Area'
+  'es':
+    'measured_area': 'Medir área'
+    'area': 'Área'
+  'gl':
+    'measured_area': 'Medir área'
+    'area': 'Área'

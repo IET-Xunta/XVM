@@ -11,6 +11,8 @@
     ZoomBox,
     ZoomToMaxExtent,
     PermalinkButton,
-    HelpButton
+    HelpButton,
+    MeasureLine,
+    MeasureArea
   ]
 }

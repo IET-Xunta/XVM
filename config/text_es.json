@@ -1,10 +1,6 @@
 {
 "layer": "Capa",
 "pan_tooltip": "Mover mapa",
-"measured_line": "Medir distancias",
-"measured_area": "Medir áreas",
-"help": "Ayuda",
-"help_alert": "La ayuda no está disponible.",
 "featureinfo_tooltip": "Información",
 "features_not_found": "Cero elementos encontrados en ese punto.",
 "error_on_getFeatureInfo": "Error en la consulta o en el servicio.",
