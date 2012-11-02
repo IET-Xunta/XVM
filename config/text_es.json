@@ -10,6 +10,5 @@
 "error_on_getFeatureInfo": "Error en la consulta o en el servicio.",
 "no_base_layer": "Ninguna",
 "catastral_info": "Información catastral",
-"referencia_catastral": "Referencia catastral",
-"permalink_prompt": "Pulse Ctrl+C para copiar la dirección del mapa"
+"referencia_catastral": "Referencia catastral"
 }

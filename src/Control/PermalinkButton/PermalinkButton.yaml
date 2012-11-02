@@ -1,0 +1,16 @@
+## PermalinkButton parameter control
+init:
+  anchor: false
+  displayClass: "olControlPermalinkBtn"
+  trigger: eval(launchPermalinkDialog)
+  title: eval($.i18n("permalink_tooltip"))
+properties:
+  'en':
+    'permalink_tooltip': 'Permalink'
+    'permalink_prompt': 'Copy the map reference with Ctrl+C'
+  'es':
+    'permalink_tooltip': 'Enlace'
+    'permalink_prompt': 'Pulse Ctrl+C para copiar la dirección del mapa'
+  'gl':
+    'permalink_tooltip': 'Ligazón'
+    'permalink_prompt': 'Pulse Ctrl+C para copiar o enderezo do mapa'

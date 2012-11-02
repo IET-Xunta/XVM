@@ -9,6 +9,8 @@
     ZoomIn,
     ZoomOut,
     ZoomBox,
-    ZoomToMaxExtent
+    ZoomToMaxExtent,
+    PermalinkButton,
+    HelpButton
   ]
 }

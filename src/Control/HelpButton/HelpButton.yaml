@@ -1,0 +1,15 @@
+## PermalinkButton parameter control
+init:
+  displayClass: 'olControlHelpBtn'
+  trigger: eval(launchHelpDialog)
+  title: eval($.i18n('help'))
+properties:
+  'en':
+    'help': 'Help'
+    'help_alert': 'Help is not available.'
+  'es':
+    'help': 'Ayuda'
+    'help_alert': 'La ayuda no está disponible.'
+  'gl':
+    'help': 'Axuda'
+    'help_alert': 'A axuda non está dispoñible.'
