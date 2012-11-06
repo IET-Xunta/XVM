@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+            "features": 
+            [
+                { "type": "Feature", "properties": {"this": "that"}, "geometry": { "type": "Polygon", "coordinates": [ [ [ 571078, 4742404 ], [ 572078, 4743404 ], [ 572078, 4741404 ] ] ]} },
+                { "type": "Feature", "properties": {"this": "that"}, "geometry": { "type": "LineString", "coordinates": [ [ 570578, 4742404 ], [ 570078, 4743404 ] ]} },
+                { "type": "Feature", "properties": {"this": "that"}, "geometry": { "type": "Point", "coordinates": [ 570878, 4742904 ] } }
+            ]
+}

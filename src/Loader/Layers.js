@@ -86,7 +86,7 @@ XVM.Loader.Layers = function(reader) {
 			 	map_name : 'default',
 			  	layer_name : _this.fromGETParameters.layertitle,
 			  	wms_layer : _this.fromGETParameters.layerid,
-			 	wms_url : _this.fromGETParameters.urlwms,
+			 	url : _this.fromGETParameters.url,
 				visible : true,
 			  	//layer_position : 0,
 			  	//layer_group : 'Capas Base',
@@ -98,30 +98,42 @@ XVM.Loader.Layers = function(reader) {
 
 		for(var n=0; n<response.length; n++) {
 			var objectLayer = response[n];
-			var default_options = {
-				isBaseLayer : objectLayer.is_base,
-				visibility : objectLayer.visible,
-				singleTile : true,
-				opacity : 0.75,
-				transitionEffect : 'resize',
-				buffer : 0
-			};
-			var layer_options = $.extend(default_options, objectLayer.parameters);
-			var layer = new OpenLayers.Layer.WMS(
-				objectLayer.layer_name, 
-				objectLayer.wms_url, 
-				{
-					//GetMap parameters
-					layers: objectLayer.wms_layer,
-					transparent : true,
-					format : "image/png"
-				}, 
-				layer_options
-			);
-			layer.layer_position = objectLayer.layer_position;
-			layer.group_name = objectLayer.group_name;
+			if (objectLayer.type == 'wms') {
+				var default_options = {
+					isBaseLayer : objectLayer.is_base,
+					visibility : objectLayer.visible,
+					singleTile : true,
+					opacity : 0.75,
+					transitionEffect : 'resize',
+					buffer : 0
+				};
+				var layer_options = $.extend(default_options, objectLayer.parameters);
+				var layer = new OpenLayers.Layer.WMS(
+					objectLayer.layer_name,
+					objectLayer.url,
+					{
+						//GetMap parameters
+						layers: objectLayer.wms_layer,
+						transparent : true,
+						format : "image/png"
+					},
+					layer_options
+				);
+				layer.layer_position = objectLayer.layer_position;
+				layer.group_name = objectLayer.group_name;
 
 			_this.layers.push(layer);
+
+			} else if(objectLayer.type == 'geojson') {
+				objectLayer.parameters.strategies = [new OpenLayers.Strategy.Fixed()];
+				objectLayer.parameters.protocol = new OpenLayers.Protocol.HTTP({
+	                url: objectLayer.url,
+	                format: new OpenLayers.Format.GeoJSON()
+	            });
+
+				var layer = new OpenLayers.Layer.Vector(objectLayer.layer_name, objectLayer.parameters);
+				_this.layers.push(layer);
+			}
 		}
 		XVM.EventBus.fireEvent('addLayers', _this.layers);
 	};
