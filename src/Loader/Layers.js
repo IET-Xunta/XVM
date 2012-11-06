@@ -100,8 +100,8 @@ XVM.Loader.Layers = function(reader) {
 			var objectLayer = response[n];
 			if (objectLayer.type == 'wms') {
 				var default_options = {
-					isBaseLayer : objectLayer.is_base,
-					visibility : objectLayer.visible,
+					isBaseLayer : false,
+					visibility : true,
 					singleTile : true,
 					opacity : 0.75,
 					transitionEffect : 'resize',
@@ -119,8 +119,6 @@ XVM.Loader.Layers = function(reader) {
 					},
 					layer_options
 				);
-				layer.layer_position = objectLayer.layer_position;
-				layer.group_name = objectLayer.group_name;
 
 			_this.layers.push(layer);
 
