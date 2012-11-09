@@ -50,5 +50,20 @@
       projection : 'EPSG:23029',
       isBaseLayer : !!bool false
     }
-  } ]
+  }
+  #, {
+  ## GeoJson AJAX Layer
+  #  map_name : default,
+  #  layer_name : GJson,
+  #  type : 'geojson',
+  #  url : 'http://127.0.0.1:8000/api/upai/?format=jsonp',
+  #  parameters: {
+  #    group_name : prueba,
+  #    visibility : !!bool true,
+  #    layer_position : !!int 2,
+  #    projection : 'EPSG:23029',
+  #    isBaseLayer : !!bool false
+  #  }
+  #}
+  ]
 }
