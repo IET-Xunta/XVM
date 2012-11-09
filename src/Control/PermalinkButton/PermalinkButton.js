@@ -10,7 +10,12 @@
 
 function launchPermalinkDialog(){
     var p = this.map.getControlsByClass('OpenLayers.Control.Permalink')[0];
-    var my_url = p.base + '?'+ OpenLayers.Util.getParameterString(p.createParams());
+    var base_url = p.base;
+    var index = base_url.indexOf('?');
+    if (index > -1) {
+        base_url = base_url.slice(0, index);
+    }
+    var my_url = base_url + '?'+ OpenLayers.Util.getParameterString(p.createParams());
     window.prompt($.i18n("permalink_prompt"), my_url);
 };
 
