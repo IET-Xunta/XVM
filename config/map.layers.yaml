@@ -55,7 +55,7 @@
   ## GeoJson AJAX Layer
   #  map_name : default,
   #  layer_name : GJson,
-  #  type : 'geojson',
+  #  type : 'ajax',
   #  url : 'http://127.0.0.1:8000/api/upai/?format=jsonp',
   #  parameters: {
   #    group_name : prueba,

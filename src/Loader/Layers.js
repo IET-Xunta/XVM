@@ -122,7 +122,7 @@ XVM.Loader.Layers = function(reader) {
 
 			_this.layers.push(layer);
 
-			} else if(objectLayer.type == 'geojson') {
+			} else if(objectLayer.type == 'ajax') {
 				eval('$.getJSON(objectLayer.url,\
 					    "callback=?",\
 					    function(data) {\
@@ -131,7 +131,17 @@ XVM.Loader.Layers = function(reader) {
 						layer.addFeatures(geojson_format.read(data));\
 						XVM.EventBus.fireEvent("addLayers", [layer]);\
 				});');
+			} else if(objectLayer.type == 'geojson') {
+				objectLayer.parameters.strategies = [new OpenLayers.Strategy.Fixed()];
+				objectLayer.parameters.protocol = new OpenLayers.Protocol.HTTP({
+					url: objectLayer.url,
+					format: new OpenLayers.Format.GeoJSON()
+				});
+
+				var layer = new OpenLayers.Layer.Vector(objectLayer.layer_name, objectLayer.parameters);
+				_this.layers.push(layer);
 			}
+
 		}
 		XVM.EventBus.fireEvent('addLayers', _this.layers);
 	};
