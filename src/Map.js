@@ -118,10 +118,17 @@ XVM.Map = function() {
 	 * Launched with event addLayers
 	 */
 	this.addLayers = function(layers) {
-		this.OLLayers = layers;
-		this.loaded += 1;
-		if(this.loaded == 3) {
-			this.drawMap();
+		if (!this.OLLayers) {
+			this.OLLayers = layers;
+			this.loaded += 1;
+			if(this.loaded == 3) {
+				this.drawMap();
+			}
+		} else {
+			this.OLLayers = this.OLLayers.concat(layers);
+			if(this.loaded == 3) {
+				this.addLayersToOLMap(layers);
+			}
 		}
 	};
 	
@@ -136,14 +143,12 @@ XVM.Map = function() {
 		}
 	};
 	
-	/**
-	 * REFACTOR
-	 */
-	this.drawMap = function() {
+	this.addLayersToOLMap = function(layers) {
 		//this.OLMap.addLayers(this.OLLayers);
-		var baseLayer = null;
-		for(var n=0; n<this.OLLayers.length; n++) {
-			var layer = this.OLLayers[n];
+		var baseLayer = this.OLMap.baseLayer;
+
+		for(var n=0; n<layers.length; n++) {
+			var layer = layers[n];
 			this.OLMap.addLayer(layer);
 			this.OLMap.setLayerIndex(layer, layer.layer_position);
 			
@@ -154,9 +159,18 @@ XVM.Map = function() {
 					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
 			};
 		};
+		if (baseLayer != null) {
+			this.OLMap.setBaseLayer(baseLayer);
+		}
+	}
 
-		this.OLMap.setBaseLayer(baseLayer);
+	/**
+	 * REFACTOR
+	 */
+	this.drawMap = function() {
 		
+		this.addLayersToOLMap(this.OLLayers);
+
 		// Temporarily added control
 		for(var n=0; n<this.controls.length; n++) {
 			this.addXVMControl(this.controls[n]);
