@@ -62,7 +62,6 @@ Controles
 https://docs.google.com/spreadsheet/ccc?key=0Ap7XLlXgRGXBdGs0eG81Yy1GWW1FblFNYTZoRm9oNGc#gid=0
 
 
-
 Instrucciones de despliegue
 ====================================
 
@@ -71,3 +70,6 @@ Copiar y listo!! :D
 Uso básico como iframe
 
 
+URL de pruebas básicas
+=====================================
+* http://localhost/XVM/xvm.html?urlwms=http://ideg.xunta.es/wms_orto_1956-57/request.aspx&layerid=Ortofoto_56_57&layertitle=Ortofoto_56_57
