@@ -175,20 +175,35 @@ XVM.Map = function() {
 		for(var n=0; n<this.controls.length; n++) {
 			this.addXVMControl(this.controls[n]);
 		}
-		//
-		var center = new OpenLayers.LonLat(
-				this.parameters.view_settings.center.lon, 
-				this.parameters.view_settings.center.lat);
-		var extent = new OpenLayers.Bounds(
-				parseInt(this.parameters.view_settings.bbox[0]),
-				parseInt(this.parameters.view_settings.bbox[1]),
-				parseInt(this.parameters.view_settings.bbox[2]),
-				parseInt(this.parameters.view_settings.bbox[3])
-			);
-		this.OLMap.zoomToExtent(extent, true);
-		this.OLMap.setCenter(center, this.parameters.view_settings.zoom_level);
-		
+
+		if (typeof this.parameters.view_settings !== 'undefined') {
+			if ((typeof this.parameters.view_settings.bbox !== 'undefined')
+					&& (this.parameters.view_settings.bbox.length == 4)) {
+				var extent = new OpenLayers.Bounds(
+					parseInt(this.parameters.view_settings.bbox[0]),
+					parseInt(this.parameters.view_settings.bbox[1]),
+					parseInt(this.parameters.view_settings.bbox[2]),
+					parseInt(this.parameters.view_settings.bbox[3])
+				);
+				this.OLMap.zoomToExtent(extent, true);
+			} else {
+				if ((typeof this.parameters.view_settings.center !== 'undefined')
+						&& (typeof this.parameters.view_settings.center.lon !== 'undefined')
+						&& (typeof this.parameters.view_settings.center.lat !== 'undefined')) {
+					var center = new OpenLayers.LonLat(
+							this.parameters.view_settings.center.lon,
+							this.parameters.view_settings.center.lat);
+					this.OLMap.setCenter(center);
+				}
+				if (typeof this.parameters.view_settings.zoom !== 'undefined') {
+					this.OLMap.zoomTo(this.parameters.view_settings.zoom);
+				}
+			}
+		}
+
 		this.OLMap.addControl(new OpenLayers.Control.LayerSwitcher());
+
+		this.OLMap.render(this.OLMap.div);
 	};
 	
 	/**

@@ -48,7 +48,7 @@
       !!int 690000,
       !!int 4855000
     ],
-    zoom_level : !!int 5,
+    zoom : !!int 5,
     center : {lat: !!float 0, lon: !!float 0}
   }
 }
