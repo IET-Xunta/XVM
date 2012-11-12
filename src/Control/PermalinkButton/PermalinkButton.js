@@ -20,25 +20,14 @@ function launchPermalinkDialog(){
 };
 
 XVM.Control.PermalinkButton = XVM.Control.extend({
-	
-	OLMap : null,
-	
-	options : {},
-	
-	OLControl : null,
-	
-	initialize : function(params) {
-		this.options = params;
-	},
-	
-	setOLMap : function(map) {
-		this.OLMap = map;
-		this.createControl();
-	},
-	
+
+	addToPanel : true,
+
 	createControl : function() {
-		this.OLMap.addControl(new OpenLayers.Control.Permalink({anchor:false}));
 		this.OLControl = new OpenLayers.Control.Button(this.options);
-		this.OLMap.panel.addControls([this.OLControl]);
+	},
+
+	beforeAddingControl : function() {
+		this.OLMap.addControl(new OpenLayers.Control.Permalink({anchor:false}));
 	}
 });

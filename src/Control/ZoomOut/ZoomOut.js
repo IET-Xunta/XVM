@@ -9,24 +9,10 @@
  */
 
 XVM.Control.ZoomOut = XVM.Control.extend({
-	
-	OLMap : null,
-	
-	options : {},
-	
-	OLControl : null,
-	
-	initialize : function(params) {
-		this.options = params;
-	},
-	
-	setOLMap : function(map) {
-		this.OLMap = map;
-		this.createControl();
-	},
-	
+
+	addToPanel : true,
+
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control.ZoomOut(this.options);
-		this.OLMap.panel.addControls([this.OLControl]);
 	}
 });

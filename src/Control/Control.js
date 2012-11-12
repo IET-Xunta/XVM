@@ -13,10 +13,42 @@
  */
 
 XVM.Control = XVM.Class.extend({
-	initialize : function() {
-		throw 'XVM.Control.initialize dummy implementation';
+
+	OLMap : null,
+
+	options : {},
+
+	OLControl : null,
+	
+	addToPanel : false,
+
+	createControl : function() {
+		throw 'XVM.Control.createControl dummy implementation';
 	},
+
+	initialize : function(params) {
+		this.options = params;
+		this.createControl();
+	},
+
 	setOLMap : function(map) {
-		throw 'XVM.Control.SetOLMap dummy implementation';
+		this.OLMap = map;
+		this.addControl();
+	},
+	
+	beforeAddingControl : function() {
+	},
+	
+	afterAddingControl : function() {
+	},
+
+	addControl : function() {
+		this.beforeAddingControl();
+		if (this.addToPanel) {
+			this.OLMap.panel.addControls([this.OLControl]);
+		} else {
+			this.OLMap.addControl(this.OLControl);
+		}
+		this.afterAddingControl();
 	}
 });
