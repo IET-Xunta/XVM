@@ -71,12 +71,13 @@ XVM.Loader.Config = function(reader) {
 	};
 	
 	this._addParametersFromGET = function() {
-		for(var group in this.configParameters) {
-			for(var parameter in this.configParameters[group]) {
-				if(this.fromGETParameters[group + '.' + parameter] != undefined)
-					this.configParameters[group][parameter] = this.fromGETParameters[group + '.' + parameter];
-			}
+		if ((typeof this.configParameters.view_settings !== 'undefined')
+				&& (typeof this.configParameters.view_settings.bbox !== 'undefined')
+				&& (typeof this.fromGETParameters.lon !== 'undefined')
+				&& (typeof this.fromGETParameters.lat !== 'undefined')) {
+			delete this.configParameters.view_settings.bbox;
 		}
+		this.configParameters = overrideValues(this.configParameters, this.fromGETParameters);
 		XVM.EventBus.fireEvent('addConfigParameters',this.configParameters);
 	};
 
