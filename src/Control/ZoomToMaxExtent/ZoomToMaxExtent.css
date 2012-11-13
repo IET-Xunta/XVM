@@ -1,0 +1,31 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+
+.olControlPanel .olControlZoomToMaxExtentItemInactive { 
+display: block;
+color: white;
+vertical-align: middle;
+height: 24px;
+width: 24px;
+line-height: 19px;
+background: rgb(0, 0, 0);
+background-image: url("images/home.png");
+filter: alpha(opacity=80);
+margin: 1px;
+padding: 0;
+cursor: pointer;
+}
+.olControlPanel .olControlZoomToMaxExtentItemInactive:hover { 
+filter: alpha(opacity=60);
+opacity: 0.6;
+}
+
+.olControlPanel .olControlZoomToMaxExtentItemActive { 
+  width:  22px;  
+  height: 22px;
+  background-image: url("images/home1.png");
+  border: 3px solid #009ee0;
+}

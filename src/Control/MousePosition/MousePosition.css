@@ -1,0 +1,18 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+div.olControlMousePosition {
+    bottom: 0.3em;
+    left: 3px;
+    display: block;
+    position: absolute;
+    font-family: Arial;
+    font-size: smaller;
+	width:90px;
+	text-align:center;
+	border: 1px solid gray;
+	background-color: #ffffff;
+	opacity: 0.8;
+}

@@ -1,0 +1,25 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+
+.olControlPanel .olControlHelpBtnItemInactive { 
+display: block;
+color: white;
+vertical-align: middle;
+height: 24px;
+width: 24px;
+line-height: 19px;
+background: rgb(0, 0, 0);
+background-image: url("images/help.png");
+filter: alpha(opacity=80);
+margin: 1px;
+padding: 0;
+border-radius: 0px 4px 4px 0px;
+cursor: pointer;
+}
+.olControlPanel .olControlHelpBtnItemInactive:hover { 
+filter: alpha(opacity=60);
+opacity: 0.6;
+}

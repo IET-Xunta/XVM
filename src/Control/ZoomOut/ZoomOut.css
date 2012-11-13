@@ -1,0 +1,23 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+
+.olControlPanel .olControlZoomOutItemInactive { 
+display: block;
+vertical-align: middle;
+height: 24px;
+width: 24px;
+line-height: 19px;
+background: rgb(0, 0, 0);
+background-image: url("images/zoomout.png");
+filter: alpha(opacity=80);
+margin: 1px;
+padding: 0;
+cursor: pointer;
+}
+.olControlPanel .olControlZoomOutItemInactive:hover { 
+filter: alpha(opacity=60);
+opacity: 0.6;
+}

@@ -1,0 +1,15 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+
+.olControlScale {
+    position: relative;
+    right: 45%;
+    left: 35%;
+    text-align:center;
+	background-color: #ffffff;
+	opacity: 0.8;
+	bottom: 2em;
+}
