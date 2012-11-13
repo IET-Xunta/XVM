@@ -29,6 +29,7 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 	},
 
 	loadControl : function(callBack) {
+		this.reader.loadCssFile(this.controlPath + '.css');
 		var controlConfigFile = this.controlPath + '.yaml';
 		this.reader.readFromFile(
 			controlConfigFile, 

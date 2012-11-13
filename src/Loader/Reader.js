@@ -20,12 +20,36 @@
 XVM.Loader.Reader = function() {
 
 	/**
+	 * Load a new css file
+	 *
+	 * Method
+	 * Parameters:
+	 * {String} path to css file
+	 */
+	this.loadCssFile = function(path) {
+		$.ajax({
+			type: "GET",
+			url: path,
+			success: function()
+			{
+				var fileref=document.createElement("link");
+				fileref.setAttribute("rel", "stylesheet");
+				fileref.setAttribute("type", "text/css");
+				fileref.setAttribute("href", this.url);
+				document.getElementsByTagName("head")[0].appendChild(fileref);
+			}
+		});
+	};
+
+	/**
 	 * Parse a YAML file and save response into object
 	 * attribute
 	 *  
 	 * Method
 	 * Parameters: 
 	 * {String} path to YAML file
+	 * {Function} callback function to execute after loading
+	 * {Object} context to execute the callback in
 	 */
 	this.readFromFile = function(path, callBack, context) {
 		this._call(path,
