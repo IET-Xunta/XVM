@@ -9,6 +9,8 @@
  */
 
 XVM.Control.Navigation = XVM.Control.extend({
+	
+	addToPanel : true,
 
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control.Navigation(this.options);
