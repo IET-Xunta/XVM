@@ -1,18 +1,19 @@
 ## File with controls to add dinamically to app
 {
   controls: [
+    ZoomIn,
+    ZoomOut,
+    ZoomBox,
     Scale,
     ScaleLine,
     MousePosition,
     Navigation,
     NavigationHistory,
-    ZoomIn,
-    ZoomOut,
-    ZoomBox,
     ZoomToMaxExtent,
     PermalinkButton,
     HelpButton,
     MeasureLine,
-    MeasureArea
+    MeasureArea,
+    DrawFeature
   ]
 }

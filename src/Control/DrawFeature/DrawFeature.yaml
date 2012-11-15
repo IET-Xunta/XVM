@@ -1,0 +1,5 @@
+## DrawFeature parameter control
+init:
+  layerName: 'GJson'
+## Accepts 'point', 'path', 'polygon' and 'regularPolygon'
+  featureType: 'point'
