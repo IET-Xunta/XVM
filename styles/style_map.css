@@ -355,37 +355,6 @@ td.value_col
     right: 0;
     cursor: pointer;
 }
-
-.olControlPanel .olControlNavigationItemInactive { 
-display: block;
-vertical-align: middle;
-height: 24px;
-width: 24px;
-line-height: 19px;
-background: rgb(0, 0, 0);
-background-image: url("../images/pan.png");
-filter: alpha(opacity=80);
-margin: 1px;
-padding: 0;
-cursor: pointer;
-}
-.olControlPanel .olControlNavigationItemInactive:hover { 
-filter: alpha(opacity=60);
-opacity: 0.6;
-}
-.olControlPanel .olControlNavigationItemActive { 
-display: block;
-vertical-align: middle;
-height: 24px;
-width: 24px;
-line-height: 19px;
-background: rgb(0, 0, 0);
-background-image: url("../images/pan.png");
-filter: alpha(opacity=50);
-opacity: 0.5;
-margin: 1px;
-padding: 0;
-}
 .olControlPanel .olControlMeasureItemActive {
   width:  22px;
   height: 22px;
