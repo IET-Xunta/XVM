@@ -40,3 +40,7 @@ function overrideValues(object, override) {
     }
 	return object;
 };
+
+function capitaliseFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
