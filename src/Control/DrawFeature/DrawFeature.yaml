@@ -3,3 +3,5 @@ init:
   layerName: 'GJson'
 ## Accepts 'point', 'path', 'polygon' and 'regularPolygon'
   featureType: 'point'
+  options:
+    featureAdded: eval(pointAdded)

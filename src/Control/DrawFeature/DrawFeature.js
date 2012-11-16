@@ -8,6 +8,21 @@
  * @author Instituto Estudos do Territorio, IET
  */
 
+/** Sample function passed to the control in order to be called after each feature adding we make
+ *	This will be called only when using this specific control
+ *	This is configure through the yaml file */
+function pointAdded(feature){
+	alert('Point coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
+};
+
+
+/** Sample function we set as an event listener onto the layer
+ *  This will be called every time we add a new feature to the layer, with any control
+ *	This is configured through code, function 'afterAddingControl' */
+function featureAdded(event){
+	alert('Feature coordinates x: ' + event.feature.geometry.x + ', y: ' + event.feature.geometry.y);
+};
+
 XVM.Control.DrawFeature = XVM.Control.extend({
 	
 	addToPanel : true,
@@ -21,13 +36,17 @@ XVM.Control.DrawFeature = XVM.Control.extend({
 		// which can be 'point', 'path', 'polygon' or 'regularPolygon'
 		var handler = eval('OpenLayers.Handler.' + capitaliseFirstLetter(this.options.featureType));
 		if (layers.length > 0) {
-			if (typeof this.options.handlerOptions !== 'undefined') {
-				this.OLControl = new OpenLayers.Control.DrawFeature(layers[0], handler, this.options.handlerOptions);
+			if (typeof this.options.options !== 'undefined') {
+				this.OLControl = new OpenLayers.Control.DrawFeature(layers[0], handler, this.options.options);
 			} else {
 				this.OLControl = new OpenLayers.Control.DrawFeature(layers[0], handler);
 			}
 		} else {
 			throw ("XVM.Control.DrawFeature couldn't load the layer '" + this.options.layerName + "'");
 		}
+	},
+
+	afterAddingControl : function() {
+		this.OLControl.events.register('featureadded', this.OLControl.layer, featureAdded);
 	}
 });
