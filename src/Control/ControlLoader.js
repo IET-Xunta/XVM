@@ -29,8 +29,8 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 	},
 
 	loadControl : function(callBack) {
-		this.reader.loadCssFile(this.controlPath + '.css');
-		var controlConfigFile = this.controlPath + '.yaml';
+		this.reader.loadCssFile(this.controlPath + this.controlName + '.css');
+		var controlConfigFile = this.controlPath + this.controlName + '.yaml';
 		this.reader.readFromFile(
 			controlConfigFile, 
 			function(response, this_) {
@@ -41,13 +41,13 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 					this_.initParameters = response.init;
 				}
 				// Load control code into app
-				var controlCodeURL = this_.controlPath + '.js';
+				var controlCodeURL = this_.controlPath + this_.controlName + '.js';
 				this_.reader.loadScript(
 					controlCodeURL, 
 					function(response, this_) {
 						// In case we included a function as a trigger, we eval its reference
 						evalObject(this_.initParameters);
-						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters))');
+						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters, this_.controlPath))');
 						}, 
 					this_);
 		}, this);
