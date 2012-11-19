@@ -1,0 +1,48 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+.XVMControlOLCustomLayerSwitcher {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    width: 20em;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-size: smaller;
+    color: white;
+    background-color: transparent;
+}
+
+.XVMControlOLCustomLayerSwitcher .layersDiv {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 75px;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+.XVMControlOLCustomLayerSwitcher .layersDiv .baseLbl,
+.XVMControlOLCustomLayerSwitcher .layersDiv .dataLbl {
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+
+.XVMControlOLCustomLayerSwitcher .layersDiv .baseLayersDiv,
+.XVMControlOLCustomLayerSwitcher .layersDiv .dataLayersDiv {
+    padding-left: 10px;
+}
+
+.XVMControlOLCustomLayerSwitcher .maximizeDiv,
+.XVMControlOLCustomLayerSwitcher .minimizeDiv {
+    top: 5px;
+    right: 0;
+    cursor: pointer;
+}

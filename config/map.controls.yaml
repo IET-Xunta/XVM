@@ -14,6 +14,7 @@
     HelpButton,
     MeasureLine,
     MeasureArea,
-    DrawFeature
+    DrawFeature,
+    CustomLayerSwitcher
   ]
 }
