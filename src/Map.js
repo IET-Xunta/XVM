@@ -201,8 +201,6 @@ XVM.Map = function() {
 			}
 		}
 
-		this.OLMap.addControl(new OpenLayers.Control.LayerSwitcher());
-
 		this.OLMap.render(this.OLMap.div);
 	};
 	
