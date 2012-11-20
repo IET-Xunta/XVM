@@ -10,6 +10,13 @@
 
 XVM.Control.CustomLayerSwitcher = XVM.Control.extend({
 
+	setOLMap : function(map) {
+		this.OLMap = map;
+		if (this.OLControl != null) {
+			this.addControl();
+		}
+	},
+
 	createLateControl : function() {
 		this.OLControl = new XVM.Control.OLCustomLayerSwitcher(this.options);
 		if (this.OLMap != null) {

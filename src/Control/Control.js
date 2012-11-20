@@ -36,9 +36,7 @@ XVM.Control = XVM.Class.extend({
 
 	setOLMap : function(map) {
 		this.OLMap = map;
-		if (this.OLControl != null) {
-			this.addControl();
-		}
+		this.addControl();
 	},
 	
 	beforeAddingControl : function() {
