@@ -14,7 +14,7 @@
     url : 'http://www.idee.es/wms/MTN-Raster/MTN-Raster',
     parameters : {
       opacity : !!float 0.75,
-      group_name : capa_base,
+      group_name : '',
       layer_position : !!int 1,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
@@ -30,7 +30,7 @@
     url : 'http://www.ign.es/wms-inspire/ign-base',
     parameters : {
       opacity : !!float 0.75,
-      group_name : capa_base,
+      group_name : '',
       layer_position : !!int 2,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
@@ -44,7 +44,7 @@
     type : 'geojson',
     url : 'config/layer.json',
     parameters: {
-      group_name : prueba,
+      group_name : 'prueba/json',
       visibility : !!bool true,
       layer_position : !!int 2,
       projection : 'EPSG:23029',
@@ -58,7 +58,7 @@
   #  type : 'ajax',
   #  url : 'http://127.0.0.1:8000/api/upai/?format=jsonp',
   #  parameters: {
-  #    group_name : prueba,
+  #    group_name : 'prueba/json/',
   #    visibility : !!bool true,
   #    layer_position : !!int 2,
   #    projection : 'EPSG:23029',
