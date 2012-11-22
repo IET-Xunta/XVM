@@ -77,6 +77,18 @@ XVM.Control.OLCustomLayerSwitcher =
      * {Array(Object)}
      */
     baseLayers: null,
+
+    /**
+     * Property: baseLayersTree
+     * {DynaTree}
+     */
+    baseLayersTree: null,
+
+    /**
+     * Property: overlaysTree
+     * {DynaTree}
+     */
+    overlaysTree: null,
     
     
     /** 
@@ -164,9 +176,9 @@ XVM.Control.OLCustomLayerSwitcher =
 
         this.map.events.on({
             addlayer: this.redraw,
-            changelayer: this.redraw,
             removelayer: this.redraw,
             changebaselayer: this.redraw,
+            changelayer: this.redraw,
             scope: this
         });
         if (this.outsideViewport) {
@@ -195,8 +207,25 @@ XVM.Control.OLCustomLayerSwitcher =
             this.minimizeControl();
         }
 
-        // populate div with current info
-        //this.redraw();    
+        //clear out previous layers
+        this.clearLayersArray("base");
+        this.clearLayersArray("data");
+
+        // Save state -- for checking layer if the map state changed.
+        // We save this before redrawing, because in the process of redrawing
+        // we will trigger more visibility changes, and we want to not redraw
+        // and enter an infinite loop.
+        var len = this.map.layers.length;
+        this.layerStates = new Array(len);
+        for (var i=0; i <len; i++) {
+            var layer = this.map.layers[i];
+            this.layerStates[i] = {
+                'name': layer.name,
+                'visibility': layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility(),
+                'inRange': layer.inRange,
+                'id': layer.id
+            };
+        }
 
         return this.div;
     },
@@ -249,7 +278,8 @@ XVM.Control.OLCustomLayerSwitcher =
                 if ( (layerState.name != layer.name) || 
                      (layerState.inRange != layer.inRange) || 
                      (layerState.id != layer.id) || 
-                     (layerState.visibility != layer.visibility) ) {
+                     ((layerState.visibility != layer.getVisibility()) &&
+                             (layer.isBaseLayer ? layer.getVisibility() : true)) ) {
                     redraw = true;
                     break;
                 }    
@@ -268,7 +298,7 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement} A reference to the DIV DOMElement containing the control
      */  
     redraw: function() {
-        /*//if the state hasn't changed since last redraw, no need 
+        //if the state hasn't changed since last redraw, no need
         // to do anything. Just return the existing div.
         if (!this.checkRedraw()) { 
             return this.div; 
@@ -277,9 +307,6 @@ XVM.Control.OLCustomLayerSwitcher =
         //clear out previous layers 
         this.clearLayersArray("base");
         this.clearLayersArray("data");
-        
-        var containsOverlays = false;
-        var containsBaseLayers = false;
         
         // Save state -- for checking layer if the map state changed.
         // We save this before redrawing, because in the process of redrawing
@@ -291,85 +318,59 @@ XVM.Control.OLCustomLayerSwitcher =
             var layer = this.map.layers[i];
             this.layerStates[i] = {
                 'name': layer.name, 
-                'visibility': layer.visibility,
+                'visibility': layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility(),
                 'inRange': layer.inRange,
                 'id': layer.id
             };
-        }    
+        }
 
         var layers = this.map.layers.slice();
         if (!this.ascending) { layers.reverse(); }
-        for(var i=0, len=layers.length; i<len; i++) {
+
+        var baselayers = [], overlays = [];
+        for (var i=0, len=layers.length; i<len; i++) {
             var layer = layers[i];
-            var baseLayer = layer.isBaseLayer;
-
-            if (layer.displayInLayerSwitcher) {
-
-                if (baseLayer) {
-                    containsBaseLayers = true;
-                } else {
-                    containsOverlays = true;
-                }    
-
-                // only check a baselayer if it is *the* baselayer, check data
-                //  layers if they are visible
-                var checked = (baseLayer) ? (layer == this.map.baseLayer)
-                                          : layer.getVisibility();
-    
-                // create input element
-                var inputElem = document.createElement("input");
-                inputElem.id = this.id + "_input_" + layer.name;
-                inputElem.name = (baseLayer) ? this.id + "_baseLayers" : layer.name;
-                inputElem.type = (baseLayer) ? "radio" : "checkbox";
-                inputElem.value = layer.name;
-                inputElem.checked = checked;
-                inputElem.defaultChecked = checked;
-                inputElem.className = "olButton";
-                inputElem._layer = layer.id;
-                inputElem._layerSwitcher = this.id;
-
-                if (!baseLayer && !layer.inRange) {
-                    inputElem.disabled = true;
-                }
-                
-                // create span
-                var labelSpan = document.createElement("label");
-                labelSpan["for"] = inputElem.id;
-                OpenLayers.Element.addClass(labelSpan, "labelSpan olButton");
-                labelSpan._layer = layer.id;
-                labelSpan._layerSwitcher = this.id;
-                if (!baseLayer && !layer.inRange) {
-                    labelSpan.style.color = "gray";
-                }
-                labelSpan.innerHTML = layer.name;
-                labelSpan.style.verticalAlign = (baseLayer) ? "bottom" 
-                                                            : "baseline";
-                // create line break
-                var br = document.createElement("br");
-    
-                
-                var groupArray = (baseLayer) ? this.baseLayers
-                                             : this.dataLayers;
-                groupArray.push({
-                    'layer': layer,
-                    'inputElem': inputElem,
-                    'labelSpan': labelSpan
-                });
-                                                     
-    
-                var groupDiv = (baseLayer) ? this.baseLayersDiv
-                                           : this.dataLayersDiv;
-                groupDiv.appendChild(inputElem);
-                groupDiv.appendChild(labelSpan);
-                groupDiv.appendChild(br);
+            if (layer.isBaseLayer) {
+                baselayers.push(layer);
+            } else {
+                overlays.push(layer);
             }
         }
 
-        // if no overlays, dont display the overlay label
-        this.dataLbl.style.display = (containsOverlays) ? "" : "none";        
-        
-        // if no baselayers, dont display the baselayer label
-        this.baseLbl.style.display = (containsBaseLayers) ? "" : "none";*/        
+        $(this.baseLayersTree).dynatree('destroy');
+        this.baseLayersTree = $(this.baseLayersTree).dynatree({
+          checkbox: true,
+          // Override class name for checkbox icon:
+          classNames: {checkbox: "dynatree-radio"},
+          selectMode: 1,
+          clickFolderMode: 2,
+          parent: this,
+          children: this.generateBaseLayersTree(baselayers),
+          onSelect: function(select, node) {
+              node.tree.options.parent.updateBaseLayer(node.data._layer);
+          },
+          cookieId: "dynatree-Cb1",
+          idPrefix: "dynatree-Cb1-"
+        });
+
+        $(this.overlaysTree).dynatree('destroy');
+        this.overlaysTree = $(this.overlaysTree).dynatree({
+          checkbox: true,
+          selectMode: 3,
+          clickFolderMode: 2,
+          parent: this,
+          children: this.generateOverlaysTree(overlays),
+          onSelect: function(select, node) {
+              updateNodeLayer = function(node) {
+                  if(node.hasChildren() === false) {
+                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
+                  }
+              };
+              node.visit(updateNodeLayer, true);
+          },
+          cookieId: "dynatree-Cb2",
+          idPrefix: "dynatree-Cb2-"
+        });
 
         return this.div;
     },
@@ -435,69 +436,95 @@ XVM.Control.OLCustomLayerSwitcher =
         //this.layersDiv.style.display = minimize ? "none" : "";
     },
     
-    generateOverLayersTree : function(layers) {
-        
-        treeChildren = [
-	                  {title: OpenLayers.i18n("Overlays"), key: this.id + "_overlays",  expand: true, isFolder: true,
-	                    children: []
-	                  }
-	                ];
-        
+    generateTreeFromLayers : function(layers, root, base_id, selectableFolders) {
 
         for(var i=0, len=layers.length; i<len; i++) {
             var layer = layers[i];
-            if (!layer.isBaseLayer) {
-            	var baseId = this.id + '_overlays_';
-            	var groups = layer.group_name.split('/');
-                var currentNode = treeChildren[0];
-                for (var n=0, leng=groups.length; n<leng; n++) {
-                	var group = groups[n];
-                	baseId += group + '_';
-                	var children = currentNode.children;
-                	var found = false;
-                	for (var m=0, lengt=children.length; m<lengt; m++) {
-                		if (children[m].title == group) {
-                			found = true;
-                			currentNode = children[m];
-                		}
-                	}
-                	if (!found) {
-                		var newNode = {title: group, key: baseId,  expand: true, isFolder: true, children: []};
-                		currentNode.children.push(newNode);
-                		currentNode = newNode;
-                	}
-                }
-            	currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, select: true});
+            var baseId = base_id + '_';
+            var groups;
+            if (typeof layer.group_name === 'string') {
+                groups = layer.group_name.split('/');
+            } else {
+                groups = [];
             }
-    	}
+            var currentNode = root;
+            for (var n=0, leng=groups.length; n<leng; n++) {
+                var group = groups[n];
+                if (group == '') {
+                    continue;
+                }
+                baseId += group + '_';
+                var children = currentNode.children;
+                var found = false;
+                for (var m=0, lengt=children.length; m<lengt; m++) {
+                    if (children[m].title == group) {
+                        found = true;
+                        currentNode = children[m];
+                        break;
+                    }
+                }
+                if (!found) {
+                    var newNode = {title: group, key: baseId,  hideCheckbox: !selectableFolders, expand: true, isFolder: true, children: []};
+                    currentNode.children.push(newNode);
+                    currentNode = newNode;
+                }
+            }
+            currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, select: layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility()});
+        }
+
+    },
+
+    generateOverlaysTree : function(layers) {
+
+        var baseId = this.id + '_overlays';
+
+        treeChildren = [
+                      {title: OpenLayers.i18n('Overlays'), key: baseId,  expand: true, isFolder: true,
+                        children: []
+                      }
+                    ];
+
+        this.generateTreeFromLayers(layers, treeChildren[0], baseId, true);
 
         return treeChildren;
     },
     
     generateBaseLayersTree : function(layers) {
-        
-        var treeChildren =[
- 	                  {title: OpenLayers.i18n("Base Layer"), key: this.id + "_baselayers", hideCheckbox: true, expand: true, isFolder: true,
- 	                    children: []
- 	                  }
- 	                ];
 
-        for(var i=0, len=layers.length; i<len; i++) {
-            var layer = layers[i];
-            if (layer.isBaseLayer) {
-            	treeChildren[0].children.push({title: layer.name, key: this.id + "_input_" + layer.name,  _layer: layer.id, select: layer.visibility});
-            }
-    	}
+        var baseId = this.id + '_baselayers';
+
+        var treeChildren =[
+                       {title: OpenLayers.i18n("Base Layer"), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true,
+                         children: []
+                       }
+                     ];
+
+        this.generateTreeFromLayers(layers, treeChildren[0], baseId, false);
 
         return treeChildren;
     },
     
     updateBaseLayer : function(layerid) {
-  	  this.map.setBaseLayer(this.map.getLayer(layerid));
+          var layers = this.map.layers;
+        for (var i=0, len = layers.length; i < len; i++) {
+            var layer = layers[i];
+            if (layer.isBaseLayer) {
+                this.layerStates[i].visibility = (layer.id == layerid);
+            }
+        }
+          this.map.setBaseLayer(this.map.getLayer(layerid));
     },
     
     updateLayerVisibility : function(layerid, select) {
-  	  this.map.getLayer(layerid).setVisibility(select);
+          var layers = this.map.layers;
+        for (var i=0, len = layers.length; i < len; i++) {
+            var layer = layers[i];
+            if (layer.id == layerid) {
+                this.layerStates[i].visibility = select;
+                break;
+            }
+        }
+          this.map.getLayer(layerid).setVisibility(select);
     },
     
     /** 
@@ -546,20 +573,30 @@ XVM.Control.OLCustomLayerSwitcher =
 
         var layers = this.map.layers.slice();
 
+        var baselayers = [], overlays = [];
+        for (var i=0, len=layers.length; i<len; i++) {
+            var layer = layers[i];
+            if (layer.isBaseLayer) {
+                baselayers.push(layer);
+            } else {
+                overlays.push(layer);
+            }
+        }
+
         treeDiv = document.createElement('div');
-        treeDiv.id = "tree";
+        treeDiv.id = "tree1";
         this.div.appendChild(treeDiv);
 
-        $(treeDiv).dynatree({
+        this.baseLayersTree = $(treeDiv).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
           classNames: {checkbox: "dynatree-radio"},
           selectMode: 1,
-          children: this.generateBaseLayersTree(layers),
           clickFolderMode: 2,
           parent: this,
+          children: this.generateBaseLayersTree(baselayers),
           onSelect: function(select, node) {
-        	  node.tree.options.parent.updateBaseLayer(node.data._layer);
+              node.tree.options.parent.updateBaseLayer(node.data._layer);
           },
           cookieId: "dynatree-Cb1",
           idPrefix: "dynatree-Cb1-"
@@ -569,12 +606,12 @@ XVM.Control.OLCustomLayerSwitcher =
         treeDiv2.id = "tree2";
         this.div.appendChild(treeDiv2);
 
-        $(treeDiv2).dynatree({
+        this.overlaysTree = $(treeDiv2).dynatree({
           checkbox: true,
           selectMode: 3,
-          children: this.generateOverLayersTree(layers),
           clickFolderMode: 2,
           parent: this,
+          children: this.generateOverlaysTree(overlays),
           onSelect: function(select, node) {
               updateNodeLayer = function(node) {
                   if(node.hasChildren() === false) {
