@@ -576,17 +576,12 @@ XVM.Control.OLCustomLayerSwitcher =
           clickFolderMode: 2,
           parent: this,
           onSelect: function(select, node) {
-        	  updateChild = function(select, node) {
-            	  if(node.hasChildren() === false) {
-                	  node.tree.options.parent.updateLayerVisibility(node.data._layer, select);
-            	  } else {
-            		  var children = node.getChildren();
-            		  for (var n=0; n<children.length; n++) {
-            			  updateChild(select, children[n]);
-            		  }
-            	  }
-        	  }
-        	  updateChild(select, node);
+              updateNodeLayer = function(node) {
+                  if(node.hasChildren() === false) {
+                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
+                  }
+              };
+              node.visit(updateNodeLayer, true);
           },
           cookieId: "dynatree-Cb2",
           idPrefix: "dynatree-Cb2-"
