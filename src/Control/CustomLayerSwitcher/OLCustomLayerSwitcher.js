@@ -464,12 +464,12 @@ XVM.Control.OLCustomLayerSwitcher =
                     }
                 }
                 if (!found) {
-                    var newNode = {title: group, key: baseId,  hideCheckbox: !selectableFolders, expand: true, isFolder: true, children: []};
+                    var newNode = {title: group, key: baseId,  hideCheckbox: !selectableFolders, expand: true, isFolder: true, icon: false, children: []};
                     currentNode.children.push(newNode);
                     currentNode = newNode;
                 }
             }
-            currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, select: layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility()});
+            currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, icon: false, select: layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility()});
         }
 
     },
@@ -479,7 +479,7 @@ XVM.Control.OLCustomLayerSwitcher =
         var baseId = this.id + '_overlays';
 
         treeChildren = [
-                      {title: OpenLayers.i18n('Overlays'), key: baseId,  expand: true, isFolder: true,
+                      {title: OpenLayers.i18n('Overlays'), key: baseId,  expand: true, isFolder: true, icon: false,
                         children: []
                       }
                     ];
@@ -494,7 +494,7 @@ XVM.Control.OLCustomLayerSwitcher =
         var baseId = this.id + '_baselayers';
 
         var treeChildren =[
-                       {title: OpenLayers.i18n("Base Layer"), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true,
+                       {title: OpenLayers.i18n("Base Layer"), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
                          children: []
                        }
                      ];
