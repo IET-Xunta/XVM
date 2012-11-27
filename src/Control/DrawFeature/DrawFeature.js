@@ -16,8 +16,8 @@ function pointAdded(feature){
 };
 
 
-/** Sample function we set as an event listener onto the layer
- *  This will be called every time we add a new feature to the layer, with any control
+/** Sample function we set as an event listener onto the layer or the control
+ *  This will be called every time we add a new feature to the layer, with any control if we created it onto the layer
  *	This is configured through code, function 'afterAddingControl' */
 function featureAdded(event){
 	alert('Feature coordinates x: ' + event.feature.geometry.x + ', y: ' + event.feature.geometry.y);
