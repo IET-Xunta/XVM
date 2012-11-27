@@ -1,0 +1,13 @@
+## DrawFeature parameter control
+init:
+  layerName: 'GJson'
+  options:
+    box: true
+properties:
+  'en':
+    'confirm_delete': 'Are you sure you want to delete the selected feature?'
+  'es':
+    'confirm_delete': '¿Está seguro de querer eliminar el registro seleccionado?'
+  'gl':
+    'confirm_delete': '¿Está seguro de querer elimina-lo rexistro seleccionado?'
+    
