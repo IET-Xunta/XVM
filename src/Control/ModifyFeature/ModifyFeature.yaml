@@ -1,0 +1,5 @@
+## DrawFeature parameter control
+init:
+  layerName: 'GJson'
+  options:
+    onModificationEnd: eval(pointModified)

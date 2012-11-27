@@ -15,6 +15,7 @@
     MeasureLine,
     MeasureArea,
     DrawFeature,
+    ModifyFeature,
     CustomLayerSwitcher
   ]
 }
