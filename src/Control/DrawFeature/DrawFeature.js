@@ -12,7 +12,23 @@
  *	This will be called only when using this specific control
  *	This is configure through the yaml file */
 function pointAdded(feature){
-	alert('Point coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
+	feature.layer.new_features[feature.id] = feature;
+	alert('New feature coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
+	var new_features = 'New features ';
+	for (var i in feature.layer.new_features) {
+		new_features += i + ' ';
+	}
+	alert(new_features);
+	var updated_features = 'Updated features ';
+	for (var i in feature.layer.updated_features) {
+		updated_features += i + ' ';
+	}
+	alert(updated_features);
+	var deleted_features = 'Deleted features ';
+	for (var i in feature.layer.deleted_features) {
+		deleted_features += i + ' ';
+	}
+	alert(deleted_features);
 };
 
 
@@ -20,7 +36,8 @@ function pointAdded(feature){
  *  This will be called every time we add a new feature to the layer, with any control if we created it onto the layer
  *	This is configured through code, function 'afterAddingControl' */
 function featureAdded(event){
-	alert('Feature coordinates x: ' + event.feature.geometry.x + ', y: ' + event.feature.geometry.y);
+	this.new_features[event.feature.id] = event.feature;
+	alert('New feature coordinates x: ' + this.new_features[event.feature.id].geometry.x + ', y: ' + this.new_features[event.feature.id].geometry.y);
 };
 
 XVM.Control.DrawFeature = XVM.Control.extend({
@@ -47,6 +64,6 @@ XVM.Control.DrawFeature = XVM.Control.extend({
 	},
 
 	afterAddingControl : function() {
-		this.OLControl.events.register('featureadded', this.OLControl.layer, featureAdded);
+		//this.OLControl.events.register('featureadded', this.OLControl.layer, featureAdded);
 	}
 });
