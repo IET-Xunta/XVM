@@ -13,7 +13,16 @@
  *	This is configure through the yaml file 
  *  IMPORTANT: OpenLayers lists this as DEPRECATED, and suggests using the layer event */
 function pointModified(feature){
-	alert('Point new coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
+	if ((typeof feature.layer.new_features !== 'undefined')
+			&& (typeof feature.layer.new_features[feature.id] !== 'undefined')) {
+		feature.layer.new_features[feature.id] = feature;
+	} else {
+		if (typeof feature.layer.updated_features == 'undefined') {
+			feature.layer.updated_features = {};
+		}
+		feature.layer.updated_features[feature.id] = feature;
+	}
+	alert('Updated feature coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
 };
 
 
@@ -41,6 +50,6 @@ XVM.Control.ModifyFeature = XVM.Control.extend({
 	},
 
 	afterAddingControl : function() {
-		this.OLControl.layer.events.register('afterfeaturemodified', this.OLControl.layer, featureModified);
+		//this.OLControl.layer.events.register('afterfeaturemodified', this.OLControl.layer, featureModified);
 	}
 });

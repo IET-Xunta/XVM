@@ -12,7 +12,11 @@
  *	This will be called only when using this specific control
  *	This is configure through the yaml file */
 function pointAdded(feature){
-	alert('Point coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
+	if (typeof feature.layer.new_features == 'undefined') {
+		feature.layer.new_features = {};
+	}
+	feature.layer.new_features[feature.id] = feature;
+	alert('New feature coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
 };
 
 
@@ -47,6 +51,6 @@ XVM.Control.DrawFeature = XVM.Control.extend({
 	},
 
 	afterAddingControl : function() {
-		this.OLControl.events.register('featureadded', this.OLControl.layer, featureAdded);
+		//this.OLControl.events.register('featureadded', this.OLControl.layer, featureAdded);
 	}
 });

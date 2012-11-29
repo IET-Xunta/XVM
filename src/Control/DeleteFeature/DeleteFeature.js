@@ -14,6 +14,20 @@
  *	This will be called only when using this specific control */
 function deleteFeature(feature) {
 	if (confirm($.i18n("confirm_delete"))) {
+		if ((typeof feature.layer.new_features !== 'undefined')
+				&& (typeof feature.layer.new_features[feature.id] !== 'undefined')) {
+			delete feature.layer.new_features[feature.id];
+		} else {
+			if ((typeof feature.layer.updated_features !== 'undefined')
+					&& (typeof feature.layer.updated_features[feature.id] !== 'undefined')) {
+				delete feature.layer.updated_features[feature.id];
+			}
+			if (typeof feature.layer.deleted_features == 'undefined') {
+				feature.layer.deleted_features = {};
+			}
+			feature.layer.deleted_features[feature.id] = feature;
+		}
+		alert('Deleted feature coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
 		feature.layer.removeFeatures([feature]);
 	}
 };

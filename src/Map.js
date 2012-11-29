@@ -159,10 +159,11 @@ XVM.Map = function() {
 					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
 			};
 		};
+
 		if (baseLayer != null) {
 			this.OLMap.setBaseLayer(baseLayer);
 		}
-	}
+	};
 
 	/**
 	 * REFACTOR
@@ -200,8 +201,6 @@ XVM.Map = function() {
 				}
 			}
 		}
-
-		this.OLMap.render(this.OLMap.div);
 	};
 	
 	/**
