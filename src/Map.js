@@ -158,16 +158,12 @@ XVM.Map = function() {
 				else 
 					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
 			};
-
-			layer.new_features = {};
-			layer.updated_features = {};
-			layer.deleted_features = {};
 		};
 
 		if (baseLayer != null) {
 			this.OLMap.setBaseLayer(baseLayer);
 		}
-	}
+	};
 
 	/**
 	 * REFACTOR

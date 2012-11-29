@@ -14,30 +14,20 @@
  *	This will be called only when using this specific control */
 function deleteFeature(feature) {
 	if (confirm($.i18n("confirm_delete"))) {
-		if (typeof feature.layer.new_features[feature.id] !== 'undefined') {
+		if ((typeof feature.layer.new_features !== 'undefined')
+				&& (typeof feature.layer.new_features[feature.id] !== 'undefined')) {
 			delete feature.layer.new_features[feature.id];
 		} else {
-			if (typeof feature.layer.updated_features[feature.id] !== 'undefined') {
+			if ((typeof feature.layer.updated_features !== 'undefined')
+					&& (typeof feature.layer.updated_features[feature.id] !== 'undefined')) {
 				delete feature.layer.updated_features[feature.id];
+			}
+			if (typeof feature.layer.deleted_features == 'undefined') {
+				feature.layer.deleted_features = {};
 			}
 			feature.layer.deleted_features[feature.id] = feature;
 		}
 		alert('Deleted feature coordinates x: ' + feature.geometry.x + ', y: ' + feature.geometry.y);
-		var new_features = 'New features ';
-		for (var i in feature.layer.new_features) {
-			new_features += i + ' ';
-		}
-		alert(new_features);
-		var updated_features = 'Updated features ';
-		for (var i in feature.layer.updated_features) {
-			updated_features += i + ' ';
-		}
-		alert(updated_features);
-		var deleted_features = 'Deleted features ';
-		for (var i in feature.layer.deleted_features) {
-			deleted_features += i + ' ';
-		}
-		alert(deleted_features);
 		feature.layer.removeFeatures([feature]);
 	}
 };
