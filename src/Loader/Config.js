@@ -20,36 +20,36 @@
  * TODO Problems to test this class, maybe needs refactor
  */
 
-XVM.Loader.Config = function(reader) {
+XVM.Loader.Config = XVM.Class.extend({
 
 	/**
 	 * Reader
 	 * Property
 	 */
-	this.reader = XVM.Reader;
+	reader : null,
 
 	/**
 	 * Object saves config parameters
 	 * Property
 	 * {Object}
 	 */
-	this.configParameters = {
+	configParameters : {
 		'general':{},
 		'map_settings':{},
 		'view_settings': {}
-	};
+	},
 	
 	/**
 	 * Object where reader saves GET parameters
 	 * Property
 	 * {Object}
 	 */
-	this.fromGETParameters = null;
+	fromGETParameters : null,
 
-	this._readConfig = function() {
+	_readConfig : function() {
 		this.reader.getParamsFromURL(this);
 		this.reader.readFromFile(
-			XVM.DefaultConfig,
+			XVM.CONFIGFILE,
 			function(responseObject, context) {
 				var _this = context;
 				$.extend(_this.configParameters, responseObject);
@@ -68,9 +68,9 @@ XVM.Loader.Config = function(reader) {
 		
 			},
 			this);
-	};
+	},
 	
-	this._addParametersFromGET = function() {
+	_addParametersFromGET : function() {
 		if ((typeof this.configParameters.view_settings !== 'undefined')
 				&& (typeof this.configParameters.view_settings.bbox !== 'undefined')
 				&& (typeof this.fromGETParameters.lon !== 'undefined')
@@ -79,7 +79,7 @@ XVM.Loader.Config = function(reader) {
 		}
 		this.configParameters = overrideValues(this.configParameters, this.fromGETParameters);
 		XVM.EventBus.fireEvent('addConfigParameters',this.configParameters);
-	};
+	},
 
 	
 	/**
@@ -87,10 +87,8 @@ XVM.Loader.Config = function(reader) {
 	 * Parameters:
 	 * {Object} Reader
 	 */
-	this.init = function(reader) {
+	initialize : function(reader) {
 		this.reader = (typeof reader === "undefined") ? XVM.Reader : reader;
 		this._readConfig();
-	};
-
-	this.init(reader);
-};
+	}
+});

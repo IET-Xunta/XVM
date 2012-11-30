@@ -19,50 +19,44 @@
  * TODO Tests
  */
 
-XVM.Loader.Layers = function(reader) {
-
-	/**
-	 * Constant
-	 * {String}
-	 */
-	this.DEFAULTLAYERS = 'config/map.layers.yaml';
+XVM.Loader.Layers = XVM.Class.extend({
 
 	/**
 	 * Property
 	 * {XVM.Loader.Reader}
 	 */
-	this.reader = XVM.Reader;
+	reader : null,
 	
 	/**
 	 * Object where reader saves GET parameters
 	 * Property
 	 * {Object}
 	 */
-	this.fromGETParameters = null;
+	fromGETParameters : null,
 	
 	/**
 	 * Property
 	 * {Array(OpenLayer.Layers)}
 	 */
-	this.layers = new Array();
+	layers : new Array(),
 
 	/**
 	 * Method
 	 */
-	this._readLayers = function() {
+	_readLayers : function() {
 		this.reader.getParamsFromURL(this);
 		this.reader.readFromFile(
-			this.DEFAULTLAYERS, 
+			XVM.LAYERSFILE,
 			this._readLayersCallback,
 			this
 		);
-	};
+	},
 	
 	/**
 	 * urlServiceLayer indicates where is the service with 
 	 * layer structure
 	 */
-	this._readLayersCallback = function(response, context) {
+	_readLayersCallback : function(response, context) {
 		var _this = context;
 		if(response.urlServiceLayer != null) {
 			_this.reader.readFromFile(
@@ -74,12 +68,12 @@ XVM.Loader.Layers = function(reader) {
 			var tmpresponse = response.layers;
 			_this._createLayers(tmpresponse, _this);
 		}
-	};
+	},
 	
 	/**
 	 *
 	 */
-	this._createLayers = function(response, context) {
+	_createLayers : function(response, context) {
 		var _this = context;
 		if(_this.fromGETParameters.urlwms != undefined) {
 			var GETLayer = {
@@ -144,17 +138,15 @@ XVM.Loader.Layers = function(reader) {
 
 		}
 		XVM.EventBus.fireEvent('addLayers', _this.layers);
-	};
+	},
 	
 	/**
 	 * Method
 	 * Parameters:
 	 * {XVM.Loader.Reader}
 	 */
-	this.init = function(reader) {
+	initialize : function(reader) {
 		this.reader = (typeof reader === "undefined") ? XVM.Reader : reader;
 		this._readLayers();
-	};
-
-	this.init(reader);
-};
+	}
+});

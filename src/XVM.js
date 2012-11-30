@@ -57,11 +57,6 @@ var XVM = {
 	EventBus : null,
 
 	/**
-	 * Default Config File URL
-	 */
-	DefaultConfig : 'config/map.options.yaml',
-
-	/**
 	 * Default Global Reader
 	 */
 	Reader : null,
@@ -69,8 +64,28 @@ var XVM = {
 	/**
 	 * Default Map Div Name
 	 */
-	DivName : 'map',
-	
+	DIVNAME : 'map',
+
+	/**
+	 * Default Map Config File URL
+	 */
+	CONFIGFILE : 'config/map.options.yaml',
+
+	/**
+	 * Default Layers Config File URL
+	 */
+	LAYERSFILE : 'config/map.layers.yaml',
+
+	/**
+	 * Default Controls Config File URL
+	 */
+	CONTROLSFILE : 'config/map.controls.yaml',
+
+	/**
+	 * Default Controls Folder
+	 */
+	CONTROLSFOLDER : 'src/Control',
+
 	/**
 	 * Default method for building the global objects
 	 */
@@ -78,7 +93,7 @@ var XVM = {
 		this.EventBus = new XVM.Event.EventBus();
 		this.Reader = new XVM.Loader.Reader();
 	},
-	
+
 	/**
 	 * Default method for building loaders
 	 */
@@ -87,7 +102,7 @@ var XVM = {
 		new XVM.Loader.Layers();
 		new XVM.Loader.Controls();
 	},
-	
+
 	/**
 	 * Default method for building a map
 	 */

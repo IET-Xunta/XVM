@@ -209,7 +209,7 @@ XVM.Map = function() {
 	 * Constructor
 	 */
 	this.init = function(divName) {
-		this.divName = (typeof divName === "undefined") ? XVM.DivName : divName;
+		this.divName = (typeof divName === "undefined") ? XVM.DIVNAME : divName;
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');

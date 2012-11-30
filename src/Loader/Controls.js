@@ -15,17 +15,6 @@
 XVM.Loader.Controls = XVM.Class.extend({
 	
 	/**
-	 * Constant
-	 * {String}
-	 */
-	DEFAULTCONTROLS : 'config/map.controls.yaml',
-	
-	/**
-	 * 
-	 */
-	CONTROLSFOLDER : 'src/Control',
-	
-	/**
 	 * Property
 	 * {XVM.Loader.Reader}
 	 */
@@ -55,7 +44,7 @@ XVM.Loader.Controls = XVM.Class.extend({
 	 */
 	_readControls : function() {
 		this.reader.readFromFile(
-			this.DEFAULTCONTROLS,
+			XVM.CONTROLSFILE,
 			this._readControlsCallback,
 			this
 		)
@@ -72,7 +61,7 @@ XVM.Loader.Controls = XVM.Class.extend({
 		}
 		for(var n in controls) {
 			var controlName = controls[n];
-			var controlPath = this_.CONTROLSFOLDER + '/' + controlName + '/';
+			var controlPath = XVM.CONTROLSFOLDER + '/' + controlName + '/';
 			var controlLoader = new XVM.Control.ControlLoader(controlPath, controlName, this_.reader);
 			controlLoader.loadControl(function(control) {
 				this_.controls.push(control);
