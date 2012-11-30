@@ -53,7 +53,7 @@ XVM.Loader.Controls = XVM.Class.extend({
 	/**
 	 * Method
 	 */
-	readControls : function() {
+	_readControls : function() {
 		this.reader.readFromFile(
 			this.DEFAULTCONTROLS,
 			this._readControlsCallback,
@@ -89,6 +89,7 @@ XVM.Loader.Controls = XVM.Class.extend({
  	 * @param {Object} reader
 	 */
 	initialize : function(reader) {
-		this.reader = reader;
+		this.reader = (typeof reader === "undefined") ? XVM.Reader : reader;
+		this._readControls();
 	}
 })

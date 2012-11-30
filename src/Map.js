@@ -73,6 +73,8 @@ XVM.Map = function() {
 	 */
 	this.loaded = 0;
 
+	this.divName = null;
+
 	/**
 	 * Launched with event addConfigParameter
 	 */
@@ -98,8 +100,8 @@ XVM.Map = function() {
 			),
 			controls : []
 		};
-		this.OLMap = new OpenLayers.Map('map', options);
-		$('#map').css(
+		this.OLMap = new OpenLayers.Map(this.divName, options);
+		$('#' + this.divName).css(
 			{
 				'height' : parameters.general.height_map + 'px',  
 				'width' : parameters.general.width_map + 'px',
@@ -206,12 +208,13 @@ XVM.Map = function() {
 	/**
 	 * Constructor
 	 */
-	this.init = function() {
+	this.init = function(divName) {
+		this.divName = (typeof divName === "undefined") ? XVM.DivName : divName;
 		OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 		XVM.EventBus.addListener(this, 'addControls', 'addControls');
-	};
+	}
 	
 	this.addXVMControl = function(control) {
 		if (!(control instanceof XVM.Control)) {

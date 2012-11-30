@@ -39,13 +39,7 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				XVM.EventBus = new XVM.Event.EventBus();
-				var map = new XVM.Map();
-				var reader = new XVM.Loader.Reader();
-				var config = new XVM.Loader.Config(reader);
-				var layers = new XVM.Loader.Layers(reader);
-				var controls = new XVM.Loader.Controls(reader);
-				controls.readControls();
+				XVM.createDefaultMap();
 			});
 		</script>
 	</head>

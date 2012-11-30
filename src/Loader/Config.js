@@ -26,7 +26,7 @@ XVM.Loader.Config = function(reader) {
 	 * Reader
 	 * Property
 	 */
-	this.reader = null;
+	this.reader = XVM.Reader;
 
 	/**
 	 * Object saves config parameters
@@ -88,7 +88,7 @@ XVM.Loader.Config = function(reader) {
 	 * {Object} Reader
 	 */
 	this.init = function(reader) {
-		this.reader = reader;
+		this.reader = (typeof reader === "undefined") ? XVM.Reader : reader;
 		this._readConfig();
 	};
 

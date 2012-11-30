@@ -59,5 +59,41 @@ var XVM = {
 	/**
 	 * Default Config File URL
 	 */
-	DefaultConfig : 'config/map.options.yaml'
+	DefaultConfig : 'config/map.options.yaml',
+
+	/**
+	 * Default Global Reader
+	 */
+	Reader : null,
+
+	/**
+	 * Default Map Div Name
+	 */
+	DivName : 'map',
+	
+	/**
+	 * Default method for building the global objects
+	 */
+	_initGlobalContext : function() {
+		this.EventBus = new XVM.Event.EventBus();
+		this.Reader = new XVM.Loader.Reader();
+	},
+	
+	/**
+	 * Default method for building loaders
+	 */
+	_createDefaultLoaders : function() {
+		new XVM.Loader.Config();
+		new XVM.Loader.Layers();
+		new XVM.Loader.Controls();
+	},
+	
+	/**
+	 * Default method for building a map
+	 */
+	createDefaultMap : function(divName) {
+		this._initGlobalContext();
+		new XVM.Map(divName);
+		this._createDefaultLoaders();
+	}
 };

@@ -31,7 +31,7 @@ XVM.Loader.Layers = function(reader) {
 	 * Property
 	 * {XVM.Loader.Reader}
 	 */
-	this.reader = null;
+	this.reader = XVM.Reader;
 	
 	/**
 	 * Object where reader saves GET parameters
@@ -152,7 +152,7 @@ XVM.Loader.Layers = function(reader) {
 	 * {XVM.Loader.Reader}
 	 */
 	this.init = function(reader) {
-		this.reader = reader;
+		this.reader = (typeof reader === "undefined") ? XVM.Reader : reader;
 		this._readLayers();
 	};
 
