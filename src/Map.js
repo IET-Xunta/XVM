@@ -105,7 +105,7 @@ XVM.Map = function() {
 			{
 				'height' : parameters.general.height_map + 'px',  
 				'width' : parameters.general.width_map + 'px',
-				'margin' : '0px'
+				'margin' : parameters.general.margin + 'px'
 			}
 		);
 		this.OLMap.panel = new OpenLayers.Control.Panel();

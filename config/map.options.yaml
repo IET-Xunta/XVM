@@ -6,10 +6,11 @@
   general: {
     lang: es,
     height_map : !!int 500,
-    width_map  : !!int 500
+    width_map  : !!int 500,
+    margin : !!int 0
   },
-  
-  
+
+
   ## Map specific parameters
   map_settings: {
     epsg  : 'EPSG:23029',
