@@ -42,7 +42,7 @@
     map_name : default,
     layer_name : GJson,
     type : 'geojson',
-    url : 'config/layer.json',
+    url : 'file:///home/jlopez/workspace-web/XVM/config/layer.json',
     parameters: {
       group_name : 'prueba/json',
       visibility : !!bool true,
