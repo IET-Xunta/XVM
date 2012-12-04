@@ -203,6 +203,8 @@ XVM.Map = function() {
 				}
 			}
 		}
+		
+		XVM.EventBus.fireEvent('mapCompleted', this);
 	};
 	
 	/**

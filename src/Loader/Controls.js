@@ -54,6 +54,7 @@ XVM.Loader.Controls = XVM.Class.extend({
 	 * 
 	 */
 	_readControlsCallback : function(response, this_) {
+		var createTOC = response.TOC;
 		var controls = response.controls;
 		var nControls = 0;
 		if (controls.length == 0) {
@@ -67,6 +68,8 @@ XVM.Loader.Controls = XVM.Class.extend({
 				this_.controls.push(control);
 				nControls += 1;
 				if(nControls == controls.length) {
+					if (createTOC !== undefined && createTOC === true)
+						XVM.EventBus.fireEvent('addTOC', true);
 					XVM.EventBus.fireEvent('addControls', this_.controls);
 				}
 			});	

@@ -1,6 +1,5 @@
 ## File with controls to add dinamically to app
-{
-  controls: [
+controls: [
     ZoomIn,
     ZoomOut,
     ZoomBox,
@@ -19,4 +18,5 @@
     ModifyFeature,
     CustomLayerSwitcher
   ]
-}
+## Needs this to include TOC 
+TOC : false
