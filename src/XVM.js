@@ -60,6 +60,16 @@ var XVM = {
 	 * Default Global Reader
 	 */
 	Reader : null,
+	
+	/**
+	 * addTOC:
+	 * indicates if TOC is added
+	 * boolean
+	 */
+	
+	addTOC : false,
+	
+	TOC : null,
 
 	/**
 	 * Default Map Div Name
@@ -85,12 +95,21 @@ var XVM = {
 	 * Default Controls Folder
 	 */
 	CONTROLSFOLDER : 'src/Control',
-
+	
+	/**
+	 * 
+	 */
+	_addTOC : function(add) {
+		this.addTOC = true;
+		this.TOC = new TOC.Control(this.Reader);
+	},
+	
 	/**
 	 * Default method for building the global objects
 	 */
 	_initGlobalContext : function() {
 		this.EventBus = new XVM.Event.EventBus();
+		this.EventBus.addListener(this, '_addTOC', 'addTOC');
 		this.Reader = new XVM.Loader.Reader();
 	},
 
