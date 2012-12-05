@@ -66,9 +66,11 @@ var XVM = {
 	 * indicates if TOC is added
 	 * boolean
 	 */
-	
+
 	addTOC : false,
-	
+
+	map : null,
+
 	TOC : null,
 
 	/**
@@ -127,7 +129,67 @@ var XVM = {
 	 */
 	createDefaultMap : function(divName) {
 		this._initGlobalContext();
-		new XVM.Map(divName);
+		this.map = new XVM.Map(divName);
 		this._createDefaultLoaders();
+	},
+
+	/**
+	 * Method for retrieving current map features from a layer
+	 */
+	getMapCurrentFeatures : function(layerName) {
+		if (typeof this.map !== 'undefined') {
+			var layers = this.map.OLMap.getLayersByName(layerName);
+			if (layers.length > 0) {
+				if (typeof layers[0].features !== 'undefined') {
+					return layers[0].features;
+				}
+			}
+		}
+		return null;
+	},
+
+	/**
+	 * Method for retrieving new map features from a layer
+	 */
+	getMapNewFeatures : function(layerName) {
+		if (typeof this.map !== 'undefined') {
+			var layers = this.map.OLMap.getLayersByName(layerName);
+			if (layers.length > 0) {
+				if (typeof layers[0].new_features !== 'undefined') {
+					return layers[0].new_features;
+				}
+			}
+		}
+		return null;
+	},
+
+	/**
+	 * Method for retrieving modified map features from a layer
+	 */
+	getMapModifiedFeatures : function(layerName) {
+		if (typeof this.map !== 'undefined') {
+			var layers = this.map.OLMap.getLayersByName(layerName);
+			if (layers.length > 0) {
+				if (typeof layers[0].updated_features !== 'undefined') {
+					return layers[0].updated_features;
+				}
+			}
+		}
+		return null;
+	},
+
+	/**
+	 * Method for retrieving deleted map features from a layer
+	 */
+	getMapDeletedFeatures : function(layerName) {
+		if (typeof this.map !== 'undefined') {
+			var layers = this.map.OLMap.getLayersByName(layerName);
+			if (layers.length > 0) {
+				if (typeof layers[0].deleted_features !== 'undefined') {
+					return layers[0].deleted_features;
+				}
+			}
+		}
+		return null;
 	}
 };

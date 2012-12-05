@@ -44,12 +44,64 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				get_features = function(set) {
+					var features = null;
+					if (set == 'current') {
+						features = XVM.getMapCurrentFeatures('GJson');
+					} else if (set == 'new') {
+						features = XVM.getMapNewFeatures('GJson');
+					} else if (set == 'updated') {
+						features = XVM.getMapModifiedFeatures('GJson');
+					} else if (set == 'deleted') {
+						features = XVM.getMapDeletedFeatures('GJson');
+					}
+					if (features != null) {
+						for (i in features) {
+							var feat = features[i];
+							var msg = null;
+							if (feat.geometry.CLASS_NAME === 'OpenLayers.Geometry.Point') {
+								msg = 'Point id : ' + feat.id + ' | coordinates x: ' + feat.geometry.x + ', y: ' + feat.geometry.y;
+							}
+							if (feat.geometry.CLASS_NAME === 'OpenLayers.Geometry.LineString') {
+								msg = 'Line id : ' + feat.id;
+								for (j = 0, leng = feat.geometry.components.length; j < leng; j++) {
+									msg += ' | point ' + j + ' coordinates x: ' + feat.geometry.components[j].x + ', y: ' + feat.geometry.components[j].y;
+								}
+							}
+							if (feat.geometry.CLASS_NAME === 'OpenLayers.Geometry.Polygon') {
+								msg = 'Polygon id : ' + feat.id;
+								var comp = feat.geometry.components[0].components;
+								for (j = 0, leng = comp.length; j < leng; j++) {
+									msg += ' | point ' + j + ' coordinates x: ' + comp[j].x + ', y: ' + comp[j].y;
+								}
+							}
+							if (feat.geometry.CLASS_NAME === 'OpenLayers.Geometry.MultiPolygon') {
+								msg = 'MultiPolygon id : ' + feat.id;
+								for (var j = 0, leng = feat.geometry.components.length; j < leng; j++) {
+									var comp = feat.geometry.components[j].components[0].components;
+									msg += ' [ Polygon ' + j;
+									for (k = 0, lengt = comp.length; k < lengt; k++) {
+										msg += ' | point ' + k + ' coordinates x: ' + comp[k].x + ', y: ' + comp[k].y;
+									}
+									msg += ' ] ';
+								}
+							}
+							if (msg != null) {
+								alert(msg);
+							}
+						}
+					}
+				};
 				XVM.createDefaultMap();
 			});
 		</script>
 	</head>
 	<body>
 		<div id="map" class="smallmap"><div id="toc"></div></div>
+		<input type="BUTTON" onclick="get_features('current')" value="Retrieve current features">
+		<input type="BUTTON" onclick="get_features('new')" value="Retrieve new features">
+		<input type="BUTTON" onclick="get_features('updated')" value="Retrieve modified features">
+		<input type="BUTTON" onclick="get_features('deleted')" value="Retrieve deleted features">
 		
 	</body>
 </html>
