@@ -20,5 +20,5 @@
     ZoomOut
   ],
   ## Needs this to include TOC
-  TOC : !!bool false
+  TOC : !!bool true
 }
