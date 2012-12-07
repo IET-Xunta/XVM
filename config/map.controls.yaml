@@ -19,4 +19,4 @@ controls: [
     CustomLayerSwitcher
   ]
 ## Needs this to include TOC 
-TOC : false
+TOC : true
