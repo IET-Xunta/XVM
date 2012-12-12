@@ -62,6 +62,15 @@ Controles
 https://docs.google.com/spreadsheet/ccc?key=0Ap7XLlXgRGXBdGs0eG81Yy1GWW1FblFNYTZoRm9oNGc#gid=0
 
 
+Instrucciones para su descarga
+====================================
+
+Se recomienda hacer un "clonado recursivo" dado que XVM tiene otro proyecto incluídos como _submodules_.
+
+  git clone --recursive https://github.com/IET-Xunta/XVM.git
+
+
+
 Instrucciones de despliegue
 ====================================
 
