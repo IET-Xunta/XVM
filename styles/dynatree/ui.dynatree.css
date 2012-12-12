@@ -316,6 +316,7 @@ span.dynatree-node a
 	padding-left: 3px;
 	padding-right: 3px; /* Otherwise italic font will be outside bounds */
 	/*	line-height: 16px; /* should be the same as img height, in case 16 px */
+	text-decoration: none;
 }
 span.dynatree-folder a
 {
