@@ -68,8 +68,9 @@ XVM.Loader.Controls = XVM.Class.extend({
 				this_.controls.push(control);
 				nControls += 1;
 				if(nControls == controls.length) {
-					if (createTOC !== undefined && createTOC === true)
-						XVM.EventBus.fireEvent('addTOC', true);
+					if (createTOC) {
+						XVM.EventBus.fireEvent('addTOC');
+					}
 					XVM.EventBus.fireEvent('addControls', this_.controls);
 				}
 			});	
