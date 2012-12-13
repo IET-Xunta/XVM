@@ -72,12 +72,6 @@ XVM.Control.OLCustomLayerSwitcher =
      */
     baseLayersDiv: null,
 
-    /** 
-     * Property: baseLayers
-     * {Array(Object)}
-     */
-    baseLayers: null,
-
     /**
      * Property: baseLayersTree
      * {DynaTree}
@@ -102,12 +96,6 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement} 
      */
     dataLayersDiv: null,
-
-    /** 
-     * Property: dataLayers
-     * {Array(Object)} 
-     */
-    dataLayers: null,
 
 
     /** 
@@ -148,10 +136,6 @@ XVM.Control.OLCustomLayerSwitcher =
      * APIMethod: destroy 
      */    
     destroy: function() {
-        
-        //clear out layers info and unregister their events 
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
         
         this.map.events.un({
             buttonclick: this.onButtonClick,
@@ -208,10 +192,6 @@ XVM.Control.OLCustomLayerSwitcher =
             this.minimizeControl();
         }
 
-        //clear out previous layers
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
-
         // Save state -- for checking layer if the map state changed.
         // We save this before redrawing, because in the process of redrawing
         // we will trigger more visibility changes, and we want to not redraw
@@ -244,19 +224,6 @@ XVM.Control.OLCustomLayerSwitcher =
         } else if (button === this.maximizeDiv) {
             this.maximizeControl();
         }
-    },
-
-    /** 
-     * Method: clearLayersArray
-     * User specifies either "base" or "data". we then clear all the
-     *     corresponding listeners, the div, and reinitialize a new array.
-     * 
-     * Parameters:
-     * layersType - {String}  
-     */
-    clearLayersArray: function(layersType) {
-        //this[layersType + "LayersDiv"].innerHTML = "";
-        this[layersType + "Layers"] = [];
     },
 
 
@@ -303,11 +270,7 @@ XVM.Control.OLCustomLayerSwitcher =
         // to do anything. Just return the existing div.
         if (!this.checkRedraw()) { 
             return this.div; 
-        } 
-
-        //clear out previous layers 
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
+        }
         
         // Save state -- for checking layer if the map state changed.
         // We save this before redrawing, because in the process of redrawing
@@ -351,7 +314,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.tree.options.parent.updateBaseLayer(node.data._layer);
           },
           cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-"
+          idPrefix: "dynatree-Cb1-",
+          debugLevel: 0
         });
 
         $(this.overlaysTree).dynatree('destroy');
@@ -370,7 +334,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.visit(updateNodeLayer, true);
           },
           cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-"
+          idPrefix: "dynatree-Cb2-",
+          debugLevel: 0
         });
 
         return this.div;
@@ -601,7 +566,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.tree.options.parent.updateBaseLayer(node.data._layer);
           },
           cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-"
+          idPrefix: "dynatree-Cb1-",
+          debugLevel: 0
         });
 
         treeDiv2 = document.createElement('div');
@@ -623,7 +589,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.visit(updateNodeLayer, true);
           },
           cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-"
+          idPrefix: "dynatree-Cb2-",
+          debugLevel: 0
         });
         
     },
