@@ -9,19 +9,51 @@
   ## Topografico layer
     map_name : default,
     type : 'wms',
-    layer_name : Topográfico-IDEE,
+    layer_name : Topografico (MTN),
     wms_layer : mtn_rasterizado,
     url : 'http://www.idee.es/wms/MTN-Raster/MTN-Raster',
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 1,
+      layer_position : !!int 101,
+      singleTile : !!bool false,
+      isBaseLayer : !!bool true,
+      visibility: !!bool false,
+      projection : 'EPSG:23029'
+    }
+  }, {
+  ## PNOA 2010-11
+    map_name : default,
+    type : 'wms',
+    layer_name : 'Ortofoto Reciente',
+    wms_layer : PNOA,
+    url : 'http://www.idee.es/wms/PNOA/PNOA',
+    parameters : {
+      opacity : !!float 0.75,
+      group_name : 'capa_base',
+      layer_position : !!int 110,
+      singleTile : !!bool false,
+      isBaseLayer : !!bool true,
+      visibility: !!bool false,
+      projection : 'EPSG:23029'
+    }
+  }, {
+  ## PNOA 2007-08
+    map_name : default,
+    type : 'wms',
+    layer_name : 'Ortofoto 07-08',
+    wms_layer : Ortofoto_2007_08,
+    url : 'http://ideg.xunta.es/wms_orto_2007-08/request.aspx',
+    parameters : {
+      opacity : !!float 0.75,
+      group_name : 'capa_base',
+      layer_position : !!int 110,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool true,
       projection : 'EPSG:23029'
     }
-  }, {
+  },{
   ## IGN Layer
     map_name : default,
     type : 'wms',
@@ -31,10 +63,78 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 2,
+      layer_position : !!int 102,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
+      visibility: !!bool false,
+      projection : 'EPSG:23029'
+    }
+  },{
+  ## SITGA Toponimos
+    map_name : default,
+    type : 'wms',
+    layer_name : Toponimia,
+    wms_layer : 'NOMECONCELLO, Toponimia_txt_1_5000,
+                 TOPONIMIA_COSTA, TXT_CIDADES, 
+                 TXT_CIDADES_B, TXT_PARROQUIA, 
+                 TXT_VILAS',
+    url : 'http://ideg.xunta.es/wms/request.aspx',
+    parameters : {
+      opacity : !!float 0.95,
+      group_name : 'capa_aux',
+      layer_position : !!int 50,
+      singleTile : !!bool true,
+      isBaseLayer : !!bool false,
       visibility: !!bool true,
+      projection : 'EPSG:23029'
+    }
+  }, {
+  ## SITGA Carreteras
+    map_name : default,
+    type : 'wms',
+    layer_name : 'Carreteras',
+    wms_layer : 'SECUNDARIA, AUTOESTRADA_AUTOVIA, REDE_ESTATAL, 
+                 PRIMARIA_BASICA, CORREDOR, PRIMARIA_COMPLEMENT',
+    url : 'http://ideg.xunta.es/wms/request.aspx',
+    parameters : {
+      opacity : !!float 0.75,
+      group_name : 'capa_aux',
+      layer_position : !!int 51,
+      singleTile : !!bool false,
+      isBaseLayer : !!bool false,
+      visibility: !!bool false,
+      projection : 'EPSG:23029'
+    }
+  },{
+  ## SITGA limites
+    map_name : default,
+    type : 'wms',
+    layer_name : 'Limites Admin',
+    wms_layer : 'PROVINCIA, CONCELLO, PARROQUIA',
+    url : 'http://ideg.xunta.es/wms/request.aspx',
+    parameters : {
+      opacity : !!float 0.75,
+      group_name : 'capa_aux',
+      layer_position : !!int 52,
+      singleTile : !!bool false,
+      isBaseLayer : !!bool false,
+      visibility: !!bool true,
+      projection : 'EPSG:23029'
+    }
+  }, {
+  ## Catastro
+    map_name : default,
+    type : 'wms',
+    layer_name : 'Catastro',
+    wms_layer : 'CATASTRO',
+    url : 'http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx',
+    parameters : {
+      opacity : !!float 0.75,
+      group_name : 'capa_aux',
+      layer_position : !!int 55,
+      singleTile : !!bool false,
+      isBaseLayer : !!bool false,
+      visibility: !!bool false,
       projection : 'EPSG:23029'
     }
   }, {

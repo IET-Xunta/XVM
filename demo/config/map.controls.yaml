@@ -1,0 +1,22 @@
+## File with controls to add dinamically to app
+controls: [
+    ZoomIn,
+    ZoomOut,
+    ZoomBox,
+    Scale,
+    ScaleLine,
+    MousePosition,
+    Navigation,
+    NavigationHistory,
+    ZoomToMaxExtent,
+    PermalinkButton,
+    HelpButton,
+    MeasureLine,
+    MeasureArea,
+    DrawFeature,
+    DeleteFeature,
+    ModifyFeature,
+    CustomLayerSwitcher
+  ]
+## Needs this to include TOC 
+TOC : false

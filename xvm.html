@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<title>:::XVM:::</title>
+
+		<link rel="stylesheet" href="styles/dynatree/ui.dynatree.css" type="text/css">
+		<link rel="stylesheet" href="lib/Ol/theme/default/style.css" type="text/css">
+		<link rel="stylesheet" href="styles/style_map.css" type="text/css">
+		<link rel="stylesheet" href="styles/custom-theme/jquery-ui-1.9.1.custom.min.css" type="text/css">
+		<script src="lib/jQuery/jquery-1.8.0.min.js"></script>
+		<script src="lib/jQuery/jquery-ui-1.9.1.custom.min.js"></script>
+		<script src="lib/Ol/OpenLayers.js"></script>
+		<script src="lib/YAML/es5-shims.js"></script>
+		<script src="lib/YAML/js-yaml.js"></script>
+		<script src="lib/jQuery/jquery.dynatree.min.js"></script>
+		<script src="lib/jQuery/jquery.i18n.js"></script>
+		<script src="lib/jQuery/jquery.i18n.messages.js"></script>
+		<script src="lib/jQuery/jquery.i18n.fallbacks.js"></script>
+		<script src="lib/jQuery/jquery.i18n.parser.js"></script>
+		<script src="lib/jQuery/jquery.i18n.emitter.js"></script>
+		<script src="lib/jQuery/jquery.i18n.language.js"></script>
+		<script src="src/XVM.js"></script>
+		<script src="src/Class.js"></script>
+		<script src="src/Map.js"></script>
+		<script src="src/XVMUtils.js"></script>
+		<script src="src/Loader/Reader.js"></script>
+		<script src="src/Loader/Config.js"></script>
+		<script src="src/Loader/Layers.js"></script>
+		<script src="src/Loader/Controls.js"></script>
+		<script src="src/Control/Control.js"></script>
+		<script src="src/Control/ControlLoader.js"></script>
+		<script src="src/Event/EventBus.js"></script>
+		<link rel="localization" hreflang="en" href="config/text_en.json" type="application/l10n+json"/>
+		<link rel="localization" hreflang="es" href="config/text_es.json" type="application/l10n+json"/>
+		<link rel="localization" hreflang="gl" href="config/text_gl.json" type="application/l10n+json"/>
+		
+		<!-- TOC  -->
+		<script src="toc/src/TOC.js"></script>		
+		<script src="toc/src/Class.js"></script>
+		<script src="toc/src/Control.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				XVM.createDefaultMap();
+			});
+		</script>
+	</head>
+	<body>
+		<div id="map" class="smallmap"><div id="toc"></div></div>
+		
+	</body>
+</html>

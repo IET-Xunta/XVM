@@ -5,8 +5,8 @@
 {
   general: {
     lang: es,
-    height_map : !!int 600,
-    width_map  : !!int 800,
+    height_map : !!int 500,
+    width_map  : !!int 500,
     margin : !!int 0
   },
 
