@@ -114,6 +114,7 @@ XVM.Map = function() {
 		if(this.loaded == 3) {
 			this.drawMap();
 		};
+        OpenLayers.ProxyHost = parameters.general.proxy_host;		
 	};
 	
 	/**
