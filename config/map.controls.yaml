@@ -1,6 +1,7 @@
 ## File with controls to add dinamically to app
 {
   controls: [
+    FeatureInfo,
     ZoomIn,
     CustomLayerSwitcher,
     Scale,
