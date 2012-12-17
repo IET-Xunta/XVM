@@ -86,7 +86,8 @@
       singleTile : !!bool true,
       isBaseLayer : !!bool false,
       visibility: !!bool true,
-      projection : 'EPSG:23029'
+      projection : 'EPSG:23029',
+      queryable : false
     }
   }, {
   ## SITGA Carreteras
@@ -103,7 +104,8 @@
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
       visibility: !!bool false,
-      projection : 'EPSG:23029'
+      projection : 'EPSG:23029',
+      queryable : false
     }
   },{
   ## SITGA limites
@@ -119,7 +121,8 @@
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
       visibility: !!bool true,
-      projection : 'EPSG:23029'
+      projection : 'EPSG:23029',
+      queryable : false
     }
   }, {
   ## Catastro
