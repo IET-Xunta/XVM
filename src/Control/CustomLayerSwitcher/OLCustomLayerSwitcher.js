@@ -121,12 +121,13 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement} 
      */
     maximizeDiv: null,
-    
+
     /**
      * APIProperty: ascending
-     * {Boolean} 
+     * {Boolean} If we want the layers to appear in the tree in the same order
+     * 		as they are in the map, or in reverse.
      */
-    ascending: true,
+    reverse: false,
  
     /**
      * Constructor: OpenLayers.Control.LayerSwitcher
@@ -325,7 +326,7 @@ XVM.Control.OLCustomLayerSwitcher =
         }
 
         var layers = this.map.layers.slice();
-        if (!this.ascending) { layers.reverse(); }
+        if (!this.reverse) { layers.reverse(); }
 
         var baselayers = [], overlays = [];
         for (var i=0, len=layers.length; i<len; i++) {
@@ -572,6 +573,7 @@ XVM.Control.OLCustomLayerSwitcher =
         this.div.appendChild(this.minimizeDiv);
 
         var layers = this.map.layers.slice();
+        if (!this.reverse) { layers.reverse(); }
 
         var baselayers = [], overlays = [];
         for (var i=0, len=layers.length; i<len; i++) {
