@@ -1,6 +1,7 @@
 ## ZoomIn parameter control
 init:
   title: eval($.i18n("zoomin_tooltip"))
+position: !!int 20
 properties:
   'en':
     'zoomin_tooltip': 'Zoom in'

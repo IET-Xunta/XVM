@@ -22,9 +22,12 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 	
 	controlName : "",
 
-	initialize : function(path, name, reader) {
+	controlPosition : null,
+
+	initialize : function(path, name, position, reader) {
 		this.controlPath = path;
 		this.controlName = name;
+		this.controlPosition = position;
 		this.reader = reader;
 	},
 
@@ -39,6 +42,9 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 						$.i18n().load(response.properties);
 					}
 					this_.initParameters = response.init;
+					if (typeof response.position !== 'undefined') {
+						this_.controlPosition = response.position;
+					}
 				}
 				// Load control code into app
 				var controlCodeURL = this_.controlPath + this_.controlName + '.js';
@@ -47,7 +53,7 @@ XVM.Control.ControlLoader = XVM.Class.extend({
 					function(response, this_) {
 						// In case we included a function as a trigger, we eval its reference
 						evalObject(this_.initParameters);
-						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters, this_.controlPath))');
+						eval('callBack(new XVM.Control.' + this_.controlName + '(this_.initParameters, this_.controlPath, this_.controlPosition))');
 						}, 
 					this_);
 		}, this);

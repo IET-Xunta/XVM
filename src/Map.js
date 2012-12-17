@@ -139,6 +139,9 @@ XVM.Map = function() {
 	 */
 	this.addControls = function(controls) {
 		this.controls = controls;
+		this.controls.sort(function(a, b) {
+			return a.position-b.position;
+		})
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
