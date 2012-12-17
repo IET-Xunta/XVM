@@ -15,7 +15,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 101,
+      layer_position : !!int 1,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool false,
@@ -31,7 +31,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 110,
+      layer_position : !!int 2,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool false,
@@ -47,7 +47,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 110,
+      layer_position : !!int 3,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool true,
@@ -63,7 +63,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 102,
+      layer_position : !!int 4,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool false,
@@ -82,7 +82,7 @@
     parameters : {
       opacity : !!float 0.95,
       group_name : 'capa_aux',
-      layer_position : !!int 50,
+      layer_position : !!int 54,
       singleTile : !!bool true,
       isBaseLayer : !!bool false,
       visibility: !!bool true,
@@ -100,7 +100,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 51,
+      layer_position : !!int 53,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
       visibility: !!bool false,
@@ -134,7 +134,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 55,
+      layer_position : !!int 51,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
       visibility: !!bool false,
@@ -149,7 +149,7 @@
     parameters: {
       group_name : 'json',
       visibility : !!bool true,
-      layer_position : !!int 2,
+      layer_position : !!int 50,
       projection : 'EPSG:23029',
       isBaseLayer : !!bool false
     }
