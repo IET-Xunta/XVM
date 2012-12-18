@@ -100,14 +100,14 @@ XVM.Map = function() {
 			),
 			controls : []
 		};
-		this.OLMap = new OpenLayers.Map(this.divName, options);
 		$('#' + this.divName).css(
-			{
-				'height' : parameters.general.height_map + 'px',  
-				'width' : parameters.general.width_map + 'px',
-				'margin' : parameters.general.margin + 'px'
-			}
+				{
+					'height' : parameters.general.height_map + 'px',  
+					'width' : parameters.general.width_map + 'px',
+					'margin' : parameters.general.margin + 'px'
+				}
 		);
+		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
 		this.OLMap.addControl(this.OLMap.panel);
 		this.loaded += 1;

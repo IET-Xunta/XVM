@@ -34,7 +34,10 @@ XVM.Loader.Config = XVM.Class.extend({
 	 * {Object}
 	 */
 	configParameters : {
-		'general':{},
+		'general':{
+		    height_map : 500,
+		    width_map  : 500
+		    },
 		'map_settings':{},
 		'view_settings': {}
 	},
