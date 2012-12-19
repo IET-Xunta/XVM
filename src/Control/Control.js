@@ -52,6 +52,9 @@ XVM.Control = XVM.Class.extend({
 		this.beforeAddingControl();
 		if (this.addToPanel) {
 			this.OLMap.panel.addControls([this.OLControl]);
+			if ((this.options != null) && this.options.autoActivate) {
+				this.OLControl.activate();
+			}
 		} else {
 			this.OLMap.addControl(this.OLControl);
 		}
