@@ -71,6 +71,13 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement}
      */
     baseLayersDiv: null,
+    
+    /** 
+     * Property: firstBaseLayers
+     * {boolean} Set to true it will display the base layers tree above the overlayers
+     * one. False is obviously the opposite.
+     */
+    firstBaseLayers: true,
 
     /**
      * Property: baseLayersTree
@@ -115,7 +122,7 @@ XVM.Control.OLCustomLayerSwitcher =
      * {Boolean} If we want the layers to appear in the tree in the same order
      * 		as they are in the map, or in reverse.
      */
-    reverse: false,
+    reverse: true,
  
     /**
      * Constructor: OpenLayers.Control.LayerSwitcher
@@ -126,6 +133,9 @@ XVM.Control.OLCustomLayerSwitcher =
     initialize: function(options) {
         OpenLayers.Control.prototype.initialize.apply(this, arguments);
         this.layerStates = [];
+        if ((options != null) && (typeof options.firstBaseLayers == 'boolean')) {
+        	this.firstBaseLayers = options.firstBaseLayers;
+        }
         
         if(this.roundedCorner) {
             OpenLayers.Console.warn('roundedCorner option is deprecated');
@@ -445,7 +455,7 @@ XVM.Control.OLCustomLayerSwitcher =
         var baseId = this.id + '_overlays';
 
         treeChildren = [
-                      {title: OpenLayers.i18n('Overlays'), key: baseId,  expand: true, isFolder: true, icon: false,
+                      {title: $.i18n('Overlays'), key: baseId,  expand: true, isFolder: true, icon: false,
                         children: []
                       }
                     ];
@@ -460,7 +470,7 @@ XVM.Control.OLCustomLayerSwitcher =
         var baseId = this.id + '_baselayers';
 
         var treeChildren =[
-                       {title: OpenLayers.i18n("Base Layer"), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
+                       {title: $.i18n('Base Layer'), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
                          children: []
                        }
                      ];
@@ -554,6 +564,18 @@ XVM.Control.OLCustomLayerSwitcher =
         treeDiv.id = "tree1";
         this.div.appendChild(treeDiv);
 
+        treeDiv2 = document.createElement('div');
+        treeDiv2.id = "tree2";
+        this.div.appendChild(treeDiv2);
+        
+        if (this.firstBaseLayers) {
+            this.div.appendChild(treeDiv);
+            this.div.appendChild(treeDiv2);
+        } else {
+            this.div.appendChild(treeDiv2);
+            this.div.appendChild(treeDiv);
+        }
+
         this.baseLayersTree = $(treeDiv).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
@@ -569,10 +591,6 @@ XVM.Control.OLCustomLayerSwitcher =
           idPrefix: "dynatree-Cb1-",
           debugLevel: 0
         });
-
-        treeDiv2 = document.createElement('div');
-        treeDiv2.id = "tree2";
-        this.div.appendChild(treeDiv2);
 
         this.overlaysTree = $(treeDiv2).dynatree({
           checkbox: true,
