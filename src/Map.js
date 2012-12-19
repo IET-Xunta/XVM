@@ -165,7 +165,7 @@ XVM.Map = function() {
 				if (baseLayer == null) 
 					baseLayer = layer;
 				else 
-					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
+					baseLayer = (baseLayer.layer_position < layer.layer_position) ? layer : baseLayer;
 			};
 		};
 
