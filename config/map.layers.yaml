@@ -1,5 +1,7 @@
 # Layers parameters to map
 ##########################
+#### 
+## Small 'layer_position' means high position on the map
 {
   ## Layer service
   ## gets layers from URL with urlServiceLayer, it if '' or null 
@@ -15,7 +17,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 1,
+      layer_position : !!int 501,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool false,
@@ -31,10 +33,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 2,
+      layer_position : !!int 502,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility: !!bool false,
+      visibility : !!bool false,
       projection : 'EPSG:23029'
     }
   }, {
@@ -47,10 +49,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 3,
+      layer_position : !!int 503,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility: !!bool true,
+      visibility : !!bool true,
       projection : 'EPSG:23029'
     }
   },{
@@ -63,10 +65,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 4,
+      layer_position : !!int 504,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility: !!bool false,
+      visibility : !!bool false,
       projection : 'EPSG:23029'
     }
   },{
@@ -82,10 +84,10 @@
     parameters : {
       opacity : !!float 0.95,
       group_name : 'capa_aux',
-      layer_position : !!int 54,
+      layer_position : !!int 204,
       singleTile : !!bool true,
       isBaseLayer : !!bool false,
-      visibility: !!bool true,
+      visibility : !!bool true,
       projection : 'EPSG:23029',
       queryable : false
     }
@@ -100,10 +102,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 53,
+      layer_position : !!int 203,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility: !!bool false,
+      visibility : !!bool false,
       projection : 'EPSG:23029',
       queryable : false
     }
@@ -117,10 +119,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 52,
+      layer_position : !!int 202,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility: !!bool true,
+      visibility : !!bool true,
       projection : 'EPSG:23029',
       queryable : false
     }
@@ -134,10 +136,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 51,
+      layer_position : !!int 201,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility: !!bool false,
+      visibility : !!bool false,
       projection : 'EPSG:23029'
     }
   }, {
