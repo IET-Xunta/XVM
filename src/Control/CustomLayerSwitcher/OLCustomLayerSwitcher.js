@@ -234,6 +234,9 @@ XVM.Control.OLCustomLayerSwitcher =
         } else if (button === this.maximizeDiv) {
             this.maximizeControl();
         }
+        if ($(button).parents().is('#tree1') || $(button).parents().is('#tree2')) {
+            OpenLayers.Event.stop(evt);
+        }
     },
 
 
@@ -315,7 +318,32 @@ XVM.Control.OLCustomLayerSwitcher =
         this.baseLayersTree = $(this.baseLayersTree).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
-          classNames: {checkbox: "dynatree-radio"},
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-radio",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 1,
           clickFolderMode: 2,
           parent: this,
@@ -331,6 +359,32 @@ XVM.Control.OLCustomLayerSwitcher =
         $(this.overlaysTree).dynatree('destroy');
         this.overlaysTree = $(this.overlaysTree).dynatree({
           checkbox: true,
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-checkbox",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 3,
           clickFolderMode: 2,
           parent: this,
@@ -392,7 +446,7 @@ XVM.Control.OLCustomLayerSwitcher =
         this.showControls(true);
 
         if (e != null) {
-            OpenLayers.Event.stop(e);                                            
+            OpenLayers.Event.stop(e);
         }
     },
 
@@ -572,12 +626,12 @@ XVM.Control.OLCustomLayerSwitcher =
 
         treeDiv = document.createElement('div');
         treeDiv.id = "tree1";
-        this.div.appendChild(treeDiv);
+        OpenLayers.Element.addClass(treeDiv, "olButton");
 
         treeDiv2 = document.createElement('div');
         treeDiv2.id = "tree2";
-        this.div.appendChild(treeDiv2);
-        
+        OpenLayers.Element.addClass(treeDiv2, "olButton");
+
         if (this.firstBaseLayers) {
             this.div.appendChild(treeDiv);
             this.div.appendChild(treeDiv2);
@@ -589,7 +643,32 @@ XVM.Control.OLCustomLayerSwitcher =
         this.baseLayersTree = $(treeDiv).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
-          classNames: {checkbox: "dynatree-radio"},
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-radio",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 1,
           clickFolderMode: 2,
           parent: this,
@@ -604,6 +683,32 @@ XVM.Control.OLCustomLayerSwitcher =
 
         this.overlaysTree = $(treeDiv2).dynatree({
           checkbox: true,
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-checkbox",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 3,
           clickFolderMode: 2,
           parent: this,
