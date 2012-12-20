@@ -453,30 +453,40 @@ XVM.Control.OLCustomLayerSwitcher =
     generateOverlaysTree : function(layers) {
 
         var baseId = this.id + '_overlays';
+        var title = $.i18n('Overlays');
 
         treeChildren = [
-                      {title: $.i18n('Overlays'), key: baseId,  expand: true, isFolder: true, icon: false,
+                      {title: title, key: baseId,  expand: true, isFolder: true, icon: false,
                         children: []
                       }
                     ];
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, true);
 
+        // We trim the title and ignore if its node when it's void
+        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        	return treeChildren[0].children;
+        }
         return treeChildren;
     },
     
     generateBaseLayersTree : function(layers) {
 
         var baseId = this.id + '_baselayers';
+        var title = $.i18n('Base Layer');
 
         var treeChildren =[
-                       {title: $.i18n('Base Layer'), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
+                       {title: title, key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
                          children: []
                        }
                      ];
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, false);
 
+        // We trim the title and ignore if its node when it's void
+        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        	return treeChildren[0].children;
+        }
         return treeChildren;
     },
     
