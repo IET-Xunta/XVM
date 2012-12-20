@@ -122,7 +122,7 @@ XVM.Control.OLCustomLayerSwitcher =
      * {Boolean} If we want the layers to appear in the tree in the same order
      * 		as they are in the map, or in reverse.
      */
-    reverse: true,
+    reverse: false,
  
     /**
      * Constructor: OpenLayers.Control.LayerSwitcher

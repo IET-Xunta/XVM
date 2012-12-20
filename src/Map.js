@@ -154,7 +154,7 @@ XVM.Map = function() {
 		var baseLayer = this.OLMap.baseLayer;
 
 		layers.sort(function(a, b) {
-			return b.layer_position-a.layer_position;
+			return a.layer_position-b.layer_position;
 		});
 
 		for(var n=0; n<layers.length; n++) {
