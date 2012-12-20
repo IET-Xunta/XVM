@@ -2,6 +2,7 @@
 init:
   firstBaseLayers: false
 properties:
+## If you put a blank translation for these titles (e.g. ' '), their top nodes are ignored.
   'en':
     'Base Layer': 'Base Layer'
     'Overlays': 'Overlays'
