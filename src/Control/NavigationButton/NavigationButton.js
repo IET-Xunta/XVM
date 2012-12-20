@@ -8,9 +8,9 @@
  * @author Instituto Estudos do Territorio, IET
  */
 
-XVM.Control.Navigation = XVM.Control.extend({
+XVM.Control.NavigationButton = XVM.Control.extend({
 	
-	addToPanel : false,
+	addToPanel : true,
 
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control.Navigation(this.options);

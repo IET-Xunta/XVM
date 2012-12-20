@@ -8,6 +8,7 @@
     ScaleLine,
     MousePosition,
     Navigation,
+    NavigationButton,
     DrawFeature,
     DeleteFeature,
     ModifyFeature,

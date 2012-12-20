@@ -1,0 +1,5 @@
+## NavigationButton parameter control
+init:
+  dragPanOptions:
+    enableKinetic: true
+  zoomWheelEnabled: false
