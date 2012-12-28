@@ -42,13 +42,12 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
                             var lyrs_aux = this.getLayersBy("visibility", true);
                             for (var i = 0; i < lyrs_aux.length; i++) {
                                 var l = lyrs_aux[i];
-                                console.log(l);
                                 if (l.isBaseLayer == false && (l.queryable == undefined || l.queryable)) {
                                     info_ctl.url = l.url;
                                 }
                             }
                         } else {
-                            console.log("this.OLMap: " + this.OLMap);
+                            //console.log("this.OLMap: " + this.OLMap);
                         }
                     }
                 }
