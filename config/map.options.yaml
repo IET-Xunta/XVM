@@ -8,9 +8,8 @@
     height_map : !!int 600,
     width_map  : !!int 800,
     margin : !!int 0,
-    proxy_host : '/cgi-bin/proxy.cgi?url='
+    proxy_host : 'proxy/proxy.php?url='
   },
-
 
   ## Map specific parameters
   map_settings: {
