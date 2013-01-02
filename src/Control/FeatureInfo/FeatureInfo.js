@@ -13,20 +13,16 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
     addToPanel : true,
 
     createControl : function() {
-        this.OLControl = new OpenLayers.Control.WMSGetFeatureInfo({
-            infoFormat : "application/vnd.ogc.gml", //infoformat
-            url : "",
-            queryVisible : true, // just query visible layers
-            //title: $.i18n.prop("featureinfo_tooltip"),
-            layers : this.layers
-        });
+        this.OLControl = new OpenLayers.Control.WMSGetFeatureInfo(this.options);
     },
 
     beforeAddingControl : function() {
+        // layers parameter of WMSGetFeatureInfo should be set here, or in addControl or afterAddingControl
         //this.urlWMS = "http://six.agri.local/arcgis/services/Viticola/MapServer/WMSServer";
     },
 
     afterAddingControl : function() {
+        // layers parameter of WMSGetFeatureInfo should be set here, or in addControl or beforeAddingControl
         this.OLControl.events.register('getfeatureinfo', this, this.showsFeatureInfo);
 
         // Try to change dinamically the url to use depending on the layer visibility

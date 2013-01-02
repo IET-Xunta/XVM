@@ -1,2 +1,14 @@
-## DrawFeature parameter control
+## FeatureInfo parameter control
 init:
+  infoFormat : 'application/vnd.ogc.gml'
+  url : ''
+  queryVisible : !!bool true
+  title: eval($.i18n('feature_info_tooltip'))
+properties:
+  'en':
+    'feature_info_tooltip': 'Feature Info'
+  'es':
+    'feature_info_tooltip': 'Datos de la entidad'
+  'gl':
+    'feature_info_tooltip': 'Datos da entidade'
+  
