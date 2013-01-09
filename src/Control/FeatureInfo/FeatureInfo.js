@@ -8,11 +8,42 @@
  * @author Instituto Estudos do Territorio, IET
  */
 
+
+
+function featureInfo_setURL() {
+    var info_ctl = XVM.map.OLMap.getControlsByClass('OpenLayers.Control.WMSGetFeatureInfo')[0];
+    var lyrs_aux = XVM.map.OLMap.getLayersBy("visibility", true);
+    for (var i = 0; i < lyrs_aux.length; i++) {
+        var l = lyrs_aux[i];
+        if (l.isBaseLayer == false && l.url  
+            && (l.queryable == undefined || l.queryable)) {
+            info_ctl.url = l.url;
+        }
+    }
+}
+
+function select_layer_info(evt) {
+    var info_ctl = XVM.map.OLMap.getControlsByClass('OpenLayers.Control.WMSGetFeatureInfo')[0];
+    if (evt.property === "visibility") {
+        if (evt.layer.isBaseLayer == false) {
+            if (evt.layer.visibility == true) {
+                info_ctl.url = evt.layer.url;
+            } else {
+                if (this && info_ctl != undefined) {
+                    featureInfo_setURL();
+                } else {
+                    //console.log("this.OLMap: " + this.OLMap);
+                }
+            }
+        }
+    }
+}
+
 XVM.Control.FeatureInfo = XVM.Control.extend({
 
     addToPanel : true,
 
-    createControl : function() {
+    createControl : function() { 
         this.OLControl = new OpenLayers.Control.WMSGetFeatureInfo(this.options);
     },
 
@@ -27,29 +58,12 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
 
         // Try to change dinamically the url to use depending on the layer visibility
         // NOTE: XVM allows the 'queryable' parameter on the map.layers.yaml file 
-        this.OLMap.events.register('changelayer', null, function(evt) {
-            if (evt.property === "visibility") {
-                if (evt.layer.isBaseLayer == false) {
-                    if (evt.layer.visibility == true) {
-                        this.OLControl.url = evt.layer.url;
-                    } else {
-                        var info_ctl = this.getControlsByClass('OpenLayers.Control.WMSGetFeatureInfo')[0];
-                        if (this && info_ctl != undefined) {
-                            var lyrs_aux = this.getLayersBy("visibility", true);
-                            for (var i = 0; i < lyrs_aux.length; i++) {
-                                var l = lyrs_aux[i];
-                                if (l.isBaseLayer == false && (l.queryable == undefined || l.queryable)) {
-                                    info_ctl.url = l.url;
-                                }
-                            }
-                        } else {
-                            //console.log("this.OLMap: " + this.OLMap);
-                        }
-                    }
-                }
-            }
-        });
-
+        this.OLMap.events.register('changelayer', null, select_layer_info);
+        XVM.EventBus.addListener(this, 'afterMapReady', 'mapCompleted');
+    },
+    
+    afterMapReady : function(){
+        featureInfo_setURL();  
     },
     
     /**
