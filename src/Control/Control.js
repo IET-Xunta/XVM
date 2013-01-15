@@ -18,6 +18,8 @@ XVM.Control = XVM.Class.extend({
 
 	options : {},
 
+	position: null,
+
 	controlPath : null,
 
 	OLControl : null,
@@ -28,9 +30,10 @@ XVM.Control = XVM.Class.extend({
 		throw 'XVM.Control.createControl dummy implementation';
 	},
 
-	initialize : function(params, controlPath) {
+	initialize : function(params, controlPath, position) {
 		this.options = params;
 		this.controlPath = controlPath;
+		this.position = position;
 		this.createControl();
 	},
 
@@ -49,6 +52,9 @@ XVM.Control = XVM.Class.extend({
 		this.beforeAddingControl();
 		if (this.addToPanel) {
 			this.OLMap.panel.addControls([this.OLControl]);
+			if ((this.options != null) && this.options.autoActivate) {
+				this.OLControl.activate();
+			}
 		} else {
 			this.OLMap.addControl(this.OLControl);
 		}

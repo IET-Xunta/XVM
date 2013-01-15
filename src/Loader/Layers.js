@@ -77,10 +77,11 @@ XVM.Loader.Layers = XVM.Class.extend({
 		var _this = context;
 		if(_this.fromGETParameters.urlwms != undefined) {
 			var GETLayer = {
-			 	map_name : 'default',
+			  	map_name : 'default',
+			  	type: 'wms',
 			  	layer_name : _this.fromGETParameters.layertitle,
 			  	wms_layer : _this.fromGETParameters.layerid,
-			 	url : _this.fromGETParameters.url,
+			 	url : _this.fromGETParameters.urlwms,
 				visible : true,
 			  	//layer_position : 0,
 			  	//layer_group : 'Capas Base',
@@ -98,6 +99,7 @@ XVM.Loader.Layers = XVM.Class.extend({
 					visibility : true,
 					singleTile : true,
 					opacity : 0.75,
+				 	group_name : '',
 					transitionEffect : 'resize',
 					buffer : 0
 				};

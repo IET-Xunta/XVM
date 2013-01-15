@@ -100,20 +100,21 @@ XVM.Map = function() {
 			),
 			controls : []
 		};
-		this.OLMap = new OpenLayers.Map(this.divName, options);
 		$('#' + this.divName).css(
-			{
-				'height' : parameters.general.height_map + 'px',  
-				'width' : parameters.general.width_map + 'px',
-				'margin' : parameters.general.margin + 'px'
-			}
+				{
+					'height' : parameters.general.height_map + 'px',  
+					'width' : parameters.general.width_map + 'px',
+					'margin' : parameters.general.margin + 'px'
+				}
 		);
+		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
 		this.OLMap.addControl(this.OLMap.panel);
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
 		};
+        OpenLayers.ProxyHost = parameters.general.proxy_host;		
 	};
 	
 	/**
@@ -139,6 +140,9 @@ XVM.Map = function() {
 	 */
 	this.addControls = function(controls) {
 		this.controls = controls;
+		this.controls.sort(function(a, b) {
+			return a.position-b.position;
+		});
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
@@ -149,16 +153,19 @@ XVM.Map = function() {
 		//this.OLMap.addLayers(this.OLLayers);
 		var baseLayer = this.OLMap.baseLayer;
 
+		layers.sort(function(a, b) {
+			return a.layer_position-b.layer_position;
+		});
+
 		for(var n=0; n<layers.length; n++) {
 			var layer = layers[n];
 			this.OLMap.addLayer(layer);
-			this.OLMap.setLayerIndex(layer, layer.layer_position);
 			
 			if (layer.isBaseLayer == true) {
 				if (baseLayer == null) 
 					baseLayer = layer;
 				else 
-					baseLayer = (baseLayer.layer_position > layer.layer_position) ? layer : baseLayer;	
+					baseLayer = (baseLayer.layer_position < layer.layer_position) ? layer : baseLayer;
 			};
 		};
 

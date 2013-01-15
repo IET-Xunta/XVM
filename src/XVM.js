@@ -68,6 +68,11 @@ var XVM = {
 	 */
 	
 	addTOC : false,
+
+	/**
+	 * XVM.Map
+	 */
+	map : null,
 	
 	TOC : null,
 
@@ -127,7 +132,7 @@ var XVM = {
 	 */
 	createDefaultMap : function(divName) {
 		this._initGlobalContext();
-		new XVM.Map(divName);
+		this.map = new XVM.Map(divName);
 		this._createDefaultLoaders();
 	}
 };

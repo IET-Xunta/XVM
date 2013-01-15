@@ -1,0 +1,22 @@
+## List of allowed host ##
+##########################
+# Write one URL per line 
+#
+www.openlayers.org 
+openlayers.org
+sigma.openplans.org 
+demo.opengeo.org
+demo.opengeo.org/geoserver/wms
+www.openstreetmap.org
+vmap0.tiles.osgeo.org 
+www.opengis.uab.es
+127.0.0.1
+### Spain/Galicia
+visorgis.cmati.xunta.es
+visorgis.xunta.es
+www.ign.es
+ideg.xunta.es
+rimax.xunta.es
+emediorural.xunta.es
+ovc.catastro.meh.es
+www.idee.es

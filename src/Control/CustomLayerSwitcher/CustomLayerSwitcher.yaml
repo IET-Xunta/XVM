@@ -1,2 +1,14 @@
-## LayerSwitcher parameter control
+## CustomLayerSwitcher parameter control
 init:
+  firstBaseLayers: false
+properties:
+## If you put a blank translation for these titles (e.g. ' '), their top nodes are ignored.
+  'en':
+    'Base Layer': 'Base Layer'
+    'Overlays': 'Overlays'
+  'es':
+    'Base Layer': 'Capas base'
+    'Overlays': 'Capas superpuestas'
+  'gl':
+    'Base Layer': 'Capas base'
+    'Overlays': 'Capas superpostas'

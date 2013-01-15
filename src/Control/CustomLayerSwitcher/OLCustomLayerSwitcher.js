@@ -71,12 +71,13 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement}
      */
     baseLayersDiv: null,
-
+    
     /** 
-     * Property: baseLayers
-     * {Array(Object)}
+     * Property: firstBaseLayers
+     * {boolean} Set to true it will display the base layers tree above the overlayers
+     * one. False is obviously the opposite.
      */
-    baseLayers: null,
+    firstBaseLayers: true,
 
     /**
      * Property: baseLayersTree
@@ -103,12 +104,6 @@ XVM.Control.OLCustomLayerSwitcher =
      */
     dataLayersDiv: null,
 
-    /** 
-     * Property: dataLayers
-     * {Array(Object)} 
-     */
-    dataLayers: null,
-
 
     /** 
      * Property: minimizeDiv
@@ -121,12 +116,13 @@ XVM.Control.OLCustomLayerSwitcher =
      * {DOMElement} 
      */
     maximizeDiv: null,
-    
+
     /**
      * APIProperty: ascending
-     * {Boolean} 
+     * {Boolean} If we want the layers to appear in the tree in the same order
+     * 		as they are in the map, or in reverse.
      */
-    ascending: true,
+    reverse: false,
  
     /**
      * Constructor: OpenLayers.Control.LayerSwitcher
@@ -137,6 +133,9 @@ XVM.Control.OLCustomLayerSwitcher =
     initialize: function(options) {
         OpenLayers.Control.prototype.initialize.apply(this, arguments);
         this.layerStates = [];
+        if ((options != null) && (typeof options.firstBaseLayers == 'boolean')) {
+        	this.firstBaseLayers = options.firstBaseLayers;
+        }
         
         if(this.roundedCorner) {
             OpenLayers.Console.warn('roundedCorner option is deprecated');
@@ -147,10 +146,6 @@ XVM.Control.OLCustomLayerSwitcher =
      * APIMethod: destroy 
      */    
     destroy: function() {
-        
-        //clear out layers info and unregister their events 
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
         
         this.map.events.un({
             buttonclick: this.onButtonClick,
@@ -207,10 +202,6 @@ XVM.Control.OLCustomLayerSwitcher =
             this.minimizeControl();
         }
 
-        //clear out previous layers
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
-
         // Save state -- for checking layer if the map state changed.
         // We save this before redrawing, because in the process of redrawing
         // we will trigger more visibility changes, and we want to not redraw
@@ -243,19 +234,9 @@ XVM.Control.OLCustomLayerSwitcher =
         } else if (button === this.maximizeDiv) {
             this.maximizeControl();
         }
-    },
-
-    /** 
-     * Method: clearLayersArray
-     * User specifies either "base" or "data". we then clear all the
-     *     corresponding listeners, the div, and reinitialize a new array.
-     * 
-     * Parameters:
-     * layersType - {String}  
-     */
-    clearLayersArray: function(layersType) {
-        //this[layersType + "LayersDiv"].innerHTML = "";
-        this[layersType + "Layers"] = [];
+        if ($(button).parents().is('#tree1') || $(button).parents().is('#tree2')) {
+            OpenLayers.Event.stop(evt);
+        }
     },
 
 
@@ -302,11 +283,7 @@ XVM.Control.OLCustomLayerSwitcher =
         // to do anything. Just return the existing div.
         if (!this.checkRedraw()) { 
             return this.div; 
-        } 
-
-        //clear out previous layers 
-        this.clearLayersArray("base");
-        this.clearLayersArray("data");
+        }
         
         // Save state -- for checking layer if the map state changed.
         // We save this before redrawing, because in the process of redrawing
@@ -325,7 +302,7 @@ XVM.Control.OLCustomLayerSwitcher =
         }
 
         var layers = this.map.layers.slice();
-        if (!this.ascending) { layers.reverse(); }
+        if (!this.reverse) { layers.reverse(); }
 
         var baselayers = [], overlays = [];
         for (var i=0, len=layers.length; i<len; i++) {
@@ -341,7 +318,32 @@ XVM.Control.OLCustomLayerSwitcher =
         this.baseLayersTree = $(this.baseLayersTree).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
-          classNames: {checkbox: "dynatree-radio"},
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-radio",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 1,
           clickFolderMode: 2,
           parent: this,
@@ -350,12 +352,39 @@ XVM.Control.OLCustomLayerSwitcher =
               node.tree.options.parent.updateBaseLayer(node.data._layer);
           },
           cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-"
+          idPrefix: "dynatree-Cb1-",
+          debugLevel: 0
         });
 
         $(this.overlaysTree).dynatree('destroy');
         this.overlaysTree = $(this.overlaysTree).dynatree({
           checkbox: true,
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-checkbox",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 3,
           clickFolderMode: 2,
           parent: this,
@@ -369,7 +398,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.visit(updateNodeLayer, true);
           },
           cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-"
+          idPrefix: "dynatree-Cb2-",
+          debugLevel: 0
         });
 
         return this.div;
@@ -416,7 +446,7 @@ XVM.Control.OLCustomLayerSwitcher =
         this.showControls(true);
 
         if (e != null) {
-            OpenLayers.Event.stop(e);                                            
+            OpenLayers.Event.stop(e);
         }
     },
 
@@ -477,30 +507,40 @@ XVM.Control.OLCustomLayerSwitcher =
     generateOverlaysTree : function(layers) {
 
         var baseId = this.id + '_overlays';
+        var title = $.i18n('Overlays');
 
         treeChildren = [
-                      {title: OpenLayers.i18n('Overlays'), key: baseId,  expand: true, isFolder: true, icon: false,
+                      {title: title, key: baseId,  expand: true, isFolder: true, icon: false,
                         children: []
                       }
                     ];
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, true);
 
+        // We trim the title and ignore if its node when it's void
+        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        	return treeChildren[0].children;
+        }
         return treeChildren;
     },
     
     generateBaseLayersTree : function(layers) {
 
         var baseId = this.id + '_baselayers';
+        var title = $.i18n('Base Layer');
 
         var treeChildren =[
-                       {title: OpenLayers.i18n("Base Layer"), key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
+                       {title: title, key: baseId, hideCheckbox: true, unselectable: true, expand: true, isFolder: true, icon: false,
                          children: []
                        }
                      ];
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, false);
 
+        // We trim the title and ignore if its node when it's void
+        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        	return treeChildren[0].children;
+        }
         return treeChildren;
     },
     
@@ -572,6 +612,7 @@ XVM.Control.OLCustomLayerSwitcher =
         this.div.appendChild(this.minimizeDiv);
 
         var layers = this.map.layers.slice();
+        if (!this.reverse) { layers.reverse(); }
 
         var baselayers = [], overlays = [];
         for (var i=0, len=layers.length; i<len; i++) {
@@ -585,12 +626,49 @@ XVM.Control.OLCustomLayerSwitcher =
 
         treeDiv = document.createElement('div');
         treeDiv.id = "tree1";
-        this.div.appendChild(treeDiv);
+        OpenLayers.Element.addClass(treeDiv, "olButton");
+
+        treeDiv2 = document.createElement('div');
+        treeDiv2.id = "tree2";
+        OpenLayers.Element.addClass(treeDiv2, "olButton");
+
+        if (this.firstBaseLayers) {
+            this.div.appendChild(treeDiv);
+            this.div.appendChild(treeDiv2);
+        } else {
+            this.div.appendChild(treeDiv2);
+            this.div.appendChild(treeDiv);
+        }
 
         this.baseLayersTree = $(treeDiv).dynatree({
           checkbox: true,
           // Override class name for checkbox icon:
-          classNames: {checkbox: "dynatree-radio"},
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-radio",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 1,
           clickFolderMode: 2,
           parent: this,
@@ -599,15 +677,38 @@ XVM.Control.OLCustomLayerSwitcher =
               node.tree.options.parent.updateBaseLayer(node.data._layer);
           },
           cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-"
+          idPrefix: "dynatree-Cb1-",
+          debugLevel: 0
         });
-
-        treeDiv2 = document.createElement('div');
-        treeDiv2.id = "tree2";
-        this.div.appendChild(treeDiv2);
 
         this.overlaysTree = $(treeDiv2).dynatree({
           checkbox: true,
+          classNames: {
+              container: "olButton dynatree-container",
+              node: "olButton dynatree-node",
+              folder: "olButton dynatree-folder",
+              empty: "olButton dynatree-empty",
+              vline: "olButton dynatree-vline",
+              expander: "olButton dynatree-expander",
+              connector: "olButton dynatree-connector",
+              checkbox: "olButton dynatree-checkbox",
+              nodeIcon: "olButton dynatree-icon",
+              title: "olButton dynatree-title",
+              noConnector: "olButton dynatree-no-connector",
+              nodeError: "olButton dynatree-statusnode-error",
+              nodeWait: "olButton dynatree-statusnode-wait",
+              hidden: "olButton dynatree-hidden",
+              combinedExpanderPrefix: "olButton dynatree-exp-",
+              combinedIconPrefix: "olButton dynatree-ico-",
+              hasChildren: "olButton dynatree-has-children",
+              active: "olButton dynatree-active",
+              selected: "olButton dynatree-selected",
+              expanded: "olButton dynatree-expanded",
+              lazy: "olButton dynatree-lazy",
+              focused: "olButton dynatree-focused",
+              partsel: "olButton dynatree-partsel",
+              lastsib: "olButton dynatree-lastsib"
+          },
           selectMode: 3,
           clickFolderMode: 2,
           parent: this,
@@ -621,7 +722,8 @@ XVM.Control.OLCustomLayerSwitcher =
               node.visit(updateNodeLayer, true);
           },
           cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-"
+          idPrefix: "dynatree-Cb2-",
+          debugLevel: 0
         });
         
     },

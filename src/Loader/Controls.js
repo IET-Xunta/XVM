@@ -60,10 +60,10 @@ XVM.Loader.Controls = XVM.Class.extend({
 		if (controls.length == 0) {
 			XVM.EventBus.fireEvent('addControls', []);
 		}
-		for(var n in controls) {
+		for(var n=0, length=controls.length; n<length; n++) {
 			var controlName = controls[n];
 			var controlPath = XVM.CONTROLSFOLDER + '/' + controlName + '/';
-			var controlLoader = new XVM.Control.ControlLoader(controlPath, controlName, this_.reader);
+			var controlLoader = new XVM.Control.ControlLoader(controlPath, controlName, n, this_.reader);
 			controlLoader.loadControl(function(control) {
 				this_.controls.push(control);
 				nControls += 1;
