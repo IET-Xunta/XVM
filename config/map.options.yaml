@@ -7,8 +7,7 @@
     lang: es,
     height_map : !!int 600,
     width_map  : !!int 800,
-    margin : !!int 0,
-    proxy_host : 'proxy/proxy.php?url='
+    margin : !!int 0
   },
 
   ## Map specific parameters

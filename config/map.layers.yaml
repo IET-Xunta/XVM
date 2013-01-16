@@ -17,7 +17,7 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 501,
+      layer_position : !!int 101,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
       visibility: !!bool false,
@@ -33,10 +33,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 502,
+      layer_position : !!int 110,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility : !!bool false,
+      visibility: !!bool false,
       projection : 'EPSG:23029'
     }
   }, {
@@ -49,10 +49,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 503,
+      layer_position : !!int 110,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility : !!bool true,
+      visibility: !!bool true,
       projection : 'EPSG:23029'
     }
   },{
@@ -65,10 +65,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_base',
-      layer_position : !!int 504,
+      layer_position : !!int 102,
       singleTile : !!bool false,
       isBaseLayer : !!bool true,
-      visibility : !!bool false,
+      visibility: !!bool false,
       projection : 'EPSG:23029'
     }
   },{
@@ -84,12 +84,11 @@
     parameters : {
       opacity : !!float 0.95,
       group_name : 'capa_aux',
-      layer_position : !!int 204,
+      layer_position : !!int 50,
       singleTile : !!bool true,
       isBaseLayer : !!bool false,
-      visibility : !!bool true,
-      projection : 'EPSG:23029',
-      queryable : false
+      visibility: !!bool true,
+      projection : 'EPSG:23029'
     }
   }, {
   ## SITGA Carreteras
@@ -102,12 +101,11 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 203,
+      layer_position : !!int 51,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility : !!bool false,
-      projection : 'EPSG:23029',
-      queryable : false
+      visibility: !!bool false,
+      projection : 'EPSG:23029'
     }
   },{
   ## SITGA limites
@@ -119,12 +117,11 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 202,
+      layer_position : !!int 52,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility : !!bool true,
-      projection : 'EPSG:23029',
-      queryable : false
+      visibility: !!bool true,
+      projection : 'EPSG:23029'
     }
   }, {
   ## Catastro
@@ -136,10 +133,10 @@
     parameters : {
       opacity : !!float 0.75,
       group_name : 'capa_aux',
-      layer_position : !!int 201,
+      layer_position : !!int 55,
       singleTile : !!bool false,
       isBaseLayer : !!bool false,
-      visibility : !!bool false,
+      visibility: !!bool false,
       projection : 'EPSG:23029'
     }
   }, {

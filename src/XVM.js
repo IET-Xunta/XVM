@@ -104,9 +104,9 @@ var XVM = {
 	/**
 	 * 
 	 */
-	_addTOC : function(add) {
+	_addTOC : function() {
 		this.addTOC = true;
-		this.TOC = new TOC.Control(this.Reader);
+		this.TOC = new TOC.Control();
 	},
 	
 	/**
