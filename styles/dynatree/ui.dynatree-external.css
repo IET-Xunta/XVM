@@ -1,0 +1,142 @@
+/*******************************************************************************
+ * External Tree container
+ */
+ul.dynatree-container-external
+{
+	font-family: tahoma, arial, helvetica;
+	font-size: 10pt; /* font size should not be too big */
+	white-space: nowrap;
+	padding: 3px;
+	margin: 0; /* issue 201 */
+	background-color: white;
+	overflow: auto;
+	height: 100%; /* issue 263 */
+}
+
+ul.dynatree-container-external a:hover
+{
+/*	text-decoration: underline; */
+	background: #F2F7FD; /* light blue */
+	border-color: #B8D6FB; /* darker light blue */
+}
+
+ul.dynatree-container-external ul
+{
+	padding: 0 0 0 16px;
+	margin: 0;
+}
+
+ul.dynatree-container-external li
+{
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	-moz-background-clip:border;
+	-moz-background-inline-policy: continuous;
+	-moz-background-origin: padding;
+	background-attachment: scroll;
+	background-color: transparent;
+	background-position: 0 0;
+	background-repeat: repeat-y;
+	background-image: none;  /* no v-lines */
+
+	margin:0;
+	padding:1px 0 0 0;
+}
+/* Suppress lines for last child node */
+ul.dynatree-container-external li.dynatree-lastsib
+{
+	background-image: none;
+}
+
+/* Style, when control is disabled */
+.ui-dynatree-disabled ul.dynatree-container-external
+{
+	opacity: 0.5;
+/*	filter: alpha(opacity=50); /* Yields a css warning */
+	background-color: silver;
+}
+
+
+/*******************************************************************************
+ * Common icon definitions
+ */
+span.dynatree-expander-external,
+#dynatree-drop-marker
+{
+	width: 16px;
+	height: 16px;
+/*	display: -moz-inline-box; /* @ FF 1+2 removed for issue 221*/
+/*	-moz-box-align: start; /* issue 221 */
+	display: inline-block; /* Required to make a span sizeable */
+	vertical-align: top;
+	background-repeat: no-repeat;
+	background-position: left;
+	background-image: url("external-icons.gif");
+	background-position: 0 0;
+}
+
+/** Used by 'icon' node option: */
+ul.dynatree-container-external img
+{
+	width: 16px;
+	height: 16px;
+	margin-left: 3px;
+	vertical-align: top;
+	border-style: none;
+}
+*/
+/*******************************************************************************
+ * Expander icon
+ * Note: IE6 doesn't correctly evaluate multiples class names,
+ *		 so we create combined class names that can be used in the CSS.
+ *
+ * Prefix: dynatree-exp-
+ * 1st character: 'e': expanded, 'c': collapsed
+ * 2nd character (optional): 'd': lazy (Delayed)
+ * 3rd character (optional): 'l': Last sibling
+ */
+
+span.dynatree-expander-external
+{
+	background-position: 0px 0px;
+	cursor: pointer;
+}
+span.dynatree-expander-external:hover
+{
+	background-position: -16px 0px;
+}
+.dynatree-exp-cl span.dynatree-expander-external /* Collapsed, not delayed, last sibling */
+{
+}
+.dynatree-exp-cd span.dynatree-expander-external /* Collapsed, delayed, not last sibling */
+{
+}
+.dynatree-exp-cdl span.dynatree-expander-external /* Collapsed, delayed, last sibling */
+{
+}
+.dynatree-exp-e span.dynatree-expander-external,  /* Expanded, not delayed, not last sibling */
+.dynatree-exp-ed span.dynatree-expander-external,  /* Expanded, delayed, not last sibling */
+.dynatree-exp-el span.dynatree-expander-external,  /* Expanded, not delayed, last sibling */
+.dynatree-exp-edl span.dynatree-expander-external  /* Expanded, delayed, last sibling */
+{
+	background-position: -32px -0px;
+}
+.dynatree-exp-e span.dynatree-expander-external:hover,  /* Expanded, not delayed, not last sibling */
+.dynatree-exp-ed span.dynatree-expander-external:hover,  /* Expanded, delayed, not last sibling */
+.dynatree-exp-el span.dynatree-expander-external:hover,  /* Expanded, not delayed, last sibling */
+.dynatree-exp-edl span.dynatree-expander-external:hover  /* Expanded, delayed, last sibling */
+{
+	background-position: -48px 0px;
+}
+.dynatree-loading span.dynatree-expander-external  /* 'Loading' status overrides all others */
+{
+	background-position: 0 0;
+	background-image: url("loading.gif");
+}
+
+ul.dynatree-container-external a:focus,
+span.dynatree-focused-external a:link  /* @IE */
+{
+	background-color: #EFEBDE; /* gray */
+}
