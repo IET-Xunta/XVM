@@ -1,6 +1,6 @@
 ## FeatureInfo parameter control
 init:
-  infoFormat : 'application/vnd.ogc.gml'
+  infoFormat : 'text/xml'
   url : ''
   queryVisible : !!bool true
   title: eval($.i18n('feature_info_tooltip'))

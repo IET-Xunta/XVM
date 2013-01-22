@@ -8,37 +8,6 @@
  * @author Instituto Estudos do Territorio, IET
  */
 
-
-
-function featureInfo_setURL() {
-    var info_ctl = XVM.map.OLMap.getControlsByClass('OpenLayers.Control.WMSGetFeatureInfo')[0];
-    var lyrs_aux = XVM.map.OLMap.getLayersBy("visibility", true);
-    for (var i = 0; i < lyrs_aux.length; i++) {
-        var l = lyrs_aux[i];
-        if (l.isBaseLayer == false && l.url  
-            && (l.queryable == undefined || l.queryable)) {
-            info_ctl.url = l.url;
-        }
-    }
-}
-
-function select_layer_info(evt) {
-    var info_ctl = XVM.map.OLMap.getControlsByClass('OpenLayers.Control.WMSGetFeatureInfo')[0];
-    if (evt.property === "visibility") {
-        if (evt.layer.isBaseLayer == false) {
-            if (evt.layer.visibility == true) {
-                info_ctl.url = evt.layer.url;
-            } else {
-                if (this && info_ctl != undefined) {
-                    featureInfo_setURL();
-                } else {
-                    //console.log("this.OLMap: " + this.OLMap);
-                }
-            }
-        }
-    }
-}
-
 XVM.Control.FeatureInfo = XVM.Control.extend({
 
     addToPanel : true,
@@ -57,13 +26,41 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
         this.OLControl.events.register('getfeatureinfo', this, this.showsFeatureInfo);
 
         // Try to change dinamically the url to use depending on the layer visibility
-        // NOTE: XVM allows the 'queryable' parameter on the map.layers.yaml file 
-        this.OLMap.events.register('changelayer', null, select_layer_info);
+        // NOTE: XVM allows the 'queryable' parameter on the map.layers.yaml file
+        XVM.EventBus.addListener(this, 'selectLayerInfo', 'changelayer');
         XVM.EventBus.addListener(this, 'afterMapReady', 'mapCompleted');
     },
     
     afterMapReady : function(){
-        featureInfo_setURL();  
+        this.featureInfoSetURL();  
+    },
+    
+    selectLayerInfo : function(evt) {
+        if (evt.property === "visibility") {
+            if (evt.layer.isBaseLayer == false) {
+                if (evt.layer.visibility == true) {
+                	this.OLControl.url = evt.layer.url;
+                } else {
+                    if (this && this.OLControl != undefined) {
+                        this.featureInfoSetURL();
+                    } else {
+                        //console.log("this.OLMap: " + this.OLMap);
+                    }
+                }
+            }
+        }
+    },
+    
+    featureInfoSetURL : function() {
+        var lyrs_aux = this.OLMap.getLayersBy("visibility", true);
+        this.OLControl.url = null;
+        for (var i = 0; i < lyrs_aux.length; i++) {
+            var l = lyrs_aux[i];
+            if (l.isBaseLayer == false && l.url  
+                && (l.queryable == undefined || l.queryable)) {
+            	this.OLControl.url = l.url;
+            } 
+        }
     },
     
     /**
@@ -76,7 +73,7 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
                 var feature = features[i];
                 var attributes = feature.attributes;
                 if (feature.layer == null) {
-                    feature.layer = new OpenLayers.Layer.WMS()
+                    feature.layer = new OpenLayers.Layer.WMS();
                     feature.layer.name = feature.type;
                     if (!feature.layer.name) {
                         feature.layer.name = '';
@@ -108,6 +105,7 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
 
         if (nodesLayer.length == 0) {
             //contents = $.i18n.prop("features_not_found");
+        	console.log(response);
             contents = "features_not_found";
             return contents;
         };
@@ -143,9 +141,9 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
         return html;
     },
 
-    getFeatureInfo : function(urlWMS) {
+    /*getFeatureInfo : function(urlWMS) {
         getFeatureInfo(urlWMS, 'application/vnd.ogc.gml');
-    },
+    },*/
 
     /**
      * Method
@@ -154,16 +152,17 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
      */
     showsFeatureInfo : function(evt) {
         var contents = "";
+        console.log(this.OLControl.infoFormat);
         if (this.OLControl.infoFormat == 'application/vnd.ogc.gml') {
             var features = this.OLControl.format.read(evt.text);
             if (features && features.length > 0) {
                 contents = this.formatInfo(features);
             } else {
                 //contents = $.i18n.prop("features_not_found");
-                contents = "features_not_found";
+                contents = evt.text;
             }
-        } else if (this.featureInfo.infoFormat == 'text/xml') {
-            contents = formatGeomediaInfo(e.text);
+        } else if (this.OLControl.infoFormat == 'text/xml') {
+            contents = this.formatGeomediaInfo(evt.text);
         } else {
             contents = evt.text;
         }
