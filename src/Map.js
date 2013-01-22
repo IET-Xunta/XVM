@@ -110,6 +110,10 @@ XVM.Map = function() {
 		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
 		this.OLMap.addControl(this.OLMap.panel);
+		this.OLMap.events.register('changelayer', this, this.eventOnLayer);
+		this.OLMap.events.register('changebaselayer', this, this.eventOnLayer);
+		this.OLMap.events.register('addlayer', this, this.eventOnLayer);
+		this.OLMap.events.register('removelayer', this, this.eventOnLayer);
 		this.loaded += 1;
 		if(this.loaded == 3) {
 			this.drawMap();
@@ -223,13 +227,17 @@ XVM.Map = function() {
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 		XVM.EventBus.addListener(this, 'addControls', 'addControls');
-	}
+	};
 	
 	this.addXVMControl = function(control) {
 		if (!(control instanceof XVM.Control)) {
 			throw 'Control not supported';
 		}
 		control.setOLMap(this.OLMap);
+	};
+	
+	this.eventOnLayer = function(evt) {
+		XVM.EventBus.fireEvent(evt.type, evt);
 	};
 
 	this.init();
