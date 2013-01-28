@@ -1,0 +1,11 @@
+## FeatureInfoCatastro parameter control
+init:
+  title: eval($.i18n('feature_catastro_info_tooltip'))
+properties:
+  'en':
+    'feature_catastro_info_tooltip': 'Catastro Feature Info'
+  'es':
+    'feature_catastro_info_tooltip': 'Datos Catastrales'
+  'gl':
+    'feature_catastro_info_tooltip': 'Datos Catastrais'
+  

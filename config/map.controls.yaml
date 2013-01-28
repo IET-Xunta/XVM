@@ -2,6 +2,7 @@
 {
   controls: [
     FeatureInfo,
+    FeatureInfoCatastro,
     ZoomIn,
     CustomLayerSwitcher,
     Scale,
