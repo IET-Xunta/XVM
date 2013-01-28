@@ -278,6 +278,11 @@ XVM.Map = function() {
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 		XVM.EventBus.addListener(this, 'addControls', 'addControls');
 		XVM.EventBus.addListener(this, 'setMapSize', 'setMapSize');
+		XVM.EventBus.addListener(this, 'setExtent', 'setExtent');
+	};
+	
+	this.setExtent = function(evt) {
+		this.OLMap.zoomToExtent(evt.extent, evt.closest);
 	};
 	
 	this.addXVMControl = function(control) {
