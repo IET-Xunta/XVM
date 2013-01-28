@@ -16,5 +16,8 @@ XVM.Control.MousePosition = XVM.Control.extend({
 	
 	afterAddingControl : function() {
 		this.OLControl.prefix = this.OLMap.displayProjection.projCode + " ";
+		$('.olControlMousePosition').click(function(evt) {
+			XVM.EventBus.fireEvent('setMapSize', this);
+		});
 	}
 });

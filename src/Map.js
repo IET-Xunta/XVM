@@ -72,6 +72,11 @@ XVM.Map = function() {
 	 * 
 	 */
 	this.loaded = 0;
+	
+	/**
+	 * Switch to fullscreen value
+	 */
+	this.fullScreen = null;
 
 	this.divName = null;
 
@@ -99,13 +104,9 @@ XVM.Map = function() {
 				parseInt(parameters.map_settings.bounds[3])
 			),
 			controls : []
-		};
-		
-		if (parameters.general.height_map != undefined) {
-			this.setMapSize(parameters);
-		} else {
-			this.changeToFullScreen(parameters);
-		}
+		};		
+
+		this.setMapSize();
 
 		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
@@ -144,47 +145,49 @@ XVM.Map = function() {
 	 * 
 	 * @param parameters: object with map parameters
 	 */
-	this.setMapSize = function(parameters) {
+	this.setMapSize = function() {
 		
-		$('#' + this.divName).css(
-				{
-					'height' : parameters.general.height_map + 'px',  
-					'width' : parameters.general.width_map + 'px',
-					'margin' : parameters.general.margin + 'px'
-				}
-		);
-	};	
-	
-	/**
-	 * Sets map size to full screen. Launchs if no map sizes parameters into 
-	 * map.config.yaml
-	 */
-	this.changeToFullScreen = function(parameters){
+		if (this.fullScreen == false) {
+			 $('html').css(
+						{
+							'height' : '100%',  
+							'width' : '100%',
+							'margin' : '0px'
+						}
+				);
 
-        $('html').css(
-				{
-					'height' : '100%',  
-					'width' : '100%',
-					'margin' : '0px'
-				}
-		);
+		        $('body').css(
+						{
+							'height' : '100%',  
+							'width' : '100%',
+							'margin' : '0px'
+						}
+				);
 
-        $('body').css(
-				{
-					'height' : '100%',  
-					'width' : '100%',
-					'margin' : '0px'
-				}
-		);
-
-		$('#' + this.divName).css(
-				{
-					'height' : '100%',  
-					'width' : '100%',
-					'margin' : '0px'
-				}
-		);
-    };
+				$('#' + this.divName).css(
+						{
+							'height' : '100%',  
+							'width' : '100%',
+							'margin' : '0px'
+						}
+				);
+				this.fullScreen = true;
+		} else {
+			if (this.parameters.general.height_map != undefined){
+				$('#' + this.divName).css(
+						{
+							'height' : this.parameters.general.height_map + 'px',  
+							'width' : this.parameters.general.width_map + 'px',
+							'margin' : this.parameters.general.margin + 'px'
+						}
+				);
+				this.fullScreen = false;
+			} else {
+				this.fullScreen = false;
+				this.setMapSize();
+			}
+		};
+	};
 	
 	/**
 	 * 
@@ -274,6 +277,7 @@ XVM.Map = function() {
 		XVM.EventBus.addListener(this, 'addConfigParameters', 'addConfigParameters');
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
 		XVM.EventBus.addListener(this, 'addControls', 'addControls');
+		XVM.EventBus.addListener(this, 'setMapSize', 'setMapSize');
 	};
 	
 	this.addXVMControl = function(control) {
