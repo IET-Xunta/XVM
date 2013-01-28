@@ -36,17 +36,12 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
     },
     
     selectLayerInfo : function(evt) {
+    	this.OLControl.url = null;
         if (evt.property === "visibility") {
             if (evt.layer.isBaseLayer == false) {
                 if (evt.layer.visibility == true) {
                 	this.OLControl.url = evt.layer.url;
-                } else {
-                    if (this && this.OLControl != undefined) {
-                        this.featureInfoSetURL();
-                    } else {
-                        //console.log("this.OLMap: " + this.OLMap);
-                    }
-                }
+                } 
             }
         }
     },
@@ -105,13 +100,12 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
 
         if (nodesLayer.length == 0) {
             //contents = $.i18n.prop("features_not_found");
-        	console.log(response);
             contents = "features_not_found";
             return contents;
         };
 
         for (var i = 0; i < nodesLayer.length; ++i) {
-            var n = nodesLayer[i];
+            var n = nodesLayer[i];    
             var lyrName = n.attributes[0].value;
             pieces.push(lyrName);
             var nodesAttr = xmlFormat.getElementsByTagNameNS(n, "*", "Attribute");
@@ -128,22 +122,26 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
             feature.layer = layer;
             features.push(feature);
         }
-        return formatInfo(features);
+        return features;
     },
 
     getError : function(text) {
-        //var html = $.i18n.prop("no_features_found");
-        var html = "no_features_found";
-        if (text.toUpperCase().indexOf("ERROR") != -1 || text.toUpperCase().indexOf("EXCEPTION") != -1) {
-            //html = $.i18n.prop("error_on_getFeatureInfo");
-            html = "error_on_getFeatureInfo";
+    	var html = '';
+        var reader = new OpenLayers.Format.OGCExceptionReport();
+        var exceptionReports = reader.read(text);
+        if (exceptionReports.exceptionReport != undefined) {
+        	html = '<p>';
+            var exceptions = exceptionReports.exceptionReport.exceptions;
+            for (var i=0; i<exceptions.length; i++ ) {
+              	for (var attr in exceptions[i]) {
+               		html = html + '<span id=getfeaureinforesponse_' + attr + '>' +
+               		attr + ' : ' + exceptions[i][attr] + '</span></br>';
+               	}
+            };
+            html = html + '</p>';
         }
         return html;
     },
-
-    /*getFeatureInfo : function(urlWMS) {
-        getFeatureInfo(urlWMS, 'application/vnd.ogc.gml');
-    },*/
 
     /**
      * Method
@@ -151,24 +149,35 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
      * {OpenLayers.Event}
      */
     showsFeatureInfo : function(evt) {
-        var contents = "";
-        console.log(this.OLControl.infoFormat);
-        if (this.OLControl.infoFormat == 'application/vnd.ogc.gml') {
-            var features = this.OLControl.format.read(evt.text);
-            if (features && features.length > 0) {
-                contents = this.formatInfo(features);
-            } else {
-                //contents = $.i18n.prop("features_not_found");
-                contents = evt.text;
-            }
-        } else if (this.OLControl.infoFormat == 'text/xml') {
-            contents = this.formatGeomediaInfo(evt.text);
-        } else {
-            contents = evt.text;
-        }
-        ;
+    	this.featureInfoSetURL();
+    	var contents = '';
+    	if (this.OLControl.url != null) {
+    	      contents = this.getError(evt.text);
+    	        if (contents == '') {
+    	        	var features = null;
+    	            if (this.OLControl.infoFormat == 'application/vnd.ogc.gml') {
+    	                features = this.OLControl.format.read(evt.text);
+    	            } else if (this.OLControl.infoFormat == 'text/xml') {
+    	                features = this.formatGeomediaInfo(evt.text);
+    	            } 
+    	            if (features && features.length > 0) {
+    	                contents = this.formatInfo(features);
+    	            } else {
+    	                contents = evt.text;
+    	            } 
+    	        }	
+    	} else {
+    		contents = 'Ninguna capa seleccionada responde a GetFeatureInfo';
+    	}    	
 
-        this.OLMap.addPopup(new OpenLayers.Popup.FramedCloud("chicken", this.OLMap.getLonLatFromPixel(evt.xy), null, contents, null, true));
+        this.OLMap.addPopup(
+        		new OpenLayers.Popup.FramedCloud("chicken", 
+        				this.OLMap.getLonLatFromPixel(evt.xy), 
+        				null, 
+        				contents, 
+        				null, 
+        				true));	
+  
     }
 });
 

@@ -5,10 +5,10 @@
 describe('FeatureInfo control tests', function() {
 	
 		var wmsLayers = [
-			new OpenLayers.Layer.WMS("Subterraneas",
-					"http://visorgis.cmati.xunta.es/geoserver/dhgc/wms?", {
+			new OpenLayers.Layer.WMS("Catastro",
+					"http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx", {
 						// GetMap parameters
-						layers : "masasaugasubterraneas",
+						layers : "Catastro",
 						transparent : true,
 						format : "image/png"
 					}, {
@@ -88,6 +88,18 @@ describe('FeatureInfo control tests', function() {
 	
 	var parameters = getJSONFixture('map.parameters.json');
 	
+	var fakeerrortext = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' + 
+	'<!DOCTYPE ServiceExceptionReport SYSTEM "http://fakeurl/schemas/wms/1.1.1/WMS_exception_1_1_1.dtd">' + 
+	' <ServiceExceptionReport version="1.1.1" >   <ServiceException code="InvalidFormat" locator="info_format"> ' + 
+	'     Invalid format &apos;text/xml&apos;, supported formats are [text/plain, application/vnd.ogc.gml, text/html]' + 
+	'</ServiceException></ServiceExceptionReport>';
+	
+	var fakeTextGetFeatureInfo = '"<?xml version="1.0" encoding="ISO-8859-1"?>' + 
+	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + 
+	'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="sp" lang="sp"> ' + 
+	'<head><title>Informaci&oacute;n parcelas</title></head><body><p>Referencia catastral de la parcela:</p><p>' + 
+	'<a href="https://www1.sedecatastro.gob.es/CYCBienInmueble/OVCListaBienes.aspx?del=27&muni=900&rc1=27900B5&rc2=0100134">27900B50100134</a></p></body></html>';
+	
 	XVM.EventBus = new XVM.Event.EventBus();
 	
 	var map = new XVM.Map('map');
@@ -114,6 +126,42 @@ describe('FeatureInfo control tests', function() {
 		wmsLayers[1].queryable = false;
 		infoFeature.featureInfoSetURL();
 		expect(infoFeature.OLControl.url).toBeNull();
+	});
+	
+	it('Changes layer visibility control sets new URL', function(){
+		var evt = {
+				property : 'visibility',
+				layer : wmsLayers[1]
+		};
+		XVM.EventBus.fireEvent('changelayer', evt);
+		expect(infoFeature.OLControl.url).toEqual(wmsLayers[1].url);
+		evt.layer = wmsLayers[2];
+		XVM.EventBus.fireEvent('changelayer', evt);
+		expect(infoFeature.OLControl.url).toBeNull();
+		evt.layer = wmsLayers[0];
+		XVM.EventBus.fireEvent('changelayer', evt);
+		expect(infoFeature.OLControl.url).toEqual(wmsLayers[0].url);
+	});
+	
+	it('Feature gets error shows message', function() {
+		var html = infoFeature.getError(fakeerrortext);
+		expect($(html).find('#getfeaureinforesponse_code').text()).toEqual('code : InvalidFormat');
+	});
+	
+	it('Shows feature info from layer', function() {
+		var fakeGetfeatureInfoEvent = {
+				cancelBubble : true,
+				element : null,
+				features : new Array(),
+				object : infoFeature.OLControl,
+				request : null, 
+				text : fakeTextGetFeatureInfo,
+				type : 'getfeatureinfo',
+				xy : new OpenLayers.Pixel(529, 221)
+		};
+		spyOn(infoFeature.OLMap, 'addPopup');
+		infoFeature.showsFeatureInfo(fakeGetfeatureInfoEvent);
+		expect(infoFeature.OLMap.addPopup).toHaveBeenCalled();
 	});
 	
 });
