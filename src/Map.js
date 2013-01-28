@@ -100,13 +100,13 @@ XVM.Map = function() {
 			),
 			controls : []
 		};
-		$('#' + this.divName).css(
-				{
-					'height' : parameters.general.height_map + 'px',  
-					'width' : parameters.general.width_map + 'px',
-					'margin' : parameters.general.margin + 'px'
-				}
-		);
+		
+		if (parameters.general.height_map != undefined) {
+			this.setMapSize(parameters);
+		} else {
+			this.changeToFullScreen(parameters);
+		}
+
 		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
 		this.OLMap.addControl(this.OLMap.panel);
@@ -138,6 +138,53 @@ XVM.Map = function() {
 			}
 		}
 	};
+	
+	/**
+	 * Sets map size
+	 * 
+	 * @param parameters: object with map parameters
+	 */
+	this.setMapSize = function(parameters) {
+		
+		$('#' + this.divName).css(
+				{
+					'height' : parameters.general.height_map + 'px',  
+					'width' : parameters.general.width_map + 'px',
+					'margin' : parameters.general.margin + 'px'
+				}
+		);
+	};	
+	
+	/**
+	 * Sets map size to full screen. Launchs if no map sizes parameters into 
+	 * map.config.yaml
+	 */
+	this.changeToFullScreen = function(parameters){
+
+        $('html').css(
+				{
+					'height' : '100%',  
+					'width' : '100%',
+					'margin' : '0px'
+				}
+		);
+
+        $('body').css(
+				{
+					'height' : '100%',  
+					'width' : '100%',
+					'margin' : '0px'
+				}
+		);
+
+		$('#' + this.divName).css(
+				{
+					'height' : '100%',  
+					'width' : '100%',
+					'margin' : '0px'
+				}
+		);
+    };
 	
 	/**
 	 * 
