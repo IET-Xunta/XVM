@@ -14,7 +14,6 @@ XVM.Control.Navigation = XVM.Control.extend({
 
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control.Navigation(this.options);
-		console.log(this.OLControl);
 	},
 
 	beforeAddingControl : function() {

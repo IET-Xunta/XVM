@@ -180,6 +180,3 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
   
     }
 });
-
-// Added for debugging tasks
-//@ sourceURL=featureInfo.js

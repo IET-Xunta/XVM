@@ -77,6 +77,3 @@ XVM.Control.FeatureInfoCatastro = XVM.Control.extend({
         return html += '</table>';
     }
 });
-
-// Added for debugging tasks
-//@ sourceURL=featureCatastroInfo.js
