@@ -204,7 +204,6 @@ XVM.Map = function() {
 	};
 	
 	this.addLayersToOLMap = function(layers) {
-		//this.OLMap.addLayers(this.OLLayers);
 		var baseLayer = this.OLMap.baseLayer;
 
 		layers.sort(function(a, b) {
@@ -213,14 +212,14 @@ XVM.Map = function() {
 
 		for(var n=0; n<layers.length; n++) {
 			var layer = layers[n];
-			this.OLMap.addLayer(layer);
 			
-			if (layer.isBaseLayer == true) {
+			if (layer.isBaseLayer == true && layer.visibility == true) {
 				if (baseLayer == null) 
 					baseLayer = layer;
 				else 
 					baseLayer = (baseLayer.layer_position < layer.layer_position) ? layer : baseLayer;
 			};
+			this.OLMap.addLayer(layer);
 		};
 
 		if (baseLayer != null) {
