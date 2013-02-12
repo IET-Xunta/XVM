@@ -1,0 +1,10 @@
+# WFS Layers
+init:
+  protocols:
+   - layer_name : 'Viticola'
+     url : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
+     srsName : 'EPSG:23029'
+     featureType : 'Viticola'
+     featurePrefix : 'Viticola'
+     featureNS : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
+     maxFeatures : 1 

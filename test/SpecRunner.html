@@ -29,16 +29,19 @@
   <script type="text/javascript" src="../src/Loader/Layers.js"></script>
   <script type="text/javascript" src="../src/Loader/Controls.js"></script>
   <script type="text/javascript" src="../src/Event/EventBus.js"></script>
+  
+  <!-- include control source files --> 
   <script type="text/javascript" src="../src/Control/Control.js"></script>
   <script type="text/javascript" src="../src/Control/ControlLoader.js"></script>
   <script type="text/javascript" src="../src/Control/MousePosition/MousePosition.js"></script>
   <script type="text/javascript" src="../src/Control/FeatureInfo/FeatureInfo.js"></script>
+  <script type="text/javascript" src="../src/Control/WFSLayer/WFSLayer.js"></script>
   
   <!-- auxiliary files-->
   <script type="text/javascript" src="spec/aux/ControlFake.js"></script>
 
 
-  <!-- include spec files here... -->
+  <!-- include spec files here -->
   <script type="text/javascript" src="spec/SpecEventBus.js"></script>
   <script type="text/javascript" src="spec/SpecReader.js"></script>
   <script type="text/javascript" src="spec/SpecConfig.js"></script>
@@ -47,8 +50,11 @@
   <script type="text/javascript" src="spec/SpecControlLoader.js"></script>
   <script type="text/javascript" src="spec/SpecLayers.js"></script>
   <script type="text/javascript" src="spec/SpecMap.js"></script>
-  <!-- <script type="text/javascript" src="spec/SpecMousePosition.js"></script> -->
+  
+  <!-- include Control tests -->
+  <script type="text/javascript" src="spec/Control/SpecMousePosition.js"></script> 
   <script type="text/javascript" src="spec/Control/SpecFeatureInfo.js"></script>
+  <script type="text/javascript" src="spec/Control/SpecWFSLayer.js"></script>
 
   <script type="text/javascript">
     (function() {

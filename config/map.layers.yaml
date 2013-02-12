@@ -5,7 +5,7 @@
 urlServiceLayer : !!null null
 layers: 
   # Topografico Layer
-  - map_name : default,
+  - map_name : default
     type : 'wms'
     layer_name : Topografico (MTN)
     wms_layer : mtn_rasterizado
@@ -134,13 +134,3 @@ layers:
       layer_position : !!int 50
       projection : 'EPSG:23029'
       isBaseLayer : !!bool false
-  # WFS Layer
-  - map_name : default
-    layer_name : 'Viticola'
-    type : 'wfs'
-    url : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
-    srsName : 'EPSG:23029'
-    featureType : 'Viticola'
-    featurePrefix : 'Viticola'
-    featureNS : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
-    maxFeatures : 1 

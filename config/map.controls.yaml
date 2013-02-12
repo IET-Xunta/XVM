@@ -19,7 +19,8 @@
     PermalinkButton,
     ZoomToMaxExtent,
     ZoomBox,
-    ZoomOut
+    ZoomOut,
+    WFSLayer
   ],
   ## Needs this to include TOC
   TOC : !!bool false
