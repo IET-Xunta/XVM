@@ -85,9 +85,18 @@ Un ejemplo de implementación de control sería::
 		}
 	});
 	
+Carga de parametros desde archivo YAML
+--------------------------------------
+Al igual que en el resto del XVM, se nos permite modificar ciertos parametros de los controles mediante el uso de archivos de configuración ``.yaml``. La clase ``XVM.Control.ControlLoader`` es la que se encarga de manejar el paso de la información desde el archivo ``yaml`` hasta el control. 
+La estructura que debe tener el archivo de configuración será la siguiente::
 
-		
+	init:
+		clave : valor
+	properties:
+		codigo_idioma:
+			clave : valor
 
-		
+Esto crea un objeto donde, los parametros que se pasan en ``init`` son guardados en la propiedad ``this.options`` del control que estemos implementando, y los parámetros que se guardan en ``properties`` serán usados para la internacionalización.
+Es posible definir la ejecución de determinadas funciones del control mediante el uso de la función ``eval()``::
 
-
+	clave: eval(función_a_ejecutar)
