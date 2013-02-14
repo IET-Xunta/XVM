@@ -11,7 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
-   users-histories.rst
+   general-doc.rst
+   controles.rst
 
 
 
