@@ -7,27 +7,31 @@
  *
  * @author Instituto Estudos do Territorio, IET
  */
-
-function launchPermalinkDialog(){
-    var p = this.map.getControlsByClass('OpenLayers.Control.Permalink')[0];
-    var base_url = p.base;
-    var index = base_url.indexOf('?');
-    if (index > -1) {
-        base_url = base_url.slice(0, index);
-    }
-    var my_url = base_url + '?'+ OpenLayers.Util.getParameterString(p.createParams());
-    window.prompt($.i18n("permalink_prompt"), my_url);
-};
-
 XVM.Control.PermalinkButton = XVM.Control.extend({
 
 	addToPanel : true,
 
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control.Button(this.options);
+		this.OLControl.trigger = this.launchPermalinkDialog;
 	},
 
 	beforeAddingControl : function() {
 		this.OLMap.addControl(new OpenLayers.Control.Permalink({anchor:false}));
+	},
+	
+	/**
+	 * Method: launchPermalinkDialog
+	 * Replace trigger method in OLControl. Inside this method 'this' reference to OpenLayers.Control.Permalink
+	 */
+	launchPermalinkDialog: function() {
+	    var p = this.map.getControlsByClass('OpenLayers.Control.Permalink')[0];
+	    var base_url = p.base;
+	    var index = base_url.indexOf('?');
+	    if (index > -1) {
+	        base_url = base_url.slice(0, index);
+	    }
+	    var my_url = base_url + '?'+ OpenLayers.Util.getParameterString(p.createParams());
+	    window.prompt($.i18n("permalink_prompt"), my_url);
 	}
 });

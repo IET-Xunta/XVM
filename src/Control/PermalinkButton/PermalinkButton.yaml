@@ -2,7 +2,6 @@
 init:
   anchor: false
   displayClass: "olControlPermalinkBtn"
-  trigger: eval(launchPermalinkDialog)
   title: eval($.i18n("permalink_tooltip"))
 properties:
   'en':
