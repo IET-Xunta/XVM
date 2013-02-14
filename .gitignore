@@ -1,4 +1,4 @@
 .project
 .settings
 .externalToolBuilders
-doc/_build/*
+doc/_build/
