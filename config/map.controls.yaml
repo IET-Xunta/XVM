@@ -19,6 +19,7 @@ controls:
  - ZoomToMaxExtent
  - ZoomBox
  - ZoomOut
+ - FullScreen
  - WFSLayer
   ## Needs this to include TOC
 TOC : !!bool false

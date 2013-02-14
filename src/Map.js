@@ -104,8 +104,9 @@ XVM.Map = function() {
 				parseInt(parameters.map_settings.bounds[3])
 			),
 			controls : []
-		};		
+		};
 
+		this.fullScreen = (parameters.view_settings.fullscreen == 'false' || parameters.view_settings.fullscreen == false) ? false : true;
 		this.setMapSize();
 
 		this.OLMap = new OpenLayers.Map(this.divName, options);
@@ -147,7 +148,7 @@ XVM.Map = function() {
 	 */
 	this.setMapSize = function() {
 		
-		if (this.fullScreen == false) {
+		if (this.fullScreen == true) {
 			 $('html').css(
 						{
 							'height' : '100%',  
@@ -171,7 +172,7 @@ XVM.Map = function() {
 							'margin' : '0px'
 						}
 				);
-				this.fullScreen = true;
+				this.fullScreen = false;
 		} else {
 			if (this.parameters.general.height_map != undefined){
 				$('#' + this.divName).css(
@@ -181,9 +182,9 @@ XVM.Map = function() {
 							'margin' : this.parameters.general.margin + 'px'
 						}
 				);
-				this.fullScreen = false;
+				this.fullScreen = true;
 			} else {
-				this.fullScreen = false;
+				this.fullScreen = true;
 				this.setMapSize();
 			}
 		};

@@ -50,6 +50,7 @@
       !!int 4855000
     ],
     zoom : !!int 5,
+    fullscreen: !!bool false,
     center : {lat: !!float 0, lon: !!float 0}
   }
 }

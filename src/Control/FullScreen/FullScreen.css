@@ -1,0 +1,30 @@
+.olControlPanel .olControlFullScreenItemInactive { 
+	display: block;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: rgb(0, 0, 0);
+	background-image: url("images/fullscreen.png");
+	filter: alpha(opacity=80);
+	margin: 1px;
+	padding: 0;
+	cursor: pointer;
+}
+.olControlPanel .olControlFullScreenItemInactive:hover { 
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+}
+.olControlPanel .olControlFullScreenItemActive { 
+	display: block;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+	line-height: 19px;
+	background: rgb(0, 0, 0);
+	background-image: url("images/fullscreen.png");
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+	margin: 1px;
+	padding: 0;
+}

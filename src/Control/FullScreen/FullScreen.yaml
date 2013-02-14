@@ -1,0 +1,14 @@
+init:
+  type : 1 # OpenLayers.Control.TYPE_BUTTON
+  displayClass: "olControlFullScreen"
+  title: eval($.i18n("fullscreen_tooltip"))
+properties:
+  'en':
+    'fullscreen_tooltip': 'Full Screen'
+    'fullscreen_prompt': ''
+  'es':
+    'fullscreen_tooltip': 'Pantalla Completa'
+    'fullscreen_prompt': ''
+  'gl':
+    'fullscreen_tooltip': 'Pantalla Completa'
+    'fullscreen_prompt': ''
