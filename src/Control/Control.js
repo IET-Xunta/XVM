@@ -9,27 +9,70 @@
  */
 
 /**
- * @requires Utils.js
+ * @requires Class.js
  */
 
 XVM.Control = XVM.Class.extend({
 
+	/**
+	 * Property: OLMap
+	 * Saves the OpenLayers.Map
+	 * {OpenLayers.Map}
+	 */
 	OLMap : null,
 
+	/**
+	 * Property: options
+	 * Receives parameters from YAML file. 
+	 * {Object}
+	 */
 	options : {},
 
+	/**
+	 * Property: position
+	 * Control position in panel
+	 * {int}
+	 */
 	position: null,
 
+	/**
+	 * Property: controlPath
+	 * Path to control folder
+	 * {String}
+	 */
 	controlPath : null,
 
+	/**
+	 * Property: OLControl
+	 * Saves reference to OpenLayers control. If your control do not need an OpenLayers control for her 
+	 * functionality, will be mandatory create a OpenLayers.Control, to avoid that XVM.Map throws an error
+	 * {OpenLayers.Control}
+	 */
 	OLControl : null,
 	
+	/**
+	 * Property: addToPanel
+	 * Indicates if button control shows in panel
+	 * {boolean}
+	 */
 	addToPanel : false,
 
+	/**
+	 * Method: createControl
+	 * Mandatory. Overwrites createControl in XVM.Control
+	 * Execute from XVM.Control.initialize when our control is instantiated
+	 */
 	createControl : function() {
 		throw 'XVM.Control.createControl dummy implementation';
 	},
-
+	
+	/**
+	 * Method: initialize
+	 * Launchs at instantiate control
+	 * @param params 
+	 * @param controlPath
+	 * @param position
+	 */
 	initialize : function(params, controlPath, position) {
 		this.options = params;
 		this.controlPath = controlPath;
@@ -37,17 +80,36 @@ XVM.Control = XVM.Class.extend({
 		this.createControl();
 	},
 
+	/**
+	 * Method: setOLMap
+	 * Set property OLMap with OpenLayers.Map. Launch from XVM.Map when
+	 * added control to XVM.Map
+	 * @param map
+	 */
 	setOLMap : function(map) {
 		this.OLMap = map;
 		this.addControl();
 	},
 	
+	/**
+	 * Method: beforeAddingControl
+	 * Launch before add control.
+	 */
 	beforeAddingControl : function() {
 	},
 	
+	/**
+	 * Method: afterAddingControl
+	 * Launch before add control.
+	 */
 	afterAddingControl : function() {
 	},
 
+	/**
+	 * Method: addControl
+	 * Adds control to the OLMap, activates it and adds control to the panel 
+	 * depending the addToPanel value.
+	 */
 	addControl : function() {
 		this.beforeAddingControl();
 		if (this.addToPanel) {
