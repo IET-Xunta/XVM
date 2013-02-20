@@ -22,43 +22,43 @@ XVM.Control.WFSLayer = XVM.Control.extend({
 	 * Property: wfsLayer
 	 * [OpenLayers.Protocol.WFS]
 	 */	
-	protocols : [],
+	protocol : null,
 
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control();
 	},
 	
 	saveProtocols : function() {
-		for (var i=0; i<this.options.protocols.length; i++) {
-			var protocolparams = this.options.protocols[i];
-			var protocol = new OpenLayers.Protocol.WFS({
-                url:  protocolparams.url,
-                featureType: protocolparams.featureType,
-                featurePrefix: protocolparams.featurePrefix,
-                featureNS: protocolparams.featureNS,
-                srsName: protocolparams.srsName,
-                maxFeatures: protocolparams.maxFeatures
-			});
-			protocol.name = protocolparams.layer_name;
-			this.protocols.push(protocol);
-			this.loadLayers();
-		}	
-	},
-	
-	loadLayers : function() {
+
+		var protocolparams = this.options.protocol;
 		
-		var layers = [];
+		var protocol = new OpenLayers.Protocol.WFS({
+               url:  protocolparams.url,
+               featureType: protocolparams.featureType,
+               featurePrefix: protocolparams.featurePrefix,
+               featureNS: protocolparams.featureNS,
+               srsName: protocolparams.srsName,
+               maxFeatures: protocolparams.maxFeatures
+		});
 		
-		for (var i=0; i<this.protocols.length; i++) {
-			var protocol = this.protocols[i];
-			var vectorLayer = new OpenLayers.Layer.Vector(protocol.name, 
-					{
-						strategies : [new OpenLayers.Strategy.BBOX()],
-						protocol : protocol
-					});
-			layers.push(vectorLayer);
-		}
-		XVM.EventBus.fireEvent('addLayers', layers);
+		protocol.name = protocolparams.layer_name;
+		
+		console.log(protocol);
+
+		var vectorLayer = new OpenLayers.Layer.Vector(protocol.name, 
+				{
+					strategies : [new OpenLayers.Strategy.BBOX()],
+					protocol : protocol,
+					styleMap: new OpenLayers.StyleMap(this.options.styleMap)
+				});
+		
+		protocol.read({
+			callback: function(evt) {
+				console.log(evt);
+			}
+		});
+			
+		XVM.EventBus.fireEvent('addLayers', [vectorLayer]);
 	},
 
 	beforeAddingControl : function() {

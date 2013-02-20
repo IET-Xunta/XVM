@@ -1,10 +1,16 @@
 # WFS Layers
 init:
-  protocols:
-   - layer_name : 'Viticola'
-     url : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
-     srsName : 'EPSG:23029'
-     featureType : 'Viticola'
-     featurePrefix : 'Viticola'
-     featureNS : 'http://six.agri.local/arcgis/services/Viticola/MapServer/WFSServer'
-     maxFeatures : 1 
+  protocol:
+   layer_name : 'estadomasasaugacosteiras'
+   url : 'http://visorgis.cmati.xunta.es/geoserver/dhgc/wfs'
+   srsName : 'EPSG:23029'
+   featureType : 'estadomasasaugacosteiras'
+   featurePrefix : 'dhgc'
+   featureNS : 'dhgc'
+   maxFeatures : 999
+    # style map Parameters 
+  styleMap:
+    strokeWidth : 2
+    fillOpacity : 0.4
+    strokeColor : '#FF2222'
+     
