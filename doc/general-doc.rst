@@ -69,7 +69,10 @@ Se recomienda hacer un "clonado recursivo" dado que XVM tiene otro proyecto incl
 
   git clone --recursive https://github.com/IET-Xunta/XVM.git
 
+Si el clonado ha sido sin recursividad, o se produce algún problema, se debe revisar la configuración 
+de la url en git y ejecutar manualmente el update:
 
+  git submodule update
 
 Instrucciones de despliegue
 ====================================
