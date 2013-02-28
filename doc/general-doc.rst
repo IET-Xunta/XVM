@@ -37,12 +37,14 @@ Tipo de párametros
 -------------------------
 
 Por tipo:
-Generales: idioma, dimensiones
-Configuración del Mapa: proyección, extensión, resoluciones, ...
-Capas: relación de servicios, agrupaciones, capa base, ...
+* Generales: idioma, dimensiones
+* Configuración del Mapa: proyección, extensión, resoluciones, ...
+* Capas: relación de servicios, agrupaciones, capa base, ...
 
 Sistema de carga de párametros
 --------------------------------------------------
+
+[Configuración por GET en la URL](getparameters-config.rst)
 
 Diagrama de clases de Readers
 
