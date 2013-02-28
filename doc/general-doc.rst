@@ -15,11 +15,11 @@ El XVM se encuadra como un elemento dentro de la estrategia de SIG Corporativo d
 Principios generales
 ========================
 
-* Compensar la simplicidad y máximo de funcionalidad
-* Facilitar al máximo los despliegues (mínima dependencia de la tecnología en el servidor, ni JAVA, ni PHP)
+* Balancear simplicidad y funcionalidad
+* Facilitar al máximo los despliegues (mínima dependencia de la tecnología en el servidor)
 * Explotar los estándares de interoperabilidad geográfica: inicialmente sólo WMS, pero la intención es seguir incorporando otros
 * Soporte multi-idioma
-* Muy personalizable
+* Arquitectura que favorece la modularidad y la creación de personalizaciones de forma sencilla
 
 
 Estructura del XVM
@@ -28,6 +28,7 @@ Estructura del XVM
 OpenLayers
 Controles propios
 JQuery
+Proxy
 
 Parametrización
 ========================
@@ -37,14 +38,14 @@ Tipo de párametros
 -------------------------
 
 Por tipo:
-* Generales: idioma, dimensiones
-* Configuración del Mapa: proyección, extensión, resoluciones, ...
-* Capas: relación de servicios, agrupaciones, capa base, ...
+
+* **Generales:** idioma, dimensiones del mapa
+* **Configuración del Mapa:** proyección, extensión, resoluciones, ...
+* **Capas:** relación de servicios, agrupaciones, capa base, ...
+* **Controles:** herramientas, botones y otras funcionalidades
 
 Sistema de carga de párametros
 --------------------------------------------------
-
-`Configuración por GET en la a URL< g etparameters-config.rst>`_.
 
 Diagrama de clases de Readers
 
@@ -58,6 +59,7 @@ Lo mismo que el anterior, pero es un parámetro indicado en la URL
 
 Parámetros en la URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`Configuración por GET en la a URL <getparameters-config.rst>`_.
 
 Controles
 ====================================
@@ -83,7 +85,3 @@ Copiar y listo!! :D
 
 Uso básico como iframe
 
-
-URL de pruebas básicas
-=====================================
-* http://localhost/XVM/xvm.html?urlwms=http://ideg.xunta.es/wms_orto_1956-57/request.aspx&layerid=Ortofoto_56_57&layertitle=Ortofoto_56_57
