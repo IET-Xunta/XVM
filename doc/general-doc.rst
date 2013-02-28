@@ -44,7 +44,7 @@ Por tipo:
 Sistema de carga de párametros
 --------------------------------------------------
 
-[Configuración por GET en la URL](getparameters-config.rst)
+`Configuración por GET en la a URL< g etparameters-config.rst>`_.
 
 Diagrama de clases de Readers
 
