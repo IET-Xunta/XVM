@@ -8,7 +8,9 @@
     height_map : !!int 600,
     width_map  : !!int 800,
     margin : !!int 0,
-    proxy_host : 'proxy/proxy.php?url='
+    proxy_host : 'proxy/proxy.php?url=',
+    ## If "true" all request will be sent throw the proxy (not only getfeatureinfo ones)
+    use_wms_throw_proxy : false
   },
 
   ## Map specific parameters
