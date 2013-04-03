@@ -1,0 +1,28 @@
+/**
+ * CSS Reset
+ * From Blueprint reset.css
+ * http://blueprintcss.googlecode.com
+ */
+
+.olControlPanel .olControlSimpleFormItemInactive { 
+display: block;
+color: white;
+vertical-align: middle;
+height: 24px;
+width: 24px;
+line-height: 19px;
+background: rgb(0, 0, 0);
+background-image: url("images/find.png");
+filter: alpha(opacity=80);
+margin: 1px;
+padding: 0;
+border-radius: 0px 4px 4px 0px;
+cursor: pointer;
+}
+.olControlPanel .olControlSimpleFormItemInactive:hover { 
+filter: alpha(opacity=60);
+opacity: 0.6;
+}
+#layer_option_div {
+	padding: 4px;
+}
