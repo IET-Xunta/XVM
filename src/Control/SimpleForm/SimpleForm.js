@@ -21,10 +21,17 @@ XVM.Control.SimpleForm = XVM.Control.extend({
 	 */
 	controlForm : null,
 
+	/**
+	 * Method: createControl
+	 * This method overwrite the createControl in Control parent Class
+	 * If don't overwrite this method launchs an exception to try load
+	 * control in Map
+	 */
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control(this.options);
 		this.OLControl.trigger = this.trigger;
 		XVM.EventBus.addListener(this, 'addLayers', 'addLayers');
+		XVM.EventBus.addListener(this, 'showsError', 'showsError');
 	},
 	
 	/**
@@ -70,6 +77,10 @@ XVM.Control.SimpleForm = XVM.Control.extend({
 		this.createControlForm();
 	},
 	
+	/**
+	 * Method: createControlForm
+	 * Creates the form 
+	 */
 	createControlForm : function() {
 		if(this.controlForm != null)
 			this.controlForm.remove();
@@ -79,7 +90,8 @@ XVM.Control.SimpleForm = XVM.Control.extend({
 		this.controlForm.submit(function() {
             return false;
         });
-				
+		
+		$('<div id="error_div">').appendTo(this.controlForm);
 		$('<div id="layer_option_div">').appendTo(this.controlForm);
 		$('<div id="table_div">')
 			.appendTo(this.controlForm)
@@ -99,9 +111,10 @@ XVM.Control.SimpleForm = XVM.Control.extend({
         	if($('#layers_option').val() == 9999) {
 	        	$('#table_div').fadeOut();
 	            $('#table_form').remove();
+	            $('#error').remove();
+	            $('<table id="table_form"></table>').appendTo('#table_div');
 	            return;
-            }
-            $('<table id="table_form"></table>').appendTo('#table_div');
+            }            
                 	
             var indiceLayer = $('#layers_option').val();
             var layer = this_.WFSLayers[indiceLayer];
@@ -112,6 +125,7 @@ XVM.Control.SimpleForm = XVM.Control.extend({
             $('<input type="submit" name="query_rvg" value="Buscar">')
             .appendTo($('#table_form'))
             .on('click', null, evt.data, function(evt) {
+            	$('#error').remove();
             	var this_ = evt.data;
             	var inputs = $('input[type=text]');
             	var queryParams = {};
@@ -127,7 +141,11 @@ XVM.Control.SimpleForm = XVM.Control.extend({
             	XVM.EventBus.fireEvent('searchAndZoom', toSearch);
             });	
             $('#table_div').fadeIn();
-        });		        	
+        });
+	},
+	
+	showsError : function(error) {
+		$('<span id="error" class="error">' + error.message +'</span>').appendTo($('#error_div'));
 	}
 });
 

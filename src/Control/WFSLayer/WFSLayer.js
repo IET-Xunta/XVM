@@ -24,11 +24,19 @@ XVM.Control.WFSLayer = XVM.Control.extend({
 	 */	
 	vectorLayers : [],
 
+	/**
+	 * Method: createControl
+	 * Creates the control and adds listener to zoom searches
+	 */
 	createControl : function() {
 		this.OLControl = new OpenLayers.Control();
 		XVM.EventBus.addListener(this, 'searchAndZoom', 'searchAndZoom');
 	},
 	
+	/**
+	 * Method: createVectorLayer
+	 * Creates the vector layer and adds to map
+	 */
 	createVectorLayer : function() {
 
 		var protocols = this.options.protocols;
@@ -59,6 +67,12 @@ XVM.Control.WFSLayer = XVM.Control.extend({
 		XVM.EventBus.fireEvent('addLayers', this.vectorLayers);
 	},
 	
+	/**
+	 * Method: searchAndZoom
+	 * Searches into layer the features that meet the requeriments of the parameters
+	 * Launchs an event to do zoom in bounds of the feature
+	 * @param params 
+	 */
 	searchAndZoom : function(params) {
 
 		var filters = [];
@@ -87,16 +101,21 @@ XVM.Control.WFSLayer = XVM.Control.extend({
 				}
 				var features = evt.features;
 				var searchBounds = new OpenLayers.Bounds();
-				
-				for (var j=0; j<features.length; j++) {
+
+				if (features.length != 0) {
+					for (var j=0; j<features.length; j++) {
 						var feature = layer.getFeatureByFid(features[j].fid);
 						searchBounds.extend(feature.geometry.bounds);
-				};
-
-				XVM.EventBus.fireEvent('setExtent', 
-						{'extent' : searchBounds, 
-						'closest' : false}
-				);
+					};
+	
+					XVM.EventBus.fireEvent('setExtent', 
+							{'extent' : searchBounds, 
+							'closest' : false}
+					);				
+				} else {
+					var error = {'message' : "Feature no encontrada"}
+					XVM.EventBus.fireEvent('showsError', error)
+				}
 			}
 		});
 	},
