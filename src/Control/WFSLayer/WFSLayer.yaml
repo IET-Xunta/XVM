@@ -1,16 +1,25 @@
-# WFS Layers
 init:
-  protocol:
-   layer_name : 'estadomasasaugacosteiras'
-   url : 'http://visorgis.cmati.xunta.es/geoserver/dhgc/wfs'
-   srsName : 'EPSG:23029'
-   featureType : 'estadomasasaugacosteiras'
-   featurePrefix : 'dhgc'
-   featureNS : 'dhgc'
-   maxFeatures : 999
-    # style map Parameters 
-  styleMap:
-    strokeWidth : 2
-    fillOpacity : 0.4
-    strokeColor : '#FF2222'
+  protocols:
+    - layer_name : 'Masas Auga Costeiras'
+      visibility : !!bool true
+      url : 'http://visorgis.cmati.xunta.es/geoserver/dhgc/wfs'
+      srsName : 'EPSG:23029'
+      featureType : 'masasaugacosteiras'
+      featurePrefix : 'dhgc'
+      featureNS : 'dhgc'
+      maxFeatures : !!int 999
+      # style map Parameters
+      styleMap:
+        strokeWidth : !!int 2
+        fillOpacity : !!float 0.4
+        strokeColor : '#FF2222'
+      # name: wich string appear in form
+      # field: use to create filters for search
+      searchFields:
+        - name : Nombre
+          field: NOMBRE
+        - name : Demarcación
+          field : DEMARCACIO
+        - name : Naturaleza
+          field : NATURALEZA
      

@@ -20,6 +20,7 @@ controls:
  - ZoomBox
  - ZoomOut
  - FullScreen
+ - SimpleForm
  - WFSLayer
   ## Needs this to include TOC
 TOC : !!bool false
