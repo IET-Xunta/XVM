@@ -19,24 +19,32 @@ describe('Layers tests', function() {
 			   {
 			      map_name:"default",
 			      layer_name:"IGN Base",
+			      type: 'wms',
 			      wms_layer:"IGNBaseTodo",
-			      wms_url:"http:\/\/www.ign.es\/wms-inspire\/ign-base",
-			      visible:false,
-			      layer_position:512,
-			      layer_group:"Capas Base",
-			      parameters:{opacity: 0.75, singleTile: false},
-			      is_base:true
+			      url:"http:\/\/www.ign.es\/wms-inspire\/ign-base",
+			      parameters: {
+			          visibility:false,
+			          group_name:"Capas Base",
+			          layer_position:512,
+			          opacity: 0.75,
+			          singleTile: false,
+			          isBaseLayer:true
+			      }
 			   },
 			   {
 			      map_name:"default",
 			      layer_name:"Topogr\u00e1fico-IDEE",
+			      type: 'wms',
 			      wms_layer:"mtn_rasterizado",
-			      wms_url:"http:\/\/www.idee.es\/wms\/MTN-Raster\/MTN-Raster",
-			      visible:false,
-			      layer_position:510,
-			      layer_group:"Capas Base",
-			      parameters:{opacity: 0.60, singleTile: false},
-			      is_base:true
+			      url:"http:\/\/www.idee.es\/wms\/MTN-Raster\/MTN-Raster",
+			      parameters: {
+			          visibility:false,
+			          group_name:"Capas Base",
+			          layer_position:510,
+			          opacity: 0.60,
+			          singleTile: false,
+			          isBaseLayer:true
+			      }
 			   }
 			]
 	};
@@ -53,6 +61,8 @@ describe('Layers tests', function() {
 				isBaseLayer : true,
 				visibility : false,
 				singleTile : false,
+				group_name: 'Capas Base',
+				layer_position:512,
 				opacity : 0.75,
 				transitionEffect : 'resize',
 				buffer : 0
@@ -70,6 +80,8 @@ describe('Layers tests', function() {
 					isBaseLayer : true,
 					visibility : false,
 					singleTile : false,
+					group_name: 'Capas Base',
+					layer_position:510,
 					opacity : 0.60,
 					transitionEffect : 'resize',
 					buffer : 0
@@ -89,6 +101,7 @@ describe('Layers tests', function() {
 				isBaseLayer : false,
 				visibility : true,
 				singleTile : true,
+				group_name: '',
 				opacity : 1,
 				transitionEffect : 'resize',
 				buffer : 0
@@ -97,10 +110,19 @@ describe('Layers tests', function() {
 
 	var reader = new XVM.Loader.Reader();
 	var layers = null;
+	XVM.map = {
+	    parameters : {
+	        general : {
+	            use_wms_throw_proxy : false
+	        }
+	    }
+	};
+
 	beforeEach(function() {
 		XVM.EventBus = new XVM.Event.EventBus();
 		spyOn(reader, 'readFromFile');
 		layers = new XVM.Loader.Layers(reader);
+		layers.layers = [];
 	});
 
 	it('Response has urlServiceLayer reads url', function() {

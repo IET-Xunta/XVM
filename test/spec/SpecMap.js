@@ -29,10 +29,7 @@ describe('Map tests', function() {
 					'lat': 4742294,
 					'lon': 562770
 					},
-				'zoom_level' : 5,
-				'bbox' : [
-				          -90000, 3850000, 1100000, 4850000
-				         ]}
+				'zoom_level' : 5}
 			};
 	
 	var fakeLayer = new OpenLayers.Layer.WMS( "fakeData",

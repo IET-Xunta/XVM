@@ -36,7 +36,7 @@ describe('Controls tests', function() {
 	});
 
 	it('Control read from reader', function() {
-		controls.readControls();
+		controls._readControls();
 		expect(reader.readFromFile).toHaveBeenCalled();
 	});	
 

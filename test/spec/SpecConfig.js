@@ -13,10 +13,9 @@
 
 describe('Config tests', function() {
 
-	var fakeURL = '?map_settings.EPSG=EPSG:30000&general.LANG=chi&view_settings.BBOX=1,2,3,4';
+	var fakeURL = '?epsg=EPSG:30000&lang=chi&bbox=1,2,3,4';
 
 	var reader = new XVM.Loader.Reader();
-	var config;
 	var expectedConfig = {
 			general: {
 				lang: 'chi',
@@ -39,7 +38,7 @@ describe('Config tests', function() {
 	};
 	beforeEach(function() {
 		XVM.EventBus = new XVM.Event.EventBus();
-		XVM.DefaultConfig = 'spec/aux/map.options.yaml';
+		XVM.CONFIGFILE = 'spec/aux/map.options.yaml';
 		spyOn(XVM.EventBus, 'fireEvent');
 		spyOn(XVM.Util, 'getLocationSearch').andReturn(fakeURL);
 	});
