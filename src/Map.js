@@ -208,6 +208,12 @@ XVM.Map = function() {
 		var baseLayer = this.OLMap.baseLayer;
 
 		layers.sort(function(a, b) {
+			if (a.isBaseLayer && !b.isBaseLayer) {
+				return -1;
+			}
+			if (!a.isBaseLayer && b.isBaseLayer) {
+				return 1;
+			}
 			return a.layer_position-b.layer_position;
 		});
 
