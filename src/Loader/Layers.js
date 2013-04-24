@@ -141,6 +141,15 @@ XVM.Loader.Layers = XVM.Class.extend({
 
 				var layer = new OpenLayers.Layer.Vector(objectLayer.layer_name, objectLayer.parameters);
 				_this.layers.push(layer);
+			} else if(objectLayer.type == 'google') {
+				var default_options = {
+					type: google.maps.MapTypeId.SATELLITE,
+					isBaseLayer : true,
+					group_name : ''
+				};
+				var layer_options = $.extend(default_options, objectLayer.parameters);
+				var layer = new OpenLayers.Layer.Google(objectLayer.layer_name, layer_options);
+				_this.layers.push(layer);
 			}
 
 		}

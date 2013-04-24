@@ -60,6 +60,16 @@ layers:
       isBaseLayer : !!bool true
       visibility : !!bool false
       projection : 'EPSG:23029'
+  # Google Satellite
+  - map_name : default
+    type : 'google'
+    layer_name : 'Google Satellite'
+    parameters :
+      type: 'satellite'
+      group_name : 'capa_base'
+      layer_position : !!int 505
+      isBaseLayer : !!bool true
+      visibility : !!bool false
   # SITGA Toponimos
   - map_name : default
     type : 'wms'
