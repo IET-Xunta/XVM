@@ -2,6 +2,7 @@
 controls:
  - FeatureInfo
  - FeatureInfoCatastro
+ - FeatureInfoGeoJson
  - ZoomIn
  - CustomLayerSwitcher
  - Scale

@@ -1,0 +1,16 @@
+## FeatureInfoGeoJson parameter control
+init:
+  queryVisible : !!bool true
+  title: eval($.i18n('feature_info_geojson_tooltip'))
+  noDataMessage : eval($.i18n('feature_info_geojson_no_data_message'))
+properties:
+  'en':
+    'feature_info_geojson_tooltip': 'GeoJson Feature Info'
+    'feature_info_geojson_no_data_message': 'No features to inspect'
+  'es':
+    'feature_info_geojson_tooltip': 'Datos de la entidad de GeoJson'
+    'feature_info_geojson_no_data_message': 'No hay entidades que comprobar'
+  'gl':
+    'feature_info_geojson_tooltip': 'Datos da entidade de GeoJson'
+    'feature_info_geojson_no_data_message': 'Non hai entidades que inspeccionar'
+  
