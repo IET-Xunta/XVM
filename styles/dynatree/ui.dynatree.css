@@ -91,6 +91,18 @@ ul.dynatree-container img
 	border-style: none;
 }
 
+/** Used by 'colorBox' node option: */
+ul.dynatree-container .color-box
+{
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    background-color: #ccc;
+    position: relative;
+    left: 2px;
+    top: 2px;
+}
+
 
 /*******************************************************************************
  * Lines and connectors

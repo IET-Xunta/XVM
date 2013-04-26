@@ -477,6 +477,14 @@ XVM.Control.OLCustomLayerSwitcher =
             } else {
                 groups = [];
             }
+            var colorBox = null;
+            if (layer instanceof OpenLayers.Layer.Vector) {
+            	if ((layer.style != null) && (layer.style.fillColor != null)) {
+            		colorBox = layer.style.fillColor;
+            	} else {
+                	colorBox = OpenLayers.Feature.Vector.style.default.fillColor;
+            	}
+            }
             var currentNode = root;
             for (var n=0, leng=groups.length; n<leng; n++) {
                 var group = groups[n];
@@ -494,12 +502,12 @@ XVM.Control.OLCustomLayerSwitcher =
                     }
                 }
                 if (!found) {
-                    var newNode = {title: group, key: baseId,  hideCheckbox: !selectableFolders, expand: true, isFolder: true, icon: false, children: []};
+                    var newNode = {title: group, key: baseId, hideCheckbox: !selectableFolders, expand: true, isFolder: true, icon: false, children: []};
                     currentNode.children.push(newNode);
                     currentNode = newNode;
                 }
             }
-            currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, icon: false, select: layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility()});
+            currentNode.children.push({title: layer.name, key: baseId + layer.name, _layer: layer.id, icon: false, colorBox: colorBox, select: layer.isBaseLayer ? layer == this.map.baseLayer : layer.getVisibility()});
         }
 
     },
