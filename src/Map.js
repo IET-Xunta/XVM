@@ -62,6 +62,13 @@ XVM.Map = function() {
 	this.controls = [];
 	
 	/**
+	 * Number of unconfirmed controls
+	 * Property
+	 * {integer}
+	 */
+	this.unconfirmedControls = 0;
+
+	/**
 	 * Saves config parameters
 	 * Property
 	 * {Object}
@@ -195,12 +202,36 @@ XVM.Map = function() {
 	 */
 	this.addControls = function(controls) {
 		this.controls = controls;
+		var total = 0;
+		for (i=0, len=controls.length; i<len; i++) {
+			if (controls[i].customOLControlFile != null) {
+				total++;
+			}
+		}
+		this.unconfirmedControls+=total;
 		this.controls.sort(function(a, b) {
 			return a.position-b.position;
 		});
-		this.loaded += 1;
-		if(this.loaded == 3) {
-			this.drawMap();
+		this.checkControlsLoaded();
+	};
+
+	/**
+	 * Decreases the number of unconfirmed controls by one.
+	 */
+	this.confirmControl = function() {
+		this.unconfirmedControls--;
+		this.checkControlsLoaded();
+	};
+
+	/**
+	 * Checks whether all controls have been loaded.
+	 */
+	this.checkControlsLoaded = function() {
+		if (this.unconfirmedControls == 0) {
+			this.loaded += 1;
+			if(this.loaded == 3) {
+				this.drawMap();
+			}
 		}
 	};
 	
@@ -285,6 +316,7 @@ XVM.Map = function() {
 		XVM.EventBus.addListener(this, 'addControls', 'addControls');
 		XVM.EventBus.addListener(this, 'setMapSize', 'setMapSize');
 		XVM.EventBus.addListener(this, 'setExtent', 'setExtent');
+		XVM.EventBus.addListener(this, 'confirmControl', 'confirmControl');
 	};
 	
 	this.setExtent = function(evt) {

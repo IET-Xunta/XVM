@@ -12,29 +12,11 @@ XVM.Control.FeatureInfoGeoJson = XVM.Control.extend({
 
     addToPanel : true,
 
-	setOLMap : function(map) {
-		this.OLMap = map;
-		if (this.OLControl != null) {
-			this.addControl();
-		}
-	},
+	customOLControlFile : 'OLFeatureInfoGeoJson.js',
 
-    createLateControl : function() { 
+    createControl : function() { 
         this.OLControl = new XVM.Control.OLFeatureInfoGeoJson(this.options);
-		if (this.OLMap != null) {
-			this.addControl();
-		}
     },
-
-	createControl : function() {
-		$.ajax({
-			type : 'GET',
-			url : this.controlPath + 'OLFeatureInfoGeoJson.js',
-			context : this,
-			dataType : 'script',
-			success : this.createLateControl
-		});
-	},
 
     beforeAddingControl : function() {
         // layers parameter of WMSGetFeatureInfo should be set here, or in addControl or afterAddingControl

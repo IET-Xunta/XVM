@@ -10,27 +10,9 @@
 
 XVM.Control.CustomLayerSwitcher = XVM.Control.extend({
 
-	setOLMap : function(map) {
-		this.OLMap = map;
-		if (this.OLControl != null) {
-			this.addControl();
-		}
-	},
+	customOLControlFile : 'OLCustomLayerSwitcher.js',
 
-	createLateControl : function() {
-		this.OLControl = new XVM.Control.OLCustomLayerSwitcher(this.options);
-		if (this.OLMap != null) {
-			this.addControl();
-		}
-	},
-
-	createControl : function() {
-		$.ajax({
-			type : 'GET',
-			url : this.controlPath + 'OLCustomLayerSwitcher.js',
-			context : this,
-			dataType : 'script',
-			success : this.createLateControl
-		});
-	}
+    createControl : function() { 
+        this.OLControl = new XVM.Control.OLCustomLayerSwitcher(this.options);
+    }
 });

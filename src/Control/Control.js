@@ -58,12 +58,28 @@ XVM.Control = XVM.Class.extend({
 	addToPanel : false,
 
 	/**
+	 * Property: customOLControlFile
+	 * Relative path to the custom OL control file.
+	 * {String}
+	 */
+	customOLControlFile : null,
+
+	/**
 	 * Method: createControl
 	 * Mandatory. Overwrites createControl in XVM.Control
 	 * Execute from XVM.Control.initialize when our control is instantiated
 	 */
 	createControl : function() {
 		throw 'XVM.Control.createControl dummy implementation';
+	},
+
+	/**
+	 * Method: createConfirmLateControl
+	 * Used for creating and confirming dynamically loaded controls.
+	 */
+	createConfirmLateControl : function() {
+		this.createControl();
+		this.confirmControl();
 	},
 	
 	/**
@@ -77,7 +93,17 @@ XVM.Control = XVM.Class.extend({
 		this.options = params;
 		this.controlPath = controlPath;
 		this.position = position;
-		this.createControl();
+		if (this.customOLControlFile != null) {
+			$.ajax({
+				type : 'GET',
+				url : this.controlPath + this.customOLControlFile,
+				context : this,
+				dataType : 'script',
+				success : this.createConfirmLateControl
+			});
+		} else {
+			this.createControl();
+		}
 	},
 
 	/**
@@ -103,6 +129,16 @@ XVM.Control = XVM.Class.extend({
 	 * Launch before add control.
 	 */
 	afterAddingControl : function() {
+	},
+
+	/**
+	 * Method: confirmControl
+	 * Used confirming dynamically loaded controls.
+	 */
+	confirmControl : function() {
+		if (this.customOLControlFile != null) {
+			XVM.EventBus.fireEvent('confirmControl');
+		}
 	},
 
 	/**
