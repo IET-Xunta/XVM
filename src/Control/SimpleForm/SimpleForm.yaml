@@ -1,15 +1,12 @@
-## PermalinkButton parameter control
+## SimpleForm parameter control
 init:
   type : 1 # OpenLayers.Control.TYPE_BUTTON
   displayClass: 'olControlSimpleForm'
-  title: eval($.i18n('help'))
+  title: eval($.i18n('search'))
 properties:
   'en':
-    'help': 'Help'
-    'help_alert': 'Help is not available.'
+    'search': 'Search'
   'es':
-    'help': 'Ayuda'
-    'help_alert': 'La ayuda no está disponible.'
+    'search': 'Buscar'
   'gl':
-    'help': 'Axuda'
-    'help_alert': 'A axuda non está dispoñible.'
+    'search': 'Buscar'

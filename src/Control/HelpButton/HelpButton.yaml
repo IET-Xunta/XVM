@@ -1,4 +1,4 @@
-## PermalinkButton parameter control
+## HelpButton parameter control
 init:
   displayClass: 'olControlHelpBtn'
   trigger: eval(launchHelpDialog)
