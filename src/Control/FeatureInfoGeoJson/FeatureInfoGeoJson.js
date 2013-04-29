@@ -12,7 +12,7 @@ XVM.Control.FeatureInfoGeoJson = XVM.Control.extend({
 
     addToPanel : true,
 
-	customOLControlFile : 'OLFeatureInfoGeoJson.js',
+    customOLControlFile : 'OLFeatureInfoGeoJson.js',
 
     createControl : function() { 
         this.OLControl = new XVM.Control.OLFeatureInfoGeoJson(this.options);

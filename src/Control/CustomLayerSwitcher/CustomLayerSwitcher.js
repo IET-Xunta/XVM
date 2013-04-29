@@ -10,7 +10,7 @@
 
 XVM.Control.CustomLayerSwitcher = XVM.Control.extend({
 
-	customOLControlFile : 'OLCustomLayerSwitcher.js',
+    customOLControlFile : 'OLCustomLayerSwitcher.js',
 
     createControl : function() { 
         this.OLControl = new XVM.Control.OLCustomLayerSwitcher(this.options);
