@@ -79,6 +79,22 @@ XVM.Control.OLCustomLayerSwitcher =
      */
     firstBaseLayers: true,
 
+    /** 
+     * Property: showBaseLayers
+     * {int} Defines how we display the base layers section, and accepts three different
+     * values: -1 hides the section, 0 displays the layers only with the specified groups,
+     * 1 displays it with an additional root node
+     */
+    showBaseLayers: 1,
+
+    /** 
+     * Property: showOverlays
+     * {int} Defines how we display the overlayers section, and accepts three different
+     * values: -1 hides the section, 0 displays the layers only with the specified groups,
+     * 1 displays it with an additional root node
+     */
+    showOverlays: 1,
+
     /**
      * Property: baseLayersTree
      * {DynaTree}
@@ -314,93 +330,97 @@ XVM.Control.OLCustomLayerSwitcher =
             }
         }
 
-        $(this.baseLayersTree).dynatree('destroy');
-        this.baseLayersTree = $(this.baseLayersTree).dynatree({
-          checkbox: true,
-          // Override class name for checkbox icon:
-          classNames: {
-              container: "olButton dynatree-container",
-              node: "olButton dynatree-node",
-              folder: "olButton dynatree-folder",
-              empty: "olButton dynatree-empty",
-              vline: "olButton dynatree-vline",
-              expander: "olButton dynatree-expander",
-              connector: "olButton dynatree-connector",
-              checkbox: "olButton dynatree-radio",
-              nodeIcon: "olButton dynatree-icon",
-              title: "olButton dynatree-title",
-              noConnector: "olButton dynatree-no-connector",
-              nodeError: "olButton dynatree-statusnode-error",
-              nodeWait: "olButton dynatree-statusnode-wait",
-              hidden: "olButton dynatree-hidden",
-              combinedExpanderPrefix: "olButton dynatree-exp-",
-              combinedIconPrefix: "olButton dynatree-ico-",
-              hasChildren: "olButton dynatree-has-children",
-              active: "olButton dynatree-active",
-              selected: "olButton dynatree-selected",
-              expanded: "olButton dynatree-expanded",
-              lazy: "olButton dynatree-lazy",
-              focused: "olButton dynatree-focused",
-              partsel: "olButton dynatree-partsel",
-              lastsib: "olButton dynatree-lastsib"
-          },
-          selectMode: 1,
-          clickFolderMode: 2,
-          parent: this,
-          children: this.generateBaseLayersTree(baselayers),
-          onSelect: function(select, node) {
-              node.tree.options.parent.updateBaseLayer(node.data._layer);
-          },
-          cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-",
-          debugLevel: 0
-        });
+        if (this.showBaseLayers > -1) {
+	        $(this.baseLayersTree).dynatree('destroy');
+	        this.baseLayersTree = $(this.baseLayersTree).dynatree({
+	          checkbox: true,
+	          // Override class name for checkbox icon:
+	          classNames: {
+	              container: "olButton dynatree-container",
+	              node: "olButton dynatree-node",
+	              folder: "olButton dynatree-folder",
+	              empty: "olButton dynatree-empty",
+	              vline: "olButton dynatree-vline",
+	              expander: "olButton dynatree-expander",
+	              connector: "olButton dynatree-connector",
+	              checkbox: "olButton dynatree-radio",
+	              nodeIcon: "olButton dynatree-icon",
+	              title: "olButton dynatree-title",
+	              noConnector: "olButton dynatree-no-connector",
+	              nodeError: "olButton dynatree-statusnode-error",
+	              nodeWait: "olButton dynatree-statusnode-wait",
+	              hidden: "olButton dynatree-hidden",
+	              combinedExpanderPrefix: "olButton dynatree-exp-",
+	              combinedIconPrefix: "olButton dynatree-ico-",
+	              hasChildren: "olButton dynatree-has-children",
+	              active: "olButton dynatree-active",
+	              selected: "olButton dynatree-selected",
+	              expanded: "olButton dynatree-expanded",
+	              lazy: "olButton dynatree-lazy",
+	              focused: "olButton dynatree-focused",
+	              partsel: "olButton dynatree-partsel",
+	              lastsib: "olButton dynatree-lastsib"
+	          },
+	          selectMode: 1,
+	          clickFolderMode: 2,
+	          parent: this,
+	          children: this.generateBaseLayersTree(baselayers),
+	          onSelect: function(select, node) {
+	              node.tree.options.parent.updateBaseLayer(node.data._layer);
+	          },
+	          cookieId: "dynatree-Cb1",
+	          idPrefix: "dynatree-Cb1-",
+	          debugLevel: 0
+	        });
+        }
 
-        $(this.overlaysTree).dynatree('destroy');
-        this.overlaysTree = $(this.overlaysTree).dynatree({
-          checkbox: true,
-          classNames: {
-              container: "olButton dynatree-container",
-              node: "olButton dynatree-node",
-              folder: "olButton dynatree-folder",
-              empty: "olButton dynatree-empty",
-              vline: "olButton dynatree-vline",
-              expander: "olButton dynatree-expander",
-              connector: "olButton dynatree-connector",
-              checkbox: "olButton dynatree-checkbox",
-              nodeIcon: "olButton dynatree-icon",
-              title: "olButton dynatree-title",
-              noConnector: "olButton dynatree-no-connector",
-              nodeError: "olButton dynatree-statusnode-error",
-              nodeWait: "olButton dynatree-statusnode-wait",
-              hidden: "olButton dynatree-hidden",
-              combinedExpanderPrefix: "olButton dynatree-exp-",
-              combinedIconPrefix: "olButton dynatree-ico-",
-              hasChildren: "olButton dynatree-has-children",
-              active: "olButton dynatree-active",
-              selected: "olButton dynatree-selected",
-              expanded: "olButton dynatree-expanded",
-              lazy: "olButton dynatree-lazy",
-              focused: "olButton dynatree-focused",
-              partsel: "olButton dynatree-partsel",
-              lastsib: "olButton dynatree-lastsib"
-          },
-          selectMode: 3,
-          clickFolderMode: 2,
-          parent: this,
-          children: this.generateOverlaysTree(overlays),
-          onSelect: function(select, node) {
-              updateNodeLayer = function(node) {
-                  if(node.hasChildren() === false) {
-                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
-                  }
-              };
-              node.visit(updateNodeLayer, true);
-          },
-          cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-",
-          debugLevel: 0
-        });
+        if (this.showOverlays > -1) {
+	        $(this.overlaysTree).dynatree('destroy');
+	        this.overlaysTree = $(this.overlaysTree).dynatree({
+	          checkbox: true,
+	          classNames: {
+	              container: "olButton dynatree-container",
+	              node: "olButton dynatree-node",
+	              folder: "olButton dynatree-folder",
+	              empty: "olButton dynatree-empty",
+	              vline: "olButton dynatree-vline",
+	              expander: "olButton dynatree-expander",
+	              connector: "olButton dynatree-connector",
+	              checkbox: "olButton dynatree-checkbox",
+	              nodeIcon: "olButton dynatree-icon",
+	              title: "olButton dynatree-title",
+	              noConnector: "olButton dynatree-no-connector",
+	              nodeError: "olButton dynatree-statusnode-error",
+	              nodeWait: "olButton dynatree-statusnode-wait",
+	              hidden: "olButton dynatree-hidden",
+	              combinedExpanderPrefix: "olButton dynatree-exp-",
+	              combinedIconPrefix: "olButton dynatree-ico-",
+	              hasChildren: "olButton dynatree-has-children",
+	              active: "olButton dynatree-active",
+	              selected: "olButton dynatree-selected",
+	              expanded: "olButton dynatree-expanded",
+	              lazy: "olButton dynatree-lazy",
+	              focused: "olButton dynatree-focused",
+	              partsel: "olButton dynatree-partsel",
+	              lastsib: "olButton dynatree-lastsib"
+	          },
+	          selectMode: 3,
+	          clickFolderMode: 2,
+	          parent: this,
+	          children: this.generateOverlaysTree(overlays),
+	          onSelect: function(select, node) {
+	              updateNodeLayer = function(node) {
+	                  if(node.hasChildren() === false) {
+	                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
+	                  }
+	              };
+	              node.visit(updateNodeLayer, true);
+	          },
+	          cookieId: "dynatree-Cb2",
+	          idPrefix: "dynatree-Cb2-",
+	          debugLevel: 0
+	        });
+        }
 
         return this.div;
     },
@@ -462,8 +482,6 @@ XVM.Control.OLCustomLayerSwitcher =
 
         this.maximizeDiv.style.display = minimize ? "" : "none";
         this.minimizeDiv.style.display = minimize ? "none" : "";
-
-        //this.layersDiv.style.display = minimize ? "none" : "";
     },
     
     generateTreeFromLayers : function(layers, root, base_id, selectableFolders) {
@@ -525,8 +543,8 @@ XVM.Control.OLCustomLayerSwitcher =
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, true);
 
-        // We trim the title and ignore if its node when it's void
-        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        // We ignore the root node if configured to do so
+        if (this.showOverlays < 1) {
         	return treeChildren[0].children;
         }
         return treeChildren;
@@ -545,8 +563,8 @@ XVM.Control.OLCustomLayerSwitcher =
 
         this.generateTreeFromLayers(layers, treeChildren[0], baseId, false);
 
-        // We trim the title and ignore if its node when it's void
-        if (title.replace(/^\s+|\s+$/g, '') == '') {
+        // We ignore the root node if configured to do so
+        if (this.showBaseLayers < 1) {
         	return treeChildren[0].children;
         }
         return treeChildren;
@@ -648,91 +666,95 @@ XVM.Control.OLCustomLayerSwitcher =
             this.div.appendChild(treeDiv);
         }
 
-        this.baseLayersTree = $(treeDiv).dynatree({
-          checkbox: true,
-          // Override class name for checkbox icon:
-          classNames: {
-              container: "olButton dynatree-container",
-              node: "olButton dynatree-node",
-              folder: "olButton dynatree-folder",
-              empty: "olButton dynatree-empty",
-              vline: "olButton dynatree-vline",
-              expander: "olButton dynatree-expander",
-              connector: "olButton dynatree-connector",
-              checkbox: "olButton dynatree-radio",
-              nodeIcon: "olButton dynatree-icon",
-              title: "olButton dynatree-title",
-              noConnector: "olButton dynatree-no-connector",
-              nodeError: "olButton dynatree-statusnode-error",
-              nodeWait: "olButton dynatree-statusnode-wait",
-              hidden: "olButton dynatree-hidden",
-              combinedExpanderPrefix: "olButton dynatree-exp-",
-              combinedIconPrefix: "olButton dynatree-ico-",
-              hasChildren: "olButton dynatree-has-children",
-              active: "olButton dynatree-active",
-              selected: "olButton dynatree-selected",
-              expanded: "olButton dynatree-expanded",
-              lazy: "olButton dynatree-lazy",
-              focused: "olButton dynatree-focused",
-              partsel: "olButton dynatree-partsel",
-              lastsib: "olButton dynatree-lastsib"
-          },
-          selectMode: 1,
-          clickFolderMode: 2,
-          parent: this,
-          children: this.generateBaseLayersTree(baselayers),
-          onSelect: function(select, node) {
-              node.tree.options.parent.updateBaseLayer(node.data._layer);
-          },
-          cookieId: "dynatree-Cb1",
-          idPrefix: "dynatree-Cb1-",
-          debugLevel: 0
-        });
+        if (this.showBaseLayers > -1) {
+	        this.baseLayersTree = $(treeDiv).dynatree({
+	          checkbox: true,
+	          // Override class name for checkbox icon:
+	          classNames: {
+	              container: "olButton dynatree-container",
+	              node: "olButton dynatree-node",
+	              folder: "olButton dynatree-folder",
+	              empty: "olButton dynatree-empty",
+	              vline: "olButton dynatree-vline",
+	              expander: "olButton dynatree-expander",
+	              connector: "olButton dynatree-connector",
+	              checkbox: "olButton dynatree-radio",
+	              nodeIcon: "olButton dynatree-icon",
+	              title: "olButton dynatree-title",
+	              noConnector: "olButton dynatree-no-connector",
+	              nodeError: "olButton dynatree-statusnode-error",
+	              nodeWait: "olButton dynatree-statusnode-wait",
+	              hidden: "olButton dynatree-hidden",
+	              combinedExpanderPrefix: "olButton dynatree-exp-",
+	              combinedIconPrefix: "olButton dynatree-ico-",
+	              hasChildren: "olButton dynatree-has-children",
+	              active: "olButton dynatree-active",
+	              selected: "olButton dynatree-selected",
+	              expanded: "olButton dynatree-expanded",
+	              lazy: "olButton dynatree-lazy",
+	              focused: "olButton dynatree-focused",
+	              partsel: "olButton dynatree-partsel",
+	              lastsib: "olButton dynatree-lastsib"
+	          },
+	          selectMode: 1,
+	          clickFolderMode: 2,
+	          parent: this,
+	          children: this.generateBaseLayersTree(baselayers),
+	          onSelect: function(select, node) {
+	              node.tree.options.parent.updateBaseLayer(node.data._layer);
+	          },
+	          cookieId: "dynatree-Cb1",
+	          idPrefix: "dynatree-Cb1-",
+	          debugLevel: 0
+	        });
+        }
 
-        this.overlaysTree = $(treeDiv2).dynatree({
-          checkbox: true,
-          classNames: {
-              container: "olButton dynatree-container",
-              node: "olButton dynatree-node",
-              folder: "olButton dynatree-folder",
-              empty: "olButton dynatree-empty",
-              vline: "olButton dynatree-vline",
-              expander: "olButton dynatree-expander",
-              connector: "olButton dynatree-connector",
-              checkbox: "olButton dynatree-checkbox",
-              nodeIcon: "olButton dynatree-icon",
-              title: "olButton dynatree-title",
-              noConnector: "olButton dynatree-no-connector",
-              nodeError: "olButton dynatree-statusnode-error",
-              nodeWait: "olButton dynatree-statusnode-wait",
-              hidden: "olButton dynatree-hidden",
-              combinedExpanderPrefix: "olButton dynatree-exp-",
-              combinedIconPrefix: "olButton dynatree-ico-",
-              hasChildren: "olButton dynatree-has-children",
-              active: "olButton dynatree-active",
-              selected: "olButton dynatree-selected",
-              expanded: "olButton dynatree-expanded",
-              lazy: "olButton dynatree-lazy",
-              focused: "olButton dynatree-focused",
-              partsel: "olButton dynatree-partsel",
-              lastsib: "olButton dynatree-lastsib"
-          },
-          selectMode: 3,
-          clickFolderMode: 2,
-          parent: this,
-          children: this.generateOverlaysTree(overlays),
-          onSelect: function(select, node) {
-              updateNodeLayer = function(node) {
-                  if(node.hasChildren() === false) {
-                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
-                  }
-              };
-              node.visit(updateNodeLayer, true);
-          },
-          cookieId: "dynatree-Cb2",
-          idPrefix: "dynatree-Cb2-",
-          debugLevel: 0
-        });
+        if (this.showOverlays > -1) {
+	        this.overlaysTree = $(treeDiv2).dynatree({
+	          checkbox: true,
+	          classNames: {
+	              container: "olButton dynatree-container",
+	              node: "olButton dynatree-node",
+	              folder: "olButton dynatree-folder",
+	              empty: "olButton dynatree-empty",
+	              vline: "olButton dynatree-vline",
+	              expander: "olButton dynatree-expander",
+	              connector: "olButton dynatree-connector",
+	              checkbox: "olButton dynatree-checkbox",
+	              nodeIcon: "olButton dynatree-icon",
+	              title: "olButton dynatree-title",
+	              noConnector: "olButton dynatree-no-connector",
+	              nodeError: "olButton dynatree-statusnode-error",
+	              nodeWait: "olButton dynatree-statusnode-wait",
+	              hidden: "olButton dynatree-hidden",
+	              combinedExpanderPrefix: "olButton dynatree-exp-",
+	              combinedIconPrefix: "olButton dynatree-ico-",
+	              hasChildren: "olButton dynatree-has-children",
+	              active: "olButton dynatree-active",
+	              selected: "olButton dynatree-selected",
+	              expanded: "olButton dynatree-expanded",
+	              lazy: "olButton dynatree-lazy",
+	              focused: "olButton dynatree-focused",
+	              partsel: "olButton dynatree-partsel",
+	              lastsib: "olButton dynatree-lastsib"
+	          },
+	          selectMode: 3,
+	          clickFolderMode: 2,
+	          parent: this,
+	          children: this.generateOverlaysTree(overlays),
+	          onSelect: function(select, node) {
+	              updateNodeLayer = function(node) {
+	                  if(node.hasChildren() === false) {
+	                      node.tree.options.parent.updateLayerVisibility(node.data._layer, node.isSelected());
+	                  }
+	              };
+	              node.visit(updateNodeLayer, true);
+	          },
+	          cookieId: "dynatree-Cb2",
+	          idPrefix: "dynatree-Cb2-",
+	          debugLevel: 0
+	        });
+        }
         
     },
     

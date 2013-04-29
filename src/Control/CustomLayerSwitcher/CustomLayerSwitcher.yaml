@@ -1,6 +1,10 @@
 ## CustomLayerSwitcher parameter control
 init:
-  firstBaseLayers: false
+  firstBaseLayers: !!bool false
+  ## -1 hides the section, 0 displays the layers only
+  ## with the specified groups, 1 displays it with an additional root node
+  showOverlays: !!int 1
+  showBaseLayers: !!int 1
 properties:
 ## If you put a blank translation for these titles (e.g. ' '), their top nodes are ignored.
   'en':
