@@ -34,31 +34,33 @@ describe('Map tests', function() {
 	
 	var fakeLayer = new OpenLayers.Layer.WMS( "fakeData",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
-            {layers: 'basic'} );
-	fakeLayer.layer_position = 1;
+            {layers: 'basic'},
+            {isBaseLayer: true} );
+	fakeLayer.layer_position = 0;
 	
 	var anotherFakeLayer = new OpenLayers.Layer.WMS( "anotherFakeData",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
-            {layers: 'basic'} );
-	anotherFakeLayer.layer_position = 0;
+            {layers: 'basic'},
+            {isBaseLayer: true} );
+	anotherFakeLayer.layer_position = 1;
 
 	var fakeoverlay1 = new OpenLayers.Layer.WMS( "fakeoverlay1",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
             {layers: 'basic'},
             {isBaseLayer: false});
-	fakeoverlay1.layer_position = 1;
+	fakeoverlay1.layer_position = 2;
 	
 	var fakeoverlay2 = new OpenLayers.Layer.WMS( "fakeoverlay2",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
             {layers: 'basic'},
             {isBaseLayer: false} );
-	fakeoverlay2.layer_position = 2;
+	fakeoverlay2.layer_position = 3;
 	
 	var fakeoverlay3 = new OpenLayers.Layer.WMS( "fakeoverlay3",
             "http://vmap0.tiles.osgeo.org/wms/vmap0",
             {layers: 'basic'},
             {isBaseLayer: false} );
-	fakeoverlay3.layer_position = 3;
+	fakeoverlay3.layer_position = 4;
 	
 
 	var map = new XVM.Map();
@@ -102,9 +104,21 @@ describe('Map tests', function() {
 		expect(map.OLMap.getCenter().lat).toEqual(fakeData.view_settings.center.lat);
 	});
 	
-	it('Map uses layer_position to sets base layer', function() {
+	it('Map uses layer_position to set base layer', function() {
 		expect(map.OLMap.baseLayer).toEqual(anotherFakeLayer);
-		anotherFakeLayer.layer_position = 2;
+		fakeLayer.isBaseLayer = true;
+		fakeLayer.layer_position = 1;
+		fakeLayer.visibility = true;
+		anotherFakeLayer.layer_position = 0;
+		map = new XVM.Map();
+		var layers = [fakeLayer,
+		               anotherFakeLayer,
+		               fakeoverlay1,
+		               fakeoverlay2,
+		               fakeoverlay3];
+		map.addXVMControl(controlFake);
+		map.addConfigParameters(fakeData);
+		map.addLayers(layers);
 		map.drawMap();
 		expect(map.OLMap.baseLayer).toEqual(fakeLayer);
 	});

@@ -3,68 +3,71 @@
  */
 
 describe('FeatureInfo control tests', function() {
-	
-		var wmsLayers = [
-			new OpenLayers.Layer.WMS("Catastro",
-					"http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx", {
-						// GetMap parameters
-						layers : "Catastro",
-						transparent : true,
-						format : "image/png"
-					}, {
-						isBaseLayer : false,
-						visibility : true,
-						singleTile : false,
-						opacity : 1,
-						transitionEffect : 'resize',
-						buffer : 0,
-						layer_position : 201,
-						queryable : true
-					}),
-			new OpenLayers.Layer.WMS("Paixase",
-					"http://ideg.xunta.es/wms_paisaxe/request.aspx?", {
-						// GetMap parameters
-						layers : "ComarcasPaisaxisticas",
-						transparent : true,
-						format : "image/png"
-					}, {
-						isBaseLayer : false,
-						visibility : true,
-						singleTile : false,
-						opacity : 1,
-						transitionEffect : 'resize',
-						buffer : 0,
-						layer_position : 202,
-						queryable : true
-					}),
-			new OpenLayers.Layer.WMS("IGN Base",
-					"http:\/\/www.ign.es\/wms-inspire\/ign-base", {
-						// GetMap parameters
-						layers : "IGNBaseTodo",
-						transparent : true,
-						format : "image/png"
-					}, {
-						isBaseLayer : true,
-						visibility : true,
-						singleTile : false,
-						opacity : 0.75,
-						transitionEffect : 'resize',
-						buffer : 0
-					}),
-			new OpenLayers.Layer.WMS("Topogr\u00e1fico-IDEE",
-					"http:\/\/www.idee.es\/wms\/MTN-Raster\/MTN-Raster", {
-						// GetMap parameters
-						layers : "mtn_rasterizado",
-						transparent : true,
-						format : "image/png"
-					}, {
-						isBaseLayer : true,
-						visibility : false,
-						singleTile : false,
-						opacity : 0.60,
-						transitionEffect : 'resize',
-						buffer : 0
-					}) ];
+
+		var wmsLayer1 = new OpenLayers.Layer.WMS("Catastro",
+							"http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx", {
+							// GetMap parameters
+							layers : "Catastro",
+							transparent : true,
+							format : "image/png"
+						}, {
+							isBaseLayer : false,
+							visibility : true,
+							singleTile : false,
+							opacity : 1,
+							transitionEffect : 'resize',
+							buffer : 0,
+							layer_position : 201,
+							queryable : true
+						});
+
+		var wmsLayer2 = new OpenLayers.Layer.WMS("Paixase",
+							"http://ideg.xunta.es/wms_paisaxe/request.aspx?", {
+							// GetMap parameters
+							layers : "ComarcasPaisaxisticas",
+							transparent : true,
+							format : "image/png"
+						}, {
+							isBaseLayer : false,
+							visibility : true,
+							singleTile : false,
+							opacity : 1,
+							transitionEffect : 'resize',
+							buffer : 0,
+							layer_position : 202,
+							queryable : true
+						});
+
+		var wmsLayer3 = new OpenLayers.Layer.WMS("IGN Base",
+						"http:\/\/www.ign.es\/wms-inspire\/ign-base", {
+							// GetMap parameters
+							layers : "IGNBaseTodo",
+							transparent : true,
+							format : "image/png"
+						}, {
+							isBaseLayer : true,
+							visibility : true,
+							singleTile : false,
+							opacity : 0.75,
+							transitionEffect : 'resize',
+							buffer : 0
+						});
+
+		var wmsLayer4 = new OpenLayers.Layer.WMS("Topogr\u00e1fico-IDEE",
+						"http:\/\/www.idee.es\/wms\/MTN-Raster\/MTN-Raster", {
+							// GetMap parameters
+							layers : "mtn_rasterizado",
+							transparent : true,
+							format : "image/png"
+						}, {
+							isBaseLayer : true,
+							visibility : false,
+							singleTile : false,
+							opacity : 0.60,
+							transitionEffect : 'resize',
+							buffer : 0
+						});
+		var wmsLayers = [wmsLayer1, wmsLayer2, wmsLayer3, wmsLayer4];
 		
 	var options = {
 		init : {
@@ -113,17 +116,32 @@ describe('FeatureInfo control tests', function() {
 	infoFeature.featureInfoSetURL();
 	
 	beforeEach(function() {
-		
 	});
 	
 	it('Control sets last url valid layer', function() {
-		expect(infoFeature.OLControl.url).toEqual(wmsLayers[1].url);
-		wmsLayers[0].queryable = true;
-		wmsLayers[1].queryable = false;
+		expect(infoFeature.OLControl.url).toEqual(wmsLayer2.url);
+		wmsLayer1.queryable = true;
+		wmsLayer2.queryable = false;
+		wmsLayers = [wmsLayer1, wmsLayer2, wmsLayer3, wmsLayer4];
+		XVM.EventBus = new XVM.Event.EventBus();
+		infoFeature = new XVM.Control.FeatureInfo(options, '', 1);
+		infoFeature.setOLMap(map.OLMap);
+		map = new XVM.Map('map');
+		map.addConfigParameters(parameters);
+		map.addLayers(wmsLayers);
+		map.addControls([]);
 		infoFeature.featureInfoSetURL();
-		expect(infoFeature.OLControl.url).toEqual(wmsLayers[0].url);
-		wmsLayers[0].queryable = false;
-		wmsLayers[1].queryable = false;
+		expect(infoFeature.OLControl.url).toEqual(wmsLayer1.url);
+		wmsLayer1.queryable = false;
+		wmsLayer2.queryable = false;
+		wmsLayers = [wmsLayer1, wmsLayer2, wmsLayer3, wmsLayer4];
+		XVM.EventBus = new XVM.Event.EventBus();
+		infoFeature = new XVM.Control.FeatureInfo(options, '', 1);
+		infoFeature.setOLMap(map.OLMap);
+		map = new XVM.Map('map');
+		map.addConfigParameters(parameters);
+		map.addLayers(wmsLayers);
+		map.addControls([]);
 		infoFeature.featureInfoSetURL();
 		expect(infoFeature.OLControl.url).toBeNull();
 	});
@@ -131,16 +149,16 @@ describe('FeatureInfo control tests', function() {
 	it('Changes layer visibility control sets new URL', function(){
 		var evt = {
 				property : 'visibility',
-				layer : wmsLayers[1]
+				layer : wmsLayer2
 		};
 		XVM.EventBus.fireEvent('changelayer', evt);
-		expect(infoFeature.OLControl.url).toEqual(wmsLayers[1].url);
-		evt.layer = wmsLayers[2];
+		expect(infoFeature.OLControl.url).toEqual(wmsLayer2.url);
+		evt.layer = wmsLayer3;
 		XVM.EventBus.fireEvent('changelayer', evt);
 		expect(infoFeature.OLControl.url).toBeNull();
-		evt.layer = wmsLayers[0];
+		evt.layer = wmsLayer1;
 		XVM.EventBus.fireEvent('changelayer', evt);
-		expect(infoFeature.OLControl.url).toEqual(wmsLayers[0].url);
+		expect(infoFeature.OLControl.url).toEqual(wmsLayer1.url);
 	});
 	
 	it('Feature gets error shows message', function() {
