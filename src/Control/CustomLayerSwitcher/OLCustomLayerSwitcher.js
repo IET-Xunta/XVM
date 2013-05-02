@@ -3,6 +3,19 @@
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
+/**
+ * XVM: Xeovisor Minimo
+ * ----------------------------------------------
+ * Copyright (c) 2012, Xunta de Galicia. All rights reserved.
+ * Code licensed under the BSD License:
+ *   LICENSE.txt file available at the root application directory
+ *
+ * @author Instituto Estudos do Territorio, IET
+ *
+ * Based on OpenLayers.Control.LayerSwitcher...
+ * [Xeovisor minimo - XVM]: some small changes on icon, ordering layers, etc.
+ */
+
 /** 
  * @requires OpenLayers/Control.js
  * @requires OpenLayers/Lang.js
@@ -21,11 +34,6 @@
  * 
  * Inherits from:
  *  - <OpenLayers.Control>
- */
-
-/**
- * Based on OpenLayers.Control.LayerSwitcher...
- * [Xeovisor minimo - XVM]: Some small changes on icon, ordering layers, etc.
  */
 
 XVM.Control.OLCustomLayerSwitcher = 

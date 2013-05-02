@@ -3,6 +3,19 @@
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
 
+/**
+ * XVM: Xeovisor Minimo
+ * ----------------------------------------------
+ * Copyright (c) 2012, Xunta de Galicia. All rights reserved.
+ * Code licensed under the BSD License:
+ *   LICENSE.txt file available at the root application directory
+ *
+ * @author Instituto Estudos do Territorio, IET
+ *
+ * Based on OpenLayers.Control.WMSGetFeatureInfo...
+ * [Xeovisor minimo - XVM]: modified for requesting data from the
+ * layer itself.
+ */
 
 /**
  * @requires OpenLayers/Control.js
@@ -24,6 +37,7 @@
  * Inherits from:
  *  - <OpenLayers.Control>
  */
+
 XVM.Control.OLFeatureInfoGeoJson = OpenLayers.Class(OpenLayers.Control, {
 
    /**
