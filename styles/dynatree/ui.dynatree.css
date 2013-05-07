@@ -326,6 +326,7 @@ span.dynatree-node a
 	display: inline-block; /* Better alignment, when title contains <br> */
 /*	vertical-align: top;*/
 	padding-left: 3px;
+	font-size: 9px;
 	padding-right: 3px; /* Otherwise italic font will be outside bounds */
 	/*	line-height: 16px; /* should be the same as img height, in case 16 px */
 }

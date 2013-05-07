@@ -508,7 +508,7 @@ XVM.Control.OLCustomLayerSwitcher =
             	if ((layer.style != null) && (layer.style.fillColor != null)) {
             		colorBox = layer.style.fillColor;
             	} else {
-                	colorBox = OpenLayers.Feature.Vector.style.default.fillColor;
+                    colorBox = OpenLayers.Feature.Vector.style['default'].fillColor;
             	}
             }
             var currentNode = root;
