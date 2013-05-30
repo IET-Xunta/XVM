@@ -25,7 +25,7 @@
 /**
  * Class: OpenLayers.Control.LayerSwitcher
  * The LayerSwitcher control displays a table of contents for the map. This 
- * allows the user interface to switch between BaseLasyers and to show or hide
+ * allows the user interface to switch between BaseLayers and to show or hide
  * Overlays. By default the switcher is shown minimized on the right edge of 
  * the map, the user may expand it by clicking on the handle.
  *
@@ -496,6 +496,9 @@ XVM.Control.OLCustomLayerSwitcher =
 
         for(var i=0, len=layers.length; i<len; i++) {
             var layer = layers[i];
+	    if (!layer.displayInLayerSwitcher){
+		continue;
+	    }
             var baseId = base_id + '_';
             var groups;
             if (typeof layer.group_name === 'string') {
@@ -768,3 +771,5 @@ XVM.Control.OLCustomLayerSwitcher =
     
     CLASS_NAME: "XVM.Control.OLCustomLayerSwitcher"
 });
+
+//@ sourceURL=OLCustomLayerSwitcher.js
