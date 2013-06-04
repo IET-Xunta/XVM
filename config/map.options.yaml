@@ -2,57 +2,57 @@
 ##########################
 
 ## General parameters
-{
-  general: {
-    lang: es,
-    height_map : !!int 600,
-    width_map  : !!int 800,
-    margin : !!int 0,
-    proxy_host : 'proxy/proxy.php?url=',
+
+general: 
+    lang: es
+    height_map : !!int 600
+    width_map  : !!int 800
+    margin : !!int 0
+    proxy_host : 'proxy/proxy.php?url='
     ## If "true" all request will be sent throw the proxy (not only getfeatureinfo ones)
     use_wms_throw_proxy : false
-  },
+
 
   ## Map specific parameters
-  map_settings: {
-    epsg  : 'EPSG:23029',
-    tile_size : [
-      !!int 512,
-      !!int 512
-    ],
-    units : m,
-    bounds : [
-      !!int 460000,
-      !!int 4625000,
-      !!int 690000,
-      !!int 4855000
-    ],
-    resolutions: [
-      !!float 611.4962262814,
-      !!float 305.7481131407,
-      !!float 152.8740565704,
-      !!float 76.4370282852,
-      !!float 38.2185141426,
-      !!float 19.1092570713,
-      !!float 9.5546285356,
-      !!float 4.7773142678,
-      !!float 2.3886571339,
-      !!float 1.1943285670,
-      !!float 0.5971642835,
-      !!float 0.2985821417
-    ],
-  },
+map_settings: 
+    epsg  : 'EPSG:23029'
+    tile_size : 
+      - !!int 512
+      - !!int 512
+
+    units : m
+    bounds : 
+      - !!int 460000
+      - !!int 4625000
+      - !!int 690000
+      - !!int 4855000
+
+    resolutions: 
+      - !!float 611.4962262814
+      - !!float 305.7481131407
+      - !!float 152.8740565704
+      - !!float 76.4370282852
+      - !!float 38.2185141426
+      - !!float 19.1092570713
+      - !!float 9.5546285356
+      - !!float 4.7773142678
+      - !!float 2.3886571339
+      - !!float 1.1943285670
+      - !!float 0.5971642835
+      - !!float 0.2985821417
     
   ## View parameters
-  view_settings : {
-    bbox: [
-      !!int 460000,
-      !!int 4625000,
-      !!int 690000,
+view_settings : 
+    bbox: 
+      !!int 460000
+      !!int 4625000
+      !!int 690000
       !!int 4855000
-    ],
-    zoom : !!int 5,
-    fullscreen: !!bool false,
-    center : {lat: !!float 0, lon: !!float 0}
-  }
-}
+ 
+    zoom : !!int 5
+    fullscreen: !!bool false
+    center : 
+      lat: !!float 0
+      lon: !!float 0
+
+
