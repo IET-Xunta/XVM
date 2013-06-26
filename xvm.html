@@ -46,6 +46,8 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
+				// To avoid problems in IE without 'console.log'
+				if (!window.console){console={log:function(){}}};
 				XVM.createDefaultMap();
 			});
 		</script>
