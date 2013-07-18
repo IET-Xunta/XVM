@@ -100,3 +100,10 @@ Esto crea un objeto donde, los parametros que se pasan en ``init`` son guardados
 Es posible definir la ejecución de determinadas funciones del control mediante el uso de la función ``eval()``::
 
 	clave: eval(función_a_ejecutar)
+
+
+Aprovechando este mecanismo de carga de ficheros YAML, en XVM es muy sencillo programar controles con gran cantidad de parámetros configurables. 
+Todos los comportamientos que queramos cambiar dependiendo del visor que estemos creando se podrán declarar 
+como opciones en el fichero yaml delcontrol y serán leídos a través de la variable ``this.options`` en tiempo de ejecución.
+
+Hay muchos ejemplos de cómo usar esta característica de XVM en los controles por defecto, p.e https://github.com/IET-Xunta/XVM/tree/master/src/Control/FeatureInfoCatastro
