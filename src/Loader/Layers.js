@@ -106,9 +106,11 @@ XVM.Loader.Layers = XVM.Class.extend({
 				var layer_options = $.extend(default_options, objectLayer.parameters);
 
 				var aux_url = objectLayer.url;
-				if (XVM.map.parameters.general.use_wms_throw_proxy == true){
+                //TODO Sometimes map.parameters is undefined at this moment... we have to solve it
+				if (XVM.map.parameters == undefined || 
+                    XVM.map.parameters.general.use_wms_throw_proxy == true){
 		                    aux_url = XVM.map.parameters.general.proxy_host+objectLayer.url;
-                		}
+                }
 				var layer = new OpenLayers.Layer.WMS(
 					objectLayer.layer_name,
 					aux_url,
