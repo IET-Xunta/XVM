@@ -1,6 +1,7 @@
-## FeatureInfoCatastro parameter control
+## FeatureCatastroInfo parameter control
 init:
   title: eval($.i18n('feature_catastro_info_tooltip'))
+  url: 'http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx?'
 properties:
   'en':
     'feature_catastro_info_tooltip': 'Catastro Feature Info'

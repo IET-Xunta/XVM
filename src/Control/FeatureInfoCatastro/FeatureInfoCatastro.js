@@ -16,9 +16,15 @@ XVM.Control.FeatureInfoCatastro = XVM.Control.extend({
         this.OLControl = new OpenLayers.Control.WMSGetFeatureInfo({
             infoFormat : 'application/vnd.ogc.gml',
             displayClass : "olControlFeatureCatastroInfo",
-            url : 'http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx?'
+            url : this.options.url
         });
-
+    
+        // To go throw the proxy
+        if (XVM.map.parameters.general.use_wms_throw_proxy == true){
+            aux_url = XVM.map.parameters.general.proxy_host+this.OLControl.url;
+            this.OLControl.url = aux_url;
+        }
+    
         this.OLControl.events.on({
             getfeatureinfo : function(e) {
                 var features = this.format.read(e.text);
@@ -36,7 +42,7 @@ XVM.Control.FeatureInfoCatastro = XVM.Control.extend({
                     text.html(), null, true));
                 }
             }
-        });
+        })
     },
     beforeAddingControl : function() {
         // layers parameter of WMSGetFeatureInfo should be set here, or in addControl or afterAddingControl
@@ -77,3 +83,6 @@ XVM.Control.FeatureInfoCatastro = XVM.Control.extend({
         return html += '</table>';
     }
 });
+
+// Added for debugging tasks
+//@ sourceURL=FeatureInfoCatastro.js
