@@ -260,7 +260,7 @@ XVM.Control.OLFeatureInfoGeoJson = OpenLayers.Class(OpenLayers.Control, {
                 null,
                 true);
         if (this.singletonPopup) {
-	        if (this.lastPopup != null) {
+	        if ((this.lastPopup != null) && (this.lastPopup.div != null)) {
 	        	this.lastPopup.destroy();
 	        }
 	        this.lastPopup = popup;
