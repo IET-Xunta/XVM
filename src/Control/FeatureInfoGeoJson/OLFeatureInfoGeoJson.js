@@ -13,30 +13,29 @@
  * @author Instituto Estudos do Territorio, IET
  *
  * Based on OpenLayers.Control.WMSGetFeatureInfo...
- * [Xeovisor minimo - XVM]: modified for requesting data from the
- * layer itself.
+ * [Xeovisor minimo - XVM]: modified for requesting data from the layer itself.
+ * 
+ * Also created a new popup based on the OpenLayers.Popup.FramedCloud one.
  */
 
-/**
- * @requires OpenLayers/Control.js
- * @requires OpenLayers/Handler/Click.js
- * @requires OpenLayers/Handler/Hover.js
- * @requires OpenLayers/Request.js
- * @requires OpenLayers/Format/WMSGetFeatureInfo.js
- */
+XVM.DestroyableFramedCloud = 
+  OpenLayers.Class(OpenLayers.Popup.FramedCloud, {
 
-/**
- * Class: OpenLayers.Control.WMSGetFeatureInfo
- * The WMSGetFeatureInfo control uses a WMS query to get information about a point on the map.  The
- * information may be in a display-friendly format such as HTML, or a machine-friendly format such
- * as GML, depending on the server's capabilities and the client's configuration.  This control
- * handles click or hover events, attempts to parse the results using an OpenLayers.Format, and
- * fires a 'getfeatureinfo' event with the click position, the raw body of the response, and an
- * array of features if it successfully read the response.
- *
- * Inherits from:
- *  - <OpenLayers.Control>
- */
+    /** 
+     * Property: contentDisplayClass
+     * {String} The CSS class of the popup content div.
+     */
+    contentDisplayClass: "olFramedCloudPopupContent xvmDestroyableFramedCloudPopupContent",
+
+    /**
+     * Instead of hiding the widget when closing, we destroy it.
+     */
+    hide: function() {
+    	this.destroy();
+    },
+
+    CLASS_NAME: "XVM.DestroyableFramedCloud"
+});
 
 XVM.Control.OLFeatureInfoGeoJson = OpenLayers.Class(OpenLayers.Control, {
 
@@ -76,6 +75,10 @@ XVM.Control.OLFeatureInfoGeoJson = OpenLayers.Class(OpenLayers.Control, {
      *     (if any).
      */
     hoverRequest: null,
+
+    singletonPopup: false,
+
+    lastPopup: null,
 
     /**
      * APIProperty: events
@@ -250,12 +253,18 @@ XVM.Control.OLFeatureInfoGeoJson = OpenLayers.Class(OpenLayers.Control, {
         } else {
         	data = '<i>' + this.noDataMessage + '</i>';
         }
-        popup = new OpenLayers.Popup.FramedCloud('VectorFeatureInfo',
+        popup = new XVM.DestroyableFramedCloud('VectorFeatureInfo',
                 lonlat,
                 new OpenLayers.Size(250,120),
                 data,
                 null,
                 true);
+        if (this.singletonPopup) {
+	        if (this.lastPopup != null) {
+	        	this.lastPopup.destroy();
+	        }
+	        this.lastPopup = popup;
+        }
 		popup.setBackgroundColor("#bcd2ee");
         OpenLayers.Element.removeClass(this.map.viewPortDiv, "olCursorWait");
 		this.map.addPopup(popup);

@@ -34,3 +34,6 @@ opacity: 0.5;
 margin: 1px;
 padding: 0;
 }
+/** Class for customizing the popup dialog **/
+.xvmDestroyableFramedCloudPopupContent {
+}

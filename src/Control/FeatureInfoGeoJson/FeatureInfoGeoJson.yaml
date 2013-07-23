@@ -3,6 +3,7 @@ init:
   queryVisible : !!bool true
   title: eval($.i18n('feature_info_geojson_tooltip'))
   noDataMessage : eval($.i18n('feature_info_geojson_no_data_message'))
+  singletonPopup: true
 properties:
   'en':
     'feature_info_geojson_tooltip': 'GeoJson Feature Info'
