@@ -130,7 +130,8 @@ XVM.Loader.Layers = XVM.Class.extend({
 					    "callback=?",\
 					    function(data) {\
 						var geojson_format = new OpenLayers.Format.GeoJSON();\
-						var layer = new OpenLayers.Layer.Vector("' + objectLayer.layer_name + '");\
+						var layer = new OpenLayers.Layer.Vector("' + objectLayer.layer_name + '",\
+								JSON.parse(\'' + JSON.stringify(objectLayer.parameters) + '\'));\
 						layer.addFeatures(geojson_format.read(data));\
 						XVM.EventBus.fireEvent("addLayers", [layer]);\
 				});');
