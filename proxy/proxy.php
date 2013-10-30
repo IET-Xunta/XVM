@@ -38,12 +38,27 @@ class FileLog4PHP
     }
 }
 
-$logger = new FileLog4PHP();
-$logger->msg("Init proxy request");
+function _isCurl(){
+    return function_exists('curl_version');
+}
+
+$curl_installed = _isCurl();
+$curl_msg = 'Module cURL required is installed: '.(is_bool($curl_installed) ? ($curl_installed ? "true":"false"):$curl_installed);
+
+$logger = null;
+if ($DEBUG){
+    $logger = new FileLog4PHP();
+    $logger->msg("Init proxy request");
+    $logger->msg($msg);
+}
+
+if (!$curl_installed){
+    echo "Module curl is NOT INSTALLED.\n";
+    return;
+}
 
 // File with the list of allowed hosts
 $URL_PROXY = 'urls.proxy';
-
 $allowed_urls = file($URL_PROXY);
 foreach($allowed_urls as $k => $d){
    if (strpos($d, '#', 0) === 0) {
@@ -55,33 +70,35 @@ foreach($allowed_urls as $k => $d){
    $allowed_urls[$k] = str_replace("'","",$d);
 }
 
+// Avoid $_COOKIE on $_REQUEST
+$_REQUEST = array_merge($_GET, $_POST);
+
 $url = $_REQUEST['url'];
 $url = str_replace(" ","",$url);
 
 if ($DEBUG){
-	//$fh = fopen($LOG_FILE, 'a') or die("can't open file");
-	//fwrite($fh, $url."\n\n");
-	$logger->msg($url);
+	$logger->msg('$_REQUEST[url]:'.$url);
 }
 
-//To do WMS getMAP request we need to pass all parameters  
+//To do WMS getMAP request we need to pass all parameters 
+$REQUEST_FORMAT = '';
 foreach ($_REQUEST as $key => $value) {
 	if($key == "url"){
 		continue;
 	}
 	$msg=$key.'='.$value;
 	if ($DEBUG){
-		//fwrite($fh, $msg."\n");
-		$logger->msg($msg);
+		$logger->msg('[param]:'.$msg);
 	}
+    # It must work without it
+    #if ($key == 'FORMAT'){
+    #    $REQUEST_FORMAT = $value;
+    #}
 	$url .= "&".$msg;
-	
 }
 
 if ($DEBUG){
-	//fwrite($fh, $url);
-	$logger->msg($url);
-	//fclose($fh);
+	$logger->msg('PROXY_PROCESSED_URL:'.$url);
 }
 
 $p_url = parse_url($url);
@@ -89,11 +106,13 @@ $p_url = parse_url($url);
 
 if (!in_array($p_url['host'], $allowed_urls)){
    echo "Host not allowed by XVM proxy.\n";
-   $logger->msg("Host not allowed by XVM proxy.");
+   if ($DEBUG){
+       $logger->msg("Host not allowed by XVM proxy.");
+   }
    return;
 };
 
-// GET, POST, PUT, HEAD, DELETE, ect ...
+// GET, POST, PUT, HEAD, DELETE, etc ...
 $method = $_SERVER['REQUEST_METHOD'];
 
 
@@ -128,9 +147,7 @@ if($method === 'POST'){
 	curl_setopt_array($ch, $opts);
 }
 
-
-
-curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_URL, $url);
 //curl_setopt($ch, CURLOPT_PROXY, $proxy);
 //curl_setopt($ch, CURLOPT_PROXYUSERPWD, $proxyauth);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -139,7 +156,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 //When using WFS request it is needed
 $request_body = file_get_contents('php://input');
 if ($request_body){
-	if ($DEBUG==2) {
+	if ($DEBUG) {
 		$logger->msg("====== HEADER request"."\n");
 		$logger->msg($_SERVER);	
 		$logger->msg("====== REQUEST_BODY"."\n");
@@ -159,8 +176,12 @@ if ($request_body){
 $curl_scraped_page = curl_exec($ch);
 
 $content_info = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
- 
-curl_close($ch);
+
+# It must work without this [if remove, remove also REQUEST_FORMAT initialization above]
+# if ($content_info != $REQUEST_FORMAT){
+#    $content_info = $REQUEST_FORMAT;
+#}
+#$logger->msg('CURLINFO_HEADER_OUT: '.CURLINFO_HEADER_OUT);
 
 if ($DEBUG==2) {
 	$headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
@@ -172,6 +193,7 @@ if ($DEBUG==2) {
 	$logger->msg($curl_scraped_page);
 }
 
+curl_close($ch);
 
 header("Content-type: ".$content_info);
 echo $curl_scraped_page;
