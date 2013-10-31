@@ -83,5 +83,8 @@ Instrucciones de despliegue
 
 Copiar y listo!! :D
 
+Para consultar servicios WMS externos al dominio (p.e usando llamadas getFeatureInfo), se debe incluir dicho dominio
+en el listado de URLs (``proxy/urls.proxy``) permitidas en el proxy.
+
 Uso básico como iframe
 
