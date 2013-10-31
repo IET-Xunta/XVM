@@ -45,6 +45,9 @@ XVM.Loader.Layers = XVM.Class.extend({
 	 */
 	_readLayers : function() {
 		this.reader.getParamsFromURL(this);
+		if (this.fromGETParameters.urllayersfile !== 'undefined'){
+		    XVM.LAYERSFILE = this.fromGETParameters.urllayersfile;
+		}
 		this.reader.readFromFile(
 			XVM.LAYERSFILE,
 			this._readLayersCallback,
