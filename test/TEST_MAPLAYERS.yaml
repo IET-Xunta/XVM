@@ -1,0 +1,109 @@
+# Layers parameters to map
+##########################
+#### 
+## Small 'layer_position' means high position on the map
+
+  ## Layer service
+  ## gets layers from URL with urlServiceLayer it if '' or null 
+  ## control loads default layers
+urlServiceLayer : !!null null
+layers :  
+  ## Topografico layer
+  - map_name : default
+    type : 'wms'
+    layer_name : Topografico (MTN)
+    wms_layer : mtn_rasterizado
+    url : 'http://www.idee.es/wms/MTN-Raster/MTN-Raster?'
+    parameters : 
+      opacity : !!float 0.75
+      group_name : 'capa_base'
+      layer_position : !!int 502
+      singleTile : !!bool false
+      isBaseLayer : !!bool true
+      visibility: !!bool false
+      projection : 'EPSG:23029'
+   
+  ## Vuelo Americano
+  - map_name : default
+    type : 'wms'
+    layer_name : 'Ortofoto 1956-57'
+    wms_layer : 'Ortofoto_1956_57'
+    url : 'http://ideg.xunta.es/wms_orto_1956-57/request.aspx?'
+    parameters : 
+      opacity : !!float 1.0
+      group_name : 'capa_base'
+      layer_position : !!int 550
+      singleTile : !!bool true
+      isBaseLayer : !!bool true
+      visibility : !!bool true
+      projection : 'EPSG:23029'
+    
+  ## SITGA Toponimos
+  - map_name : default
+    type : 'wms'
+    layer_name : 'Toponimia'
+    wms_layer : 'NOMECONCELLO, Toponimia_txt_1_5000,
+                 TOPONIMIA_COSTA, TXT_CIDADES, 
+                 TXT_CIDADES_B, TXT_PARROQUIA, 
+                 TXT_VILAS'
+    url : 'http://ideg.xunta.es/wms/request.aspx?'
+    parameters : 
+      opacity : !!float 0.7
+      group_name : 'Capas Auxiliares'
+      layer_position : !!int 204
+      singleTile : !!bool true
+      isBaseLayer : !!bool false
+      visibility : !!bool true
+      projection : 'EPSG:23029'
+      queryable : false
+
+  # SITGA Carreteras
+  - map_name : default
+    type : 'wms'
+    layer_name : 'Carreteras'
+    wms_layer : 'SECUNDARIA, AUTOESTRADA_AUTOVIA, REDE_ESTATAL, 
+                 PRIMARIA_BASICA, CORREDOR, PRIMARIA_COMPLEMENT'
+    url : 'http://ideg.xunta.es/wms/request.aspx?'
+    parameters : 
+      opacity : !!float 0.75
+      group_name : 'Capas Auxiliares'
+      layer_position : !!int 203
+      singleTile : !!bool false
+      isBaseLayer : !!bool false
+      visibility : !!bool false
+      projection : 'EPSG:23029'
+      queryable: false
+    
+  
+  ## SITGA limites
+  - map_name : default
+    type : 'wms'
+    layer_name : 'Limites Admin'
+    wms_layer : 'PROVINCIA, CONCELLO, PARROQUIA'
+    url : 'http://ideg.xunta.es/wms/request.aspx?'
+    parameters : 
+      opacity : !!float 0.75
+      group_name : 'Capas Auxiliares'
+      layer_position : !!int 202
+      singleTile : !!bool false
+      isBaseLayer : !!bool false
+      visibility : !!bool true
+      projection : 'EPSG:23029'
+      queryable: false
+   
+  ## Catastro
+  - map_name : default
+    type : 'wms'
+    layer_name : 'Catastro'
+    wms_layer : 'CATASTRO'
+    url : 'http://ovc.catastro.meh.es/Cartografia/WMS/ServidorWMS.aspx?'
+    parameters : 
+      opacity : !!float 0.75
+      group_name : 'Capas Auxiliares'
+      layer_position : !!int 201
+      singleTile : !!bool true
+      isBaseLayer : !!bool false
+      visibility : !!bool false
+      projection : 'EPSG:23029'
+      queryable: false
+

@@ -1,0 +1,27 @@
+## File with controls to add dinamically to app
+controls:
+# - FeatureInfo
+# - FeatureInfoCatastro
+# - FeatureInfoGeoJson
+ - ZoomIn
+ - CustomLayerSwitcher
+ - Scale
+ - ScaleLine
+ - MousePosition
+ - Navigation
+# - DrawFeature
+# - DeleteFeature
+# - ModifyFeature
+# - HelpButton
+# - MeasureLine
+# - MeasureArea
+# - NavigationHistory
+# - PermalinkButton
+# - ZoomToMaxExtent
+ - ZoomBox
+ - ZoomOut
+ - FullScreen
+# - SimpleForm
+# - WFSLayer
+  ## Needs this to include TOC
+#TOC : !!bool false

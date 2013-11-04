@@ -43,6 +43,11 @@ XVM.Loader.Controls = XVM.Class.extend({
 	 * Method
 	 */
 	_readControls : function() {
+		this.reader.getParamsFromURL(this);
+		if (this.fromGETParameters != null && 
+		        typeof this.fromGETParameters.urlcontrolsfile !== 'undefined'){
+		    XVM.CONTROLSFILE = this.fromGETParameters.urlcontrolsfile;
+		}
 		this.reader.readFromFile(
 			XVM.CONTROLSFILE,
 			this._readControlsCallback,
