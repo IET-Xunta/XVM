@@ -47,19 +47,19 @@ Por tipo:
 Sistema de carga de párametros
 --------------------------------------------------
 
-Diagrama de clases de Readers
+Una de las ventajas del XVM es que una única instalación permite muchas configuraciones distintas
+tanto de capas cargadas, de controles u otras configuraciones como extensión geográfica, proyección,
+tamaño del visor, etc. Esta flexibilidad se consigue a través de los ficheros de configuración YAML y de parámetros GET 
+usados en la llamada al visor. 
 
-Fichero de configuración por defecto
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-En lenguaje YAML
+Existen tres tipos de carga de ficheros:
 
-Fichero de configuración personalizado
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Lo mismo que el anterior, pero es un parámetro indicado en la URL
+* **Parámetros en ficheros por defecto:** Son ficheros YAML incluidos en la carpeta ``config`` de XVM 
+* **Parámetros en ficheros por URL:** Son como los anteriores, pero se cargan dinámicamente a través de un parámetro GET que indica la ubicación el fichero. Estos sobreescriben los anteriores si procede.
+* **Parámetros simples por URL:** Son configuraciones adicionales que se realizan a través de parámetros GET directos, sin existir referencia a un fichero adicional. Estos sobreescriben los anteriores si procede. Ver `Configuración por GET en la a URL <getparameters-config.rst>`_.
 
-Parámetros en la URL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-`Configuración por GET en la a URL <getparameters-config.rst>`_.
+Ver Diagrama de clases de Readers
+
 
 Controles
 ====================================
