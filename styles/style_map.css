@@ -269,43 +269,6 @@ vertical-align: middle;
 margin-top: 5px;
 }
 
-/*
- * featureinfo results table
- */
-.feat_info{color:#000000; text-align:left}
-	
-th.feat_header
-{
-	border-style : solid;
-	border-width : 0px;
-	/*background-image:url(../images/titlebar.png);*/
-	background-color: rgb(50,50,50);
-	border-color:#999999;
-	font-size: 0.85em; color:#FFFFFF ; text-decoration: none; 
-	text-align: left; font-family: verdana;
-}
-
-th.attr_col
-{
-	border-style : dotted;
-	border-width : 1px;
-	background-color: rgb(100,100,100);
-	border-color:#999999;
-	font-size: 0.85em; color:#FFFFFF; 
-	text-decoration: none; 
-	text-align: left; font-family: verdana;
-}
-
-td.value_col
-{
-	border-style : dotted;
-	border-width : 1px;
-	border-color:silver;
-	width:150px;
-	font-size: 0.85em; color:#000000; 
-	text-decoration: none; 
-	text-align: left; font-family: verdana;
-}
 .olControlPanel .olControlMeasureItemActive {
   width:  22px;
   height: 22px;

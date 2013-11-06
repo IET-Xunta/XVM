@@ -62,7 +62,7 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
      * Format response of the getFeatureInfo request
      */
     formatInfo : function(features) {
-        var html = '<table class="feat_info">';
+        var html = '<table class="feat_info ui-widget">';
         if (features && features.length) {
             for (var i = 0, len = features.length; i < len; i++) {
                 var feature = features[i];
@@ -77,11 +77,12 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
                         feature.layer.name = feature.gml.featureType;
                     }
                 }
-                html += '<tr><th colspan="2" class="feat_header">' +
+                html += '<tr><th colspan="2" class="ui-widget-header ui-state-active feat_header">' +
                 //$.i18n.prop("layer")+': ' + feature.layer.name + "</th><th></th><tr>";
-                "layer" + ': ' + feature.layer.name + "</th><th></th><tr>";
+                " Layer:" + feature.layer.name + "</th><th></th><tr>";
                 for (var k in attributes) {
-                    html += '<tr><th class="attr_col">' + k.replace(/_/gi, ' ') + '</th>' + '<td class="value_col">' + attributes[k] + '</td></tr>';
+                    html += '<tr><th class="ui-widget-content ui-state-default attr_col">' + 
+                        k.replace(/_/gi, ' ') + '</th>' + '<td class="ui-widget-content value_col">' + attributes[k] + '</td></tr>';
                 }
             }
         }

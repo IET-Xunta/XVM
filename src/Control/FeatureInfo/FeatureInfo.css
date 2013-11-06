@@ -4,6 +4,62 @@
  * http://blueprintcss.googlecode.com
  */
 
+/*
+ * featureinfo results table
+ */
+.feat_info{
+    color:#000000; 
+    text-align:left;
+}
+	
+th.feat_header
+{
+/*
+	border-style : solid;
+	border-width : 0px;
+	background-color: rgb(50,50,50);
+	border-color:#999999;
+	font-size: 0.85em; 
+	color:#FFFFFF ; 
+	text-decoration: none; 
+	text-align: left; font-family: verdana;
+*/
+	/*background-image:url(../images/titlebar.png);*/
+}
+
+th.attr_col
+{
+	width:100px;
+	/*
+	border-style : dotted;
+	border-width : 1px;
+	background-color: rgb(100,100,100);
+	border-color:#999999;
+	font-size: 0.85em; color:#FFFFFF; 
+	text-decoration: none; 
+	text-align: left; 
+	font-family: verdana;
+	*/
+}
+
+td.value_col
+{
+	width:150px;
+	/*
+	border-style : dotted;
+	border-width : 1px;
+	border-color:silver;
+	font-size: 0.85em; color:#000000; 
+	text-decoration: none; 
+	text-align: left; 
+	font-family: verdana;
+	*/
+}
+
+#chicken.olPopup {
+    opacity: 0.8;
+}
+
 .olControlPanel .olControlFeatureInfoItemInactive { 
 display: block;
 vertical-align: middle;
