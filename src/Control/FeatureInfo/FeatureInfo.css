@@ -56,6 +56,11 @@ td.value_col
 	*/
 }
 
+#chicken_contentDiv {
+    min-width: 300px;
+    min-height: 300px;
+}
+
 #chicken.olPopup {
     opacity: 0.8;
 }
