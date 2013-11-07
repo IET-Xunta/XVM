@@ -54,5 +54,7 @@ view_settings :
     center : 
       lat: !!float 0
       lon: !!float 0
-
+      
+## CSS with a custom jquery-ui style (path from root) 
+# style_theme: 'styles/custom-theme/jquery-ui-1.10.3.custom.css'
 

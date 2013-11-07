@@ -94,6 +94,14 @@ XVM.Map = function() {
 		
 		this.parameters = parameters;
 
+        /**
+         * Load Custom theme
+         */
+        if (this.parameters.style_theme) {
+            var custom_theme_css = $("<link rel='stylesheet' type='text/css' href='"+this.parameters.style_theme+"'>");
+            $("head").append(custom_theme_css);
+        }
+
 		var options = {
 			projection : new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
 			displayProjection: new OpenLayers.Projection(parameters.map_settings.epsg.toString()),
