@@ -119,12 +119,20 @@ var XVM = {
 	},
 
 	/**
+	 * Method for building Layers and Control loaders
+	 * It is launched when the XVM.Loader.Config is completed (some variables are needed)
+	 */
+	_createOtherLoaders : function() {
+		new XVM.Loader.Layers();
+		new XVM.Loader.Controls();
+	},
+                         
+	/**
 	 * Default method for building loaders
 	 */
 	_createDefaultLoaders : function() {
+        XVM.EventBus.addListener(this, '_createOtherLoaders', 'addConfigParameters');
 		new XVM.Loader.Config();
-		new XVM.Loader.Layers();
-		new XVM.Loader.Controls();
 	},
 
 	/**

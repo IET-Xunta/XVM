@@ -73,17 +73,6 @@ XVM.Loader.Layers = XVM.Class.extend({
 		}
 	},
 
-    /*
-     * This function waits for the existence of some variable.
-     * REASON: Sometimes it looks that map.options.yaml is not loaded on time. 
-     */
-	_waitUntilExists : function(ext_object){
-	       if (ext_object == null || typeof ext_object === "undefined"){
-	           console.log(ext_object+" not set. Waiting...");
-	           setTimeout(_waitUntilExists(ext_object), 500);//wait 50 millisecnds then recheck
-	           return;
-	       }
-	},
 	/**
 	 *
 	 */
@@ -104,7 +93,7 @@ XVM.Loader.Layers = XVM.Class.extend({
 			};
 			response.push(GETLayer);
 		}
-
+		
 		for(var n=0; n<response.length; n++) {
 			var objectLayer = response[n];
 			if (objectLayer.type == 'wms') {
@@ -120,11 +109,7 @@ XVM.Loader.Layers = XVM.Class.extend({
 				var layer_options = $.extend(default_options, objectLayer.parameters);
 
 				var aux_url = objectLayer.url;
-                //TODO Sometimes map.parameters is undefined at this moment... we have to solve it
-                this._waitUntilExists(XVM.map.parameters);
-                this._waitUntilExists(XVM.map.parameters.general);
-				if (XVM.map.parameters == undefined || 
-                    XVM.map.parameters.general.use_wms_throw_proxy == true){
+				if (XVM.map.parameters.general.use_wms_throw_proxy == true){
 		                aux_url = XVM.map.parameters.general.proxy_host+objectLayer.url;
                 }
 				var layer = new OpenLayers.Layer.WMS(
