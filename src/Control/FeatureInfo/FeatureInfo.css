@@ -65,7 +65,7 @@ td.value_col
     opacity: 0.8;
 }
 
-.olControlPanel .olControlFeatureInfoItemInactive { 
+.olControlPanel .olControlWMSGetFeatureInfoItemInactive { 
 display: block;
 vertical-align: middle;
 height: 24px;
@@ -78,11 +78,11 @@ margin: 1px;
 padding: 0;
 cursor: pointer;
 }
-.olControlPanel .olControlFeatureInfoItemInactive:hover { 
+.olControlPanel .olControlWMSGetFeatureInfoItemInactive:hover { 
 filter: alpha(opacity=60);
 opacity: 0.6;
 }
-.olControlPanel .olControlFeatureInfoItemActive { 
+.olControlPanel .olControlWMSGetFeatureInfoItemActive { 
 display: block;
 vertical-align: middle;
 height: 24px;

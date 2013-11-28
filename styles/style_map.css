@@ -235,7 +235,10 @@ img.btn {
   width:  24px;
   height: 24px;
   margin: 5px;
-  background-color:white;
+  /*
+  * Select for control button if they have transparency
+  */
+  background-color: black !important;
 }
 
 .olImageLoadError {
@@ -269,6 +272,7 @@ vertical-align: middle;
 margin-top: 5px;
 }
 
+/*
 .olControlPanel .olControlMeasureItemActive {
   width:  22px;
   height: 22px;
@@ -342,7 +346,7 @@ cursor: pointer;
 filter: alpha(opacity=60);
 opacity: 0.6;
 }
-
+*/
 .olImageLoadError {
     background-color: transparent;
 }
