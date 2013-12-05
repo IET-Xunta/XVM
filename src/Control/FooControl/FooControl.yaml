@@ -1,0 +1,21 @@
+# Under 'init' you can set variables available on the FooControl.js
+#     as the object 'this.options'.
+init:
+  title: eval($.i18n('FooControl_tooltip'))
+  foo_variable: 'foo'
+  foo_options:
+    - foo1 : 'foo1'
+      foo2 : !!bool true
+      foo3 : !!int 0
+      foo4 : !!float 0.5 
+      fooFields:
+        - fooKey : 'fooKey'
+          fooValue: 'fooValue'
+
+properties:
+  'en':
+    'FooControl_tooltip': 'FooControl'
+  'es':
+    'FooControl_tooltip': 'FooControl'
+  
+     
