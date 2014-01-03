@@ -41,6 +41,8 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
             if (evt.layer.isBaseLayer == false) {
                 if (evt.layer.visibility == true) {
                 	this.OLControl.url = evt.layer.url;
+                } else {
+                    this.featureInfoSetURL();
                 } 
             }
         }
@@ -150,7 +152,6 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
      * {OpenLayers.Event}
      */
     showsFeatureInfo : function(evt) {
-    	this.featureInfoSetURL();
     	var contents = '';
     	if (this.OLControl.url != null) {
     	      contents = this.getError(evt.text);
@@ -181,3 +182,5 @@ XVM.Control.FeatureInfo = XVM.Control.extend({
   
     }
 });
+
+//@ sourceURL=FeatureInfo.js
