@@ -15,7 +15,8 @@ XVM.Control.FooControl = XVM.Control.extend({
 	 * Method: createControl
 	 */
 	createControl : function() {
-
+            //Options from the FooControl.yaml
+            var FooControl_options = this.options;
 	    this.OLControl = new OpenLayers.Control();
 	    XVM.EventBus.addListener(this, 'FooControlListener', 'FooControlEvt');
 	},
