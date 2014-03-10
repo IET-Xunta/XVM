@@ -124,6 +124,8 @@ XVM.Map = function() {
 		this.fullScreen = (parameters.view_settings.fullscreen == 'false' || parameters.view_settings.fullscreen == false) ? false : true;
 		this.setMapSize();
 
+        OpenLayers.Lang.setCode(this.parameters.general.lang);
+
 		this.OLMap = new OpenLayers.Map(this.divName, options);
 		this.OLMap.panel = new OpenLayers.Control.Panel();
 		this.OLMap.addControl(this.OLMap.panel);
