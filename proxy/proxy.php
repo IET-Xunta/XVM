@@ -156,7 +156,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 //When using WFS request it is needed
 $request_body = file_get_contents('php://input');
 if ($request_body){
-	if ($DEBUG) {
+  if ($DEBUG) {
 		$logger->msg("====== HEADER request"."\n");
 		$logger->msg($_SERVER);	
 		$logger->msg("====== REQUEST_BODY"."\n");
@@ -184,8 +184,9 @@ $content_info = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 #$logger->msg('CURLINFO_HEADER_OUT: '.CURLINFO_HEADER_OUT);
 
 if ($DEBUG==2) {
-	$headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
-	$logger->msg("====== HEADER"."\n");
+  $headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
+  $logger->msg("Curl error: " . curl_error($ch)."\n");
+	$logger->msg("====== HEADER answer"."\n");
 	$logger->msg($header);
 	$logger->msg("====== CONTENT_INFO"."\n");
 	$logger->msg($content_info);
