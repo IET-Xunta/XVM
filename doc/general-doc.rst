@@ -43,6 +43,7 @@ Por tipo:
 * **Configuración del Mapa:** proyección, extensión, resoluciones, ...
 * **Capas:** relación de servicios, agrupaciones, capa base, ...
 * **Controles:** herramientas, botones y otras funcionalidades
+* **Estilos: ** se pueden usar temas de jquery-ui para personalizar el aspecto general del visor.
 
 Sistema de carga de párametros
 --------------------------------------------------
