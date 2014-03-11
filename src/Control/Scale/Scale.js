@@ -11,6 +11,9 @@
 XVM.Control.Scale = XVM.Control.extend({
 
 	createControl : function() {
+        this.options = $.extend(this.options, {
+                            displayClass: "ui-widget ui-widget-content olControlScale"
+        });
 		this.OLControl = new OpenLayers.Control.Scale(this.options);
 	}
 });

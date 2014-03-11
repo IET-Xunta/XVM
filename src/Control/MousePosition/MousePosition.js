@@ -11,6 +11,10 @@
 XVM.Control.MousePosition = XVM.Control.extend({
 
 	createControl : function() {
+        this.options = $.extend(this.options, {
+                            displayClass: "ui-widget ui-widget-content olControlMousePosition"
+        });
+
 		this.OLControl = new OpenLayers.Control.MousePosition(this.options);
 	},
 	
